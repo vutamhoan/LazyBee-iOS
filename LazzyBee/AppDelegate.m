@@ -2,12 +2,15 @@
 //  AppDelegate.m
 //  LazzyBee
 //
-//  Created by Vu Quang Hoa on 7/31/15.
+//  Created by nobody on 7/31/15.
 //  Copyright (c) 2015 Born2go. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "DetailViewController.h"
+#import "HomeViewController.h"
+#import "RearViewController.h"
+#import "JASidePanelController.h"
+#import "CommonDefine.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
@@ -18,10 +21,24 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
-    UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
-    navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
-    splitViewController.delegate = self;
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    HomeViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+    
+    [homeNav.navigationBar setBarTintColor:COMMON_COLOR];
+    homeNav.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+    [homeNav.navigationBar setTintColor:[UIColor whiteColor]];
+    
+    RearViewController *rearViewController = [[RearViewController alloc] init];
+    UINavigationController *rearNavigationController = [[UINavigationController alloc] initWithRootViewController:rearViewController];
+    
+    JASidePanelController *jaSidePanel = [[JASidePanelController alloc] init];
+    jaSidePanel.leftPanel = rearNavigationController;
+    jaSidePanel.centerPanel = homeNav;
+    
+    self.window.rootViewController = jaSidePanel;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
@@ -45,17 +62,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-#pragma mark - Split view
-
-- (BOOL)splitViewController:(UISplitViewController *)splitViewController collapseSecondaryViewController:(UIViewController *)secondaryViewController ontoPrimaryViewController:(UIViewController *)primaryViewController {
-    if ([secondaryViewController isKindOfClass:[UINavigationController class]] && [[(UINavigationController *)secondaryViewController topViewController] isKindOfClass:[DetailViewController class]] && ([(DetailViewController *)[(UINavigationController *)secondaryViewController topViewController] detailItem] == nil)) {
-        // Return YES to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
-        return YES;
-    } else {
-        return NO;
-    }
 }
 
 @end

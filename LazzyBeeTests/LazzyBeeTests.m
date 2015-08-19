@@ -2,7 +2,7 @@
 //  LazzyBeeTests.m
 //  LazzyBeeTests
 //
-//  Created by Vu Quang Hoa on 7/31/15.
+//  Created by nobody on 7/31/15.
 //  Copyright (c) 2015 Born2go. All rights reserved.
 //
 
