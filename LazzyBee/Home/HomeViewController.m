@@ -19,7 +19,7 @@
     // Do any additional setup after loading the view from its nib.
     [self setTitle:@"LazzyBee"];
     
-    NSString *urlAddress = @"http://www.apple.com";
+    NSString *urlAddress = @"http://www.google.com";
     NSURL *url = [NSURL URLWithString:urlAddress];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [webViewContent loadRequest:requestObj];
