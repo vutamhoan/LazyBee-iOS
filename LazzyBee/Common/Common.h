@@ -1,0 +1,87 @@
+//
+//  common.h
+//  unknown
+//
+//  Created by Nguyen Nam on 3/3/15.
+//  Copyright (c) 2014 ITPRO. All rights reserved.
+//
+
+
+#ifndef ImportContact_common_h
+#define ImportContact_common_h
+#import "CommonAlert.h"
+#import "CommonDefine.h"
+#import <UIKit/UIKit.h>
+
+
+#define MINUMUM_Y_OFFSET 60
+
+typedef enum {
+    Position_Normal = 0,
+    Position_Minimum,
+    Position_Maximum
+} POSITION_VIEW;
+
+
+@interface Common : NSObject
+{
+    
+}
+
+@property (nonatomic, strong) NSString *downloadFolder;
+@property (nonatomic, strong) NSString *documentsFolder;
+@property (nonatomic, strong) NSString *libraryFolder;
+@property (nonatomic, strong) NSString *tmpFolder;
+@property (nonatomic, strong) NSString *privateDocumentsFolder;
+@property (nonatomic, strong) NSString *trashFolder;
+
+@property (nonatomic, assign) BOOL isBuffeAcc;
+
+
+- (NSString *)downloadFolder;
+- (NSString *)documentsFolder;
+- (NSString *)libraryFolder;
+- (NSString *)tmpFolder;
+- (NSString *)privateDocumentsFolder;
+- (NSString *)trashFolder;
+
++ (Common *)sharedCommon;
+
+- (NSString *)parsePhoneType:(NSString *)phoneType;
+- (NSString *)addPrefixToPhoneNumber:(NSString *)phoneNumber;
+
+- (void)saveDataToPlistFile:(NSArray *)data plistFile:(NSString *)plistFile;
+- (NSArray *)loadDataFromPlist:(NSString *)plistFile;
+- (void)saveDataToUserDefaultStandard:(NSDictionary *)dictionary withKey:(NSString *)key;
+- (NSDictionary *)loadDataFromUserDefaultStandardWithKey:(NSString *)key;
+
+- (NSString *)getCurrentDatetimeWithFormat:(NSString *)formatString;
+- (NSString *)dateStringFromDate:(NSDate *)date withFormat:(NSString *)formatString;
+- (NSString *)timeStringFromDate:(NSDate *)date;
+- (NSString *)stringDateFromString:(NSString *)dateStr;
+- (NSDate *)dateFromString:(NSString *)dateStr;
+- (NSTimeInterval)getCurrentDatetimeInMinisec;
+
+- (void)trashFileAtPathAndEmpptyTrash:(NSString *)path;
+- (NSString *)trashFileAtPath:(NSString *)path;
+- (void)emptyTrash;
+- (BOOL)checkFileExist:(NSString *)filePath;
+- (NSString *)fileExistingInTempFolder;
+
+- (void)sendSMS:(NSString *)bodyOfMessage recipientList:(NSArray *)recipients viewController:(id)viewController;
+
+- (BOOL)networkIsActive;
+- (BOOL) isUsingWifi;
+
+- (NSString *)encodeURL:(NSString *)unencodedURL;
+
+- (void)increaseRecordingCount;
+- (NSInteger)getRecordingCount;
+
+- (UIImage *)scaleAndRotateImage:(UIImage *)image withMaxSize:(int)kMaxResolution;
+- (UIImage *)imageFromText:(NSString *)text;
+
+- (BOOL)validateEmailWithString:(NSString*)email;
+- (NSString *)hidePhoneNumber:(NSString *)phonenumber;
+@end
+#endif
