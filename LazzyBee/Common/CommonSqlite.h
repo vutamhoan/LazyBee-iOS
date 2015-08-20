@@ -1,5 +1,5 @@
 //
-//  CommonAlert.h
+//  CommonSqlite.h
 //  LazzyBee
 //
 //  Created by HuKhong on 4/19/15.
@@ -10,12 +10,11 @@
 #define LazzyBee_CommonAlert_h
 #import <Foundation/Foundation.h>
 
-@interface CommonAlert : NSObject
+@interface CommonSqlite : NSObject
 
 // a singleton:
-+ (CommonAlert*) sharedCommonAlert;
++ (CommonSqlite*) sharedCommonSqlite;
 
-- (void)showServerCommonErrorAlert;
 
 @end
 
