@@ -25,11 +25,7 @@
     
     HomeViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-    
-    [homeNav.navigationBar setBarTintColor:COMMON_COLOR];
-    homeNav.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
-    [homeNav.navigationBar setTintColor:[UIColor whiteColor]];
-    
+        
     RearViewController *rearViewController = [[RearViewController alloc] init];
     UINavigationController *rearNavigationController = [[UINavigationController alloc] initWithRootViewController:rearViewController];
     

@@ -1,42 +1,43 @@
 //
-//  HomeViewController.m
+//  StudyWordViewController.m
 //  LazzyBee
 //
-//  Created by nobody on 8/3/15.
+//  Created by HuKhong on 8/20/15.
 //  Copyright (c) 2015 Born2go. All rights reserved.
 //
 
-#import "HomeViewController.h"
 #import "StudyWordViewController.h"
-#import "CommonDefine.h"
+#import "CommonSqlite.h"
+#import "HTMLHelper.h"
 
-@interface HomeViewController ()
+@interface StudyWordViewController ()
 
 @end
 
-@implementation HomeViewController
+@implementation StudyWordViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
-    {
-        [self.navigationController.navigationBar setTranslucent:NO];
-    }
-#endif
-    [self.navigationController.navigationBar setBarTintColor:COMMON_COLOR];
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    
-    [self setTitle:@"LazzyBee"];
-
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchBar)];
     UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionsPanel)];
     
     self.navigationItem.rightBarButtonItems = @[actionButton, searchButton];
     
-    [viewInformation setBackgroundColor:COMMON_COLOR];
+    CGRect mainRect = [UIScreen mainScreen].bounds;
+    CGRect buttonsPanelRect = viewButtonsPanel.frame;
+    
+    //move buttons panel from the screen
+    buttonsPanelRect.origin.y = mainRect.size.height;
+    [viewButtonsPanel setFrame:buttonsPanelRect];
+    
+    //display question
+    NSString *path = [[NSBundle mainBundle] bundlePath];
+    NSURL *baseURL = [NSURL fileURLWithPath:path];
+    
+    NSString *htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForQuestion:@"To check for browser support simply look for something"];
+    
+    [webViewWord loadHTMLString:htmlString baseURL:baseURL];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,11 +63,5 @@
     
 }
 
-#pragma mark buttons handle
-- (IBAction)btnStudyClick:(id)sender {
-    StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
-    
-    [self.navigationController pushViewController:studyViewController animated:YES];
-}
 
 @end

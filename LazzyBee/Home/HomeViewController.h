@@ -10,7 +10,8 @@
 
 @interface HomeViewController : UIViewController
 {
+    IBOutlet UIButton *btnStudy;
+    IBOutlet UIView *viewInformation;
 
-    IBOutlet UIWebView *webViewContent;
 }
 @end

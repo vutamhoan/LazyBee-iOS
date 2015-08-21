@@ -2,8 +2,8 @@
 //  common.h
 //  unknown
 //
-//  Created by Nguyen Nam on 3/3/15.
-//  Copyright (c) 2014 ITPRO. All rights reserved.
+//  Created by HuKhong on 3/3/15.
+//  Copyright (c) 2015 HuKhong. All rights reserved.
 //
 
 
