@@ -15,6 +15,7 @@
 @end
 
 @implementation StudyWordViewController
+@synthesize screenMode = _screenMode;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,20 +25,21 @@
     
     self.navigationItem.rightBarButtonItems = @[actionButton, searchButton];
     
-    CGRect mainRect = [UIScreen mainScreen].bounds;
-    CGRect buttonsPanelRect = viewButtonsPanel.frame;
+    NSString *title = @"Study";
+    if (_screenMode == Mode_New_Word) {
+        title = @"New Word";
+    } else if (_screenMode == Mode_Study) {
+        title = @"Study";
+    } else if (_screenMode == Mode_Review) {
+        title = @"Review";
+    }
+    
+    [self setTitle:title];
     
     //move buttons panel from the screen
-    buttonsPanelRect.origin.y = mainRect.size.height;
-    [viewButtonsPanel setFrame:buttonsPanelRect];
+    [self showHideButtonsPanel:NO];
     
-    //display question
-    NSString *path = [[NSBundle mainBundle] bundlePath];
-    NSURL *baseURL = [NSURL fileURLWithPath:path];
-    
-    NSString *htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForQuestion:@"To check for browser support simply look for something"];
-    
-    [webViewWord loadHTMLString:htmlString baseURL:baseURL];
+    [self getAWordAndDisplayQuestion];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,5 +65,50 @@
     
 }
 
+- (void)showHideButtonsPanel:(BOOL)show {
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        CGRect mainRect = [UIScreen mainScreen].bounds;
+        CGRect showAnswerrect = viewShowAnswer.frame;
+        CGRect buttonsPanelRect = viewButtonsPanel.frame;
+        
+        if (show) {
+            //overlap showAnswer panel
+            buttonsPanelRect.origin.y = showAnswerrect.origin.y;
+        } else {
+            //move buttons panel from the screen
+            buttonsPanelRect.origin.y = mainRect.size.height;
+        }
+        
+        [viewButtonsPanel setFrame:buttonsPanelRect];
+    }];
+}
+
+- (void)getAWordAndDisplayQuestion {
+    //display question
+    NSString *path = [[NSBundle mainBundle] bundlePath];
+    NSURL *baseURL = [NSURL fileURLWithPath:path];
+    
+    WordObject *wordObj = [[CommonSqlite sharedCommonSqlite] getWordInformation:@"confident"];
+    NSString *htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForQuestion:wordObj.question];
+    
+    [webViewWord loadHTMLString:htmlString baseURL:baseURL];
+}
+
+- (void)getAWordAndDisplayAnswer {
+    //display question
+    NSString *path = [[NSBundle mainBundle] bundlePath];
+    NSURL *baseURL = [NSURL fileURLWithPath:path];
+    
+    WordObject *wordObj = [[CommonSqlite sharedCommonSqlite] getWordInformation:@"confident"];
+    NSString *htmlString = [[HTMLHelper sharedHTMLHelper]createHTMLForAnswer:wordObj withPackage:@"common"];
+    
+    [webViewWord loadHTMLString:htmlString baseURL:baseURL];
+}
+
+#pragma mark buttons handle
+- (IBAction)btnShowAnswerClick:(id)sender {
+    [self getAWordAndDisplayAnswer];
+    [self showHideButtonsPanel:YES];
+}
 
 @end

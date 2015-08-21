@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import "StudyWordViewController.h"
+#import "StudiedListViewController.h"
 #import "CommonDefine.h"
 
 @interface HomeViewController ()
@@ -67,6 +68,12 @@
     StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
     
     [self.navigationController pushViewController:studyViewController animated:YES];
+}
+
+- (IBAction)btnStudiedListClick:(id)sender {
+    StudiedListViewController *studiedListViewController = [[StudiedListViewController alloc] initWithNibName:@"StudiedListViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:studiedListViewController animated:YES];
 }
 
 @end

@@ -83,5 +83,7 @@ typedef enum {
 
 - (BOOL)validateEmailWithString:(NSString*)email;
 - (NSString *)hidePhoneNumber:(NSString *)phonenumber;
+
+- (NSString *) stringByRemovingHTMLTag:(NSString *)text;
 @end
 #endif
