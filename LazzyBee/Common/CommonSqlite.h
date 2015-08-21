@@ -9,13 +9,14 @@
 #ifndef LazzyBee_CommonAlert_h
 #define LazzyBee_CommonAlert_h
 #import <Foundation/Foundation.h>
+#import "WordObject.h"
 
 @interface CommonSqlite : NSObject
 
 // a singleton:
 + (CommonSqlite*) sharedCommonSqlite;
 
-
+- (WordObject *)getWordInformation:(NSString *)word;
 @end
 
 #endif

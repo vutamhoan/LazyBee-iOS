@@ -56,13 +56,16 @@
                     <rect key="frame" x="8" y="295" width="150" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title="Review" backgroundImage="btnbg.png"/>
+                    <state key="normal" title="Studied List" backgroundImage="btnbg.png"/>
+                    <connections>
+                        <action selector="btnStudiedListClick:" destination="-1" eventType="touchUpInside" id="kFI-dv-jRg"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="sLV-yZ-Cel">
                     <rect key="frame" x="162" y="295" width="150" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title="...." backgroundImage="btnbg.png"/>
+                    <state key="normal" title="More Word" backgroundImage="btnbg.png"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="w5M-iS-gU2">
                     <rect key="frame" x="8" y="249" width="304" height="38"/>

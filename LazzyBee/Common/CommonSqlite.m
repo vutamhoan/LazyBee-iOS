@@ -39,7 +39,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     return self;
 }
 
-- (NSArray *)getWordInformation:(NSString *)word {
+- (WordObject *)getWordInformation:(NSString *)word {
     NSString *dbPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
     NSURL *storeURL = [NSURL URLWithString:dbPath];
     
@@ -53,46 +53,48 @@ static CommonSqlite* sharedCommonSqlite = nil;
     }
     sqlite3_stmt *dbps;
     
-    NSString *strQuery = [NSString stringWithFormat: @"SELECT question, answers, subcats, status, package, level FROM \"vocabulary\" WHERE question = '%@'", word];
+    NSString *strQuery = [NSString stringWithFormat: @"SELECT id, question, answers, subcats, status, package, level FROM \"vocabulary\" WHERE question = '%@'", word];
     
     const char *charQuery = [strQuery UTF8String];
     
     sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
-    NSMutableArray *results = [[NSMutableArray alloc] init];
+    
+    WordObject *wordObj = [[WordObject alloc] init];
     while(sqlite3_step(dbps) == SQLITE_ROW) {
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         
         if (sqlite3_column_text(dbps, 0)) {
-            [dict setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 0)] forKey:@"question"];
+            wordObj.wordid = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 0)];
         }
         
         if (sqlite3_column_text(dbps, 1)) {
-            [dict setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 1)] forKey:@"answers"];
+            wordObj.question = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 1)];
         }
         
         if (sqlite3_column_text(dbps, 2)) {
-            [dict setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 2)] forKey:@"subcats"];
+            wordObj.answers = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 2)];
         }
         
         if (sqlite3_column_text(dbps, 3)) {
-            [dict setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 3)] forKey:@"status"];
+            wordObj.subcats = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 3)];
         }
         
         if (sqlite3_column_text(dbps, 4)) {
-            [dict setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 4)] forKey:@"package"];
+            wordObj.status = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 4)];
         }
         
         if (sqlite3_column_text(dbps, 5)) {
-            [dict setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 5)] forKey:@"level"];
+            wordObj.package = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 5)];
         }
         
-        [results addObject:dict];
+        if (sqlite3_column_text(dbps, 6)) {
+            wordObj.level = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 6)];
+        }
     }
     
     sqlite3_finalize(dbps);
     sqlite3_close(db);
     
-    return results;
+    return wordObj;
 }
 
 /*

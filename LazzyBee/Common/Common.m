@@ -681,4 +681,13 @@
     return res;
 }
 
+- (NSString *) stringByRemovingHTMLTag:(NSString *)text {
+    NSRange range;
+    NSString *res = text;
+    
+    while ((range = [res rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound) {
+        res = [res stringByReplacingCharactersInRange:range withString:@""];
+    }
+    return res;
+}
 @end

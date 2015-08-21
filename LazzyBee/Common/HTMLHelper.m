@@ -9,7 +9,7 @@
 #import "HTMLHelper.h"
 #import "UIKit/UIKit.h"
 #import "sqlite3.h"
-#import "CommonDefine.h"
+#import "Common.h"
 // Singleton
 static HTMLHelper* sharedHTMLHelper = nil;
 
@@ -39,82 +39,47 @@ static HTMLHelper* sharedHTMLHelper = nil;
     return self;
 }
 
-/*
- "<!DOCTYPE html>\n"
- "<html>\n"
- "<head>\n"
- "<style>\n"
- " figure {"
- "   text-align: center;"
- "   margin: auto;"
- "}"
- "figure.image img {"
- "   width: 100% !important;"
- "   height: auto !important;"
- "}"
- "figcaption {"
- "   font-size: 10px;"
- "}"
- "a {"
- " margin-top:5px;"
- "}"
- "</style>\n"
- "</head>\n"
- "<body onload='question.playQuestion()'>\n"
- "<div style='width:100%'>\n"
- "<div style='float:left;width:90%;text-align: center;'>\n"
- "<strong style='font-size:25pt;'>" s "</strong>\n"
- "</div>\n"
- "<div style='float:left;width:10%'>\n"
- "<a onclick='question.playQuestion();'><img src='ic_speaker.png'/><p>\n"
- "</div>\n"
- "</div>\n"
- "</body>\n"
- "</html>";
- 
- */
-
 - (NSString *)createHTMLForQuestion:(NSString *)word {
     NSString *htmlString = @"<!DOCTYPE html>\n"
                             "<html>\n"
                             "<head>\n"
-                            "<style>\n"
-                            " figure {"
-                            "   text-align: center;"
-                            "   margin: auto;"
-                            "}"
-                            "figure.image img {"
-                            "   width: 100% !important;"
-                            "   height: auto !important;"
-                            "}"
-                            "figcaption {"
-                            "   font-size: 10px;"
-                            "}"
-                            "a {"
-                            " margin-top:5px;"
-                            "}"
-                            "</style>\n"
-                            "<script>"
-                            "function playSound() {"
-                            "    var speaker = new SpeechSynthesisUtterance();"
-                            "speaker.text = \' %@ \';"
-                            "speaker.lang = 'en-US';"
-                            "speaker.rate = 0.2;"
-                            "speaker.pitch = 1.0;"
-                            "speaker.volume = 1.0;"
-                            "speechSynthesis.speak(speaker);"
-                            "}"
-                            "</script>"
+                                "<style>\n"
+                                    "figure {"
+                                    "   text-align: center;"
+                                    "   margin: auto;"
+                                    "}"
+                                    "figure.image img {"
+                                    "   width: 100%% !important;"
+                                    "   height: auto !important;"
+                                    "}"
+                                    "figcaption {"
+                                    "   font-size: 10px;"
+                                    "}"
+                                    "a {"
+                                    "   margin-top:10px;"
+                                    "}"
+                                "</style>\n"
+                                "<script>"
+                                    "function playWord() {"
+                                    "   var speaker = new SpeechSynthesisUtterance();"
+                                    "   speaker.text = \' %@ \';"   //%@ will be replaced by word
+                                    "   speaker.lang = 'en-US';"
+                                    "   speaker.rate = 0.3;"
+                                    "   speaker.pitch = 1.0;"
+                                    "   speaker.volume = 1.0;"
+                                    "   speechSynthesis.speak(speaker);"
+                                    "}"
+                                "</script>"
                             "</head>\n"
-                            "<body onload='playSound()'>\n"
-                            "<div style='width:100%'>\n"
-                            "<div style='float:left;width:90%;text-align: center;'>\n"
-                            "<strong style='font-size:25pt;'> %@ </strong>\n"
-                            "</div>\n"
-                            "<div style='float:left;width:10%'>\n"
-                            "<a onclick='playSound();'><img src='ic_speaker.png'/><p>\n"
-                            "</div>\n"
-                            "</div>\n"
+                            "<body onload='playWord()'>\n"
+                                "<div style='width:100%%'>\n"
+                                "<div style='float:left;width:90%%;text-align: center;'>\n"
+                                "<strong style='font-size:20pt;'> %@ </strong>\n"   //%@ will be replaced by word
+                                "</div>\n"
+                                "<div style='float:left;width:10%%'>\n"
+                                "<a onclick='playWord();'><img src='ic_speaker.png'/><p>\n"
+                                "</div>\n"
+                                "</div>\n"
                             "</body>\n"
                             "</html>";
     
@@ -122,117 +87,131 @@ static HTMLHelper* sharedHTMLHelper = nil;
     
     return htmlString;
 }
-/*
-- (NSString *)createHTMLForAnswer:(NSString *)word {
-    NSString *htmlString = @"";
- String meaning = EMPTY;
- String explain = EMPTY;
- String example = EMPTY;
- 
- String pronoun = EMPTY;
- String explainTagA = EMPTY;
- String exampleTagA = EMPTY;
- String imageURL = EMPTY;
- String debug = "</body></html>\n";
- String _example = context.getResources().getString(R.string.example);
- Object _explain = context.getResources().getString(R.string.explain);
- 
- //Log.i(TAG, "getAnswerHTMLwithPackage: Card Answer:" + card.getAnswers());
- // System.out.print("getAnswerHTMLwithPackage: Card Answer:" + card.getAnswers() + "\n");
- try {
- JSONObject answerObj = new JSONObject(card.getAnswers());
- pronoun = answerObj.getString("pronoun");
- JSONObject packagesObj = answerObj.getJSONObject("packages");
- System.out.print("\npackagesObj.length():" + packagesObj.length());
- if (packagesObj.length() > 0) {
- System.out.print("\n Ok");
- JSONObject commonObj = packagesObj.getJSONObject(packages);
- meaning = commonObj.getString("meaning");
- explain = commonObj.getString("explain");
- example = commonObj.getString("example");
- } else {
- _example = EMPTY;
- _explain = EMPTY;
- System.out.print("\n not Ok");
- }
- 
- } catch (Exception e) {
- //System.out.print("Error 2:" + e.getMessage() + "\n");
- e.printStackTrace();
- //return e.getMessage();
- }
- 
- if (!explain.isEmpty()) {
- explainTagA = "<p style='margin-top:2px'><a onclick='explain.speechExplain();'><img src='ic_speaker_red.png'/></a></p>";
- }
- if (!example.isEmpty()) {
- exampleTagA = "<p style='margin-top:2px'><a onclick='example.speechExample();'><img src='ic_speaker_red.png'/></a></p>";
- }
- html = "\n<html>\n" +
- "<head>\n" +
- "<meta content=\"width=device-width, initial-scale=1.0, user-scalable=yes\"\n" +
- "name=\"viewport\">\n" +
- "</head>\n" +
- "<body " + ((onload == true) ? "onload='question.playQuestion()'" : "") + ">\n" +
- "   <div style='width:100%'>\n" +
- 
- "       <div style='float:left;width:90%;text-align: center;'>\n" +
- "           <strong style='font-size:35pt;'>" + card.getQuestion() + "</strong>\n" +
- "       </div>\n" +
- 
- "       <div style='float:left;width:10%'>\n" +
- "           <a onclick='question.playQuestion();'><img src='ic_speaker_red.png'/></a>\n" +
- "       </div>\n" +
- 
- "       <div style='width:90%'>\n" +
- "           <center><font size='4'>" + pronoun + "</font></center>\n" +
- "           <center><font size='5' color='blue'><em>" + meaning + "</em></font></center>\n" +
- "       </div>\n" +
- 
- "           <p style=\"text-align: center;\">" + imageURL + "</p>\n" +
- 
- "       <div style=\"width:100%\">\n" +
- "           <div style=\"float:left;width:90%\">" +
- "              <strong>" + _explain + "</strong>" + explain + "\n" +
- "           </div>\n" +
- "           <div style=\"float:right;width:10%;margin-top:25px\">\n " +
- "               " + explainTagA + "\n" +
- "           </div>\n" +
- "       </div>\n" +
- 
- "       <div style=\"width:100%\">\n" +
- "           <div style=\"float:left;width:90%\">" +
- "              <strong>" + _example + "</strong>" + example + "\n" +
- "           </div>\n" +
- "           <div style=\"float:right;width:10%;margin-top:25px\">\n " +
- "               " + exampleTagA + "\n" +
- "           </div>\n" +
- "       </div>\n" +
- 
- "   </div>\n";
- 
- if (DEBUG) {
- debug = "           <div id='debug'>\n " +
- "              Debug infor:</br>\n" +
- "              -------------------------------------</br>\n" +
- "              Level:" + card.getLevel() + "</br>\n" +
- "              lat_ivl:" + card.getLast_ivl() + "</br>\n" +
- "              Factor:" + card.getFactor() + "</br>\n" +
- "              Rev_count:" + card.getRev_count() + "</br>\n" +
- "              Queue:" + card.getQueue() + "</br>\n" +
- "              Due:" + card.getDue() + "-" + new Date(card.getDue()).toString() + "</br>\n" +
- "              -------------------------------------</br>\n" +
- "           </div>\n" +
- "   </body>" +
- "</html>\n";
- }
- html += debug;
- //Log.i(TAG, "_getAnswerHTMLwithPackage: HTML return=" + html);
- //System.out.print("\n_getAnswerHTMLwithPackage: HTML return=" + html);
- //  Log.i(TAG, "Error:" + e.getMessage());
- return html;
- 
- }
 
-*/
+- (NSString *)createHTMLForAnswer:(WordObject *)word withPackage:(NSString *)package {
+    NSString *htmlString = @"";
+    NSString *imageLink = @"";
+    
+    //parse the answer to dictionary object
+    NSData *data = [word.answers dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *dictAnswer = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSString *strPronounciation = [dictAnswer valueForKey:@"pronoun"];
+    
+    //A word may has many meanings corresponding to many fields (common, it, economic...)
+    //The meaning of each field is considered as a package
+    NSDictionary *dictPackages = [dictAnswer valueForKey:@"packages"];
+    NSDictionary *dictSinglePackage = [dictPackages valueForKey:package];
+    //"common":{"meaning":"", "explain":"<p>The edge of something is the part of it that is farthest from the center.</p>", "example":"<p>He ran to the edge of the cliff.</p>"}}
+    
+    NSString *strExplanation = [dictSinglePackage valueForKey:@"explain"];
+    NSString *strExample = [dictSinglePackage valueForKey:@"example"];
+    
+    //remove html tag, use for playing speech
+    NSString *plainExplanation = [[Common sharedCommon] stringByRemovingHTMLTag:strExplanation];
+    NSString *plainExample = [[Common sharedCommon] stringByRemovingHTMLTag:strExample];
+    
+    NSString *strMeaning = [dictSinglePackage valueForKey:@"meaning"];
+    
+    NSString *strExplainIconTag = @"";
+    NSString *strExampleIconTag = @"";
+    
+    //create html
+    if (strExplanation && strExplanation.length > 0) {
+        strExplainIconTag = @"<div style=\"float:left;width:90%%\">"
+                            "   <em>%@</em> \n" //%@ will be replaced by strExplanation
+                            "</div>\n"
+                            "<div style=\"float:left;width:10%%\">\n "
+                            "   <p><a onclick='playLongText(\"%@\");'><img src='ic_speaker.png'/></a></p>\n"  //%@ will be replaced by strExplanation
+                            "</div>\n";
+        strExplainIconTag = [NSString stringWithFormat:strExplainIconTag, strExplanation, plainExplanation];
+    }
+    if (strExample && strExample.length > 0) {
+        strExampleIconTag = @"<div style=\"float:left;width:90%%\">"
+                            "   <em>%@</em> \n" //%@ will be replaced by strExample
+                            "</div>\n"
+                            "<div style=\"float:left;width:10%%\">\n "
+                            "   <p><a onclick='playLongText(\"%@\");'><img src='ic_speaker.png'/></a></p>\n"  //%@ will be replaced by strExample
+                            "</div>\n";
+        strExampleIconTag = [NSString stringWithFormat:strExampleIconTag, strExample, plainExample];
+    }
+    
+    htmlString = @"<html>\n"
+    "<head>\n"
+    "<meta content=\"width=device-width, initial-scale=1.0, user-scalable=yes\"\n"
+    "name=\"viewport\">\n"
+    "<style>\n"
+        "figure {"
+        "   text-align: center;"
+        "   margin: auto;"
+        "}"
+        "figure.image img {"
+        "   width: 100%% !important;"
+        "   height: auto !important;"
+        "}"
+        "figcaption {"
+        "   font-size: 10px;"
+        "}"
+        "a {"
+        "   margin-top:10px;"
+        "}"
+    "</style>\n"
+    "<script>"
+    //play the word
+    "function playWord() {"
+    "   var speaker = new SpeechSynthesisUtterance();"
+    "   speaker.text = \' %@ \';"   //%@ will be replaced by word
+    "   speaker.lang = 'en-US';"
+    "   speaker.rate = 0.3;"
+    "   speaker.pitch = 1.0;"
+    "   speaker.volume = 1.0;"
+    "   speechSynthesis.speak(speaker);"
+    "}"
+    //play the explanation
+    "function playLongText(content) {"
+    "   var speaker = new SpeechSynthesisUtterance();"
+    "   speaker.text = content;"
+    "   speaker.lang = 'en-US';"
+    "   speaker.rate = 0.2;"
+    "   speaker.pitch = 1.0;"
+    "   speaker.volume = 1.0;"
+    "   speechSynthesis.speak(speaker);"
+    "}"
+    "</script>"
+    
+    "</head>\n"
+    "<body ((onload == true) ? onload='question.playQuestion()' : \"\")>\n"
+    "   <div style='width:100%%'>\n"
+    
+    "       <div style='float:left;width:90%%;text-align: center;'>\n"
+    "           <strong style='font-size:20pt;'> %@ </strong>\n"    //%@ will be replaced by word
+    "       </div>\n"
+    
+    "       <div style='float:left;width:10%%'>\n"
+    "           <a onclick='playWord();'><img src='ic_speaker.png'/></a>\n"
+    "       </div>\n"
+    
+    "       <div style='width:90%%'>\n"
+    "           <center><font size='4'> %@ </font></center>\n"  //%@ will be replaced by pronunciation
+    "           <center><font size='5' color='blue'><em> %@ </em></font></center>\n"    //%@ will be replaced by meaning
+    "       </div>\n"
+    
+    "           <p style=\"text-align: center;\"> %@ </p>\n"  //%@ will be replaced by image link, temporary leave it blank
+    
+    "       <div style=\"width:100%%\">\n"
+    "            %@ \n"     //%@ will be replaced by strExplainIconTag
+    "       </div>\n"
+    
+    "       <div style=\"width:100%%\"><strong>Example: </strong>\n"
+    "            %@ \n"     //%@ will be replaced by strExplainIconTag
+    "       </div>\n"
+    
+    "   </div>\n"
+    "   </body>"
+    "</html>\n";
+
+    htmlString = [NSString stringWithFormat:htmlString, word.question, word.question, strPronounciation, strMeaning, imageLink, strExplainIconTag, strExampleIconTag];
+    return htmlString;
+    
+}
+
 @end

@@ -61,6 +61,12 @@
 		4DD3C3E31B6F218700B6DA71 /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD3C3D11B6F218700B6DA71 /* cancel.png */; };
 		4DD3C3E41B6F218700B6DA71 /* cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD3C3D21B6F218700B6DA71 /* cancel@2x.png */; };
 		4DD3C3E51B6F218700B6DA71 /* cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD3C3D31B6F218700B6DA71 /* cancel@3x.png */; };
+		552DC7711B86BD1E00770FA1 /* WordObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 552DC7701B86BD1E00770FA1 /* WordObject.m */; };
+		552DC7741B871C9900770FA1 /* Algorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 552DC7721B871C9900770FA1 /* Algorithm.m */; };
+		552DC7791B87292F00770FA1 /* StudiedListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 552DC7771B87292F00770FA1 /* StudiedListViewController.m */; };
+		552DC77A1B87292F00770FA1 /* StudiedListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 552DC7781B87292F00770FA1 /* StudiedListViewController.xib */; };
+		552DC77E1B872A4F00770FA1 /* StudiedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 552DC77C1B872A4F00770FA1 /* StudiedTableViewCell.m */; };
+		552DC77F1B872A4F00770FA1 /* StudiedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 552DC77D1B872A4F00770FA1 /* StudiedTableViewCell.xib */; };
 		557D7A841B857DBD00834A44 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 557D7A831B857DBD00834A44 /* libsqlite3.dylib */; };
 		557D7AB21B857DFD00834A44 /* english.db in Resources */ = {isa = PBXBuildFile; fileRef = 557D7AB11B857DFD00834A44 /* english.db */; };
 		557D7ABC1B8587AF00834A44 /* btnbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 557D7AB91B8587AF00834A44 /* btnbg.png */; };
@@ -157,6 +163,16 @@
 		4DD3C3D11B6F218700B6DA71 /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		4DD3C3D21B6F218700B6DA71 /* cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@2x.png"; sourceTree = "<group>"; };
 		4DD3C3D31B6F218700B6DA71 /* cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@3x.png"; sourceTree = "<group>"; };
+		552DC76F1B86BD1E00770FA1 /* WordObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordObject.h; path = Objects/WordObject.h; sourceTree = "<group>"; };
+		552DC7701B86BD1E00770FA1 /* WordObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WordObject.m; path = Objects/WordObject.m; sourceTree = "<group>"; };
+		552DC7721B871C9900770FA1 /* Algorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Algorithm.m; path = Common/Algorithm.m; sourceTree = "<group>"; };
+		552DC7731B871C9900770FA1 /* Algorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Algorithm.h; path = Common/Algorithm.h; sourceTree = "<group>"; };
+		552DC7761B87292F00770FA1 /* StudiedListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StudiedListViewController.h; path = List/StudiedListViewController.h; sourceTree = "<group>"; };
+		552DC7771B87292F00770FA1 /* StudiedListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StudiedListViewController.m; path = List/StudiedListViewController.m; sourceTree = "<group>"; };
+		552DC7781B87292F00770FA1 /* StudiedListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StudiedListViewController.xib; path = List/StudiedListViewController.xib; sourceTree = "<group>"; };
+		552DC77B1B872A4F00770FA1 /* StudiedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StudiedTableViewCell.h; path = List/StudiedTableViewCell.h; sourceTree = "<group>"; };
+		552DC77C1B872A4F00770FA1 /* StudiedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StudiedTableViewCell.m; path = List/StudiedTableViewCell.m; sourceTree = "<group>"; };
+		552DC77D1B872A4F00770FA1 /* StudiedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StudiedTableViewCell.xib; path = List/StudiedTableViewCell.xib; sourceTree = "<group>"; };
 		557D7A831B857DBD00834A44 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		557D7AB11B857DFD00834A44 /* english.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = english.db; sourceTree = "<group>"; };
 		557D7AB91B8587AF00834A44 /* btnbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnbg.png; sourceTree = "<group>"; };
@@ -219,10 +235,12 @@
 		4D35B3441B6BC7C600EA67C2 /* LazzyBee */ = {
 			isa = PBXGroup;
 			children = (
+				552DC76E1B86BCC400770FA1 /* Objects */,
 				4DD3C3BD1B6F217000B6DA71 /* Resource */,
 				4DD3C3B01B6F1A9C00B6DA71 /* Common */,
 				4DD3C3AA1B6F197800B6DA71 /* Home */,
 				557D7ABF1B8589EF00834A44 /* Mainscreen */,
+				552DC7751B8728F700770FA1 /* List */,
 				4DD3C3791B6F191C00B6DA71 /* Lib */,
 				4D35B3491B6BC7C600EA67C2 /* AppDelegate.h */,
 				4D35B34A1B6BC7C600EA67C2 /* AppDelegate.m */,
@@ -366,6 +384,8 @@
 		4DD3C3B01B6F1A9C00B6DA71 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				552DC7721B871C9900770FA1 /* Algorithm.m */,
+				552DC7731B871C9900770FA1 /* Algorithm.h */,
 				557D7AC51B85AF6500834A44 /* HTMLHelper.m */,
 				557D7AC61B85AF6500834A44 /* HTMLHelper.h */,
 				3ED661861B8488C50030BB3F /* CommonSqlite.h */,
@@ -445,6 +465,28 @@
 				4DD3C3D31B6F218700B6DA71 /* cancel@3x.png */,
 			);
 			path = others;
+			sourceTree = "<group>";
+		};
+		552DC76E1B86BCC400770FA1 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				552DC76F1B86BD1E00770FA1 /* WordObject.h */,
+				552DC7701B86BD1E00770FA1 /* WordObject.m */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
+		552DC7751B8728F700770FA1 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				552DC7761B87292F00770FA1 /* StudiedListViewController.h */,
+				552DC7771B87292F00770FA1 /* StudiedListViewController.m */,
+				552DC7781B87292F00770FA1 /* StudiedListViewController.xib */,
+				552DC77B1B872A4F00770FA1 /* StudiedTableViewCell.h */,
+				552DC77C1B872A4F00770FA1 /* StudiedTableViewCell.m */,
+				552DC77D1B872A4F00770FA1 /* StudiedTableViewCell.xib */,
+			);
+			name = List;
 			sourceTree = "<group>";
 		};
 		557D7AB01B857DFD00834A44 /* DB */ = {
@@ -549,7 +591,9 @@
 			files = (
 				557D7AC41B858BE300834A44 /* StudyWordViewController.xib in Resources */,
 				4DD3C3D41B6F218700B6DA71 /* ic_heart.png in Resources */,
+				552DC77F1B872A4F00770FA1 /* StudiedTableViewCell.xib in Resources */,
 				4DD3C3DF1B6F218700B6DA71 /* arrow_white@3x.png in Resources */,
+				552DC77A1B87292F00770FA1 /* StudiedListViewController.xib in Resources */,
 				4DD3C3E21B6F218700B6DA71 /* avatarDefault@3x.png in Resources */,
 				4DD3C3D81B6F218700B6DA71 /* ic_setting@2x.png in Resources */,
 				4DD3C39C1B6F191C00B6DA71 /* FBAudienceNetwork.README.txt in Resources */,
@@ -608,6 +652,7 @@
 				4DD3C3771B6F18D700B6DA71 /* SubRearViewController.m in Sources */,
 				4DD3C3981B6F191C00B6DA71 /* LICENCE.md in Sources */,
 				3ED661881B8488C50030BB3F /* CommonSqlite.m in Sources */,
+				552DC7741B871C9900770FA1 /* Algorithm.m in Sources */,
 				4DD3C3BC1B6F1AA700B6DA71 /* Reachability.m in Sources */,
 				4DD3C3971B6F191C00B6DA71 /* AsyncImageView.m in Sources */,
 				4DD3C3751B6F18D700B6DA71 /* RearViewController.m in Sources */,
@@ -615,12 +660,15 @@
 				4DD3C3AE1B6F199B00B6DA71 /* HomeViewController.m in Sources */,
 				557D7AC31B858BE300834A44 /* StudyWordViewController.m in Sources */,
 				4DD3C3731B6F18D700B6DA71 /* RearTableViewCell.m in Sources */,
+				552DC7711B86BD1E00770FA1 /* WordObject.m in Sources */,
 				4DD3C3A81B6F191C00B6DA71 /* SVProgressHUD.m in Sources */,
 				4DD3C3BA1B6F1AA700B6DA71 /* CommonAlert.m in Sources */,
 				4DD3C3A31B6F191C00B6DA71 /* JASidePanelController.m in Sources */,
 				4D35B3481B6BC7C600EA67C2 /* main.m in Sources */,
+				552DC77E1B872A4F00770FA1 /* StudiedTableViewCell.m in Sources */,
 				557D7AC71B85AF6500834A44 /* HTMLHelper.m in Sources */,
 				4DD3C3BB1B6F1AA700B6DA71 /* CommonDefine.m in Sources */,
+				552DC7791B87292F00770FA1 /* StudiedListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

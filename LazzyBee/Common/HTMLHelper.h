@@ -9,6 +9,7 @@
 #ifndef LazzyBee_HTMLHelper_h
 #define LazzyBee_HTMLHelper_h
 #import <Foundation/Foundation.h>
+#import "WordObject.h"
 
 @interface HTMLHelper : NSObject
 
@@ -16,6 +17,7 @@
 + (HTMLHelper*) sharedHTMLHelper;
 
 - (NSString *)createHTMLForQuestion:(NSString *)word;
+- (NSString *)createHTMLForAnswer:(WordObject *)word withPackage:(NSString *)package;
 @end
 
 #endif
