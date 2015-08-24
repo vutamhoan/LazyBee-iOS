@@ -17,6 +17,8 @@
 + (CommonSqlite*) sharedCommonSqlite;
 
 - (WordObject *)getWordInformation:(NSString *)word;
+- (NSArray *)getStudiedList;
+- (void)updateWord:(WordObject *)wordObj;
 @end
 
 #endif

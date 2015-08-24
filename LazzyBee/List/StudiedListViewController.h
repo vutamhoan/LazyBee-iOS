@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface StudiedListViewController : UIViewController
-
+{
+    IBOutlet UILabel *lbHeaderInfo;
+    
+}
 @end

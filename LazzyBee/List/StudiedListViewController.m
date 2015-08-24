@@ -8,9 +8,14 @@
 
 #import "StudiedListViewController.h"
 #import "StudiedTableViewCell.h"
+#import "CommonSqlite.h"
+#import "Common.h"
+#import "StudyWordViewController.h"
 
 @interface StudiedListViewController ()
-
+{
+    NSMutableDictionary *levelsDictionary;
+}
 @end
 
 @implementation StudiedListViewController
@@ -18,6 +23,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    levelsDictionary = [[NSMutableDictionary alloc] init];
+    
+    NSArray *studiedList = [[CommonSqlite sharedCommonSqlite] getStudiedList];
+
+    for (WordObject *wordObj in studiedList) {
+        NSMutableArray *arr = [levelsDictionary objectForKey:wordObj.level];
+        
+        if (arr == nil) {
+            arr = [[NSMutableArray alloc] init];
+        }
+        [arr addObject:wordObj];
+        
+        [levelsDictionary setObject:arr forKey:wordObj.level];
+    }
+    
+    lbHeaderInfo.text = [NSString stringWithFormat:@"Total studied word: %lu", (unsigned long)[studiedList count]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,21 +57,39 @@
 */
 
 #pragma mark data source
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 40.0;
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 0;
+    return [[levelsDictionary allKeys] count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSString *headerTitle = [NSString stringWithFormat:@"Level %ld", (long)section + 1];
+    
+    return headerTitle;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    
+    header.textLabel.textColor = [UIColor whiteColor];
+    header.textLabel.font = [UIFont boldSystemFontOfSize:15];
+    CGRect headerFrame = header.frame;
+    header.textLabel.frame = headerFrame;
+    header.textLabel.textAlignment = NSTextAlignmentLeft;
+    
+    header.backgroundView.backgroundColor = [UIColor darkGrayColor];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
-
+    NSString *key = [NSString stringWithFormat:@"%ld", (long)section + 1];
     
-    return 0;
+    return [[levelsDictionary objectForKey:key] count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -61,8 +100,30 @@
     if (cell == nil) {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"StudiedTableViewCell" owner:nil options:nil];
         cell = [nib objectAtIndex:0];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
+    NSString *key = [NSString stringWithFormat:@"%ld", (long)indexPath.section + 1];
+    NSArray *arrWords = [levelsDictionary objectForKey:key];
+    WordObject *wordObj = [arrWords objectAtIndex:indexPath.row];
+    
+    //parse the answer to dictionary object
+    NSData *data = [wordObj.answers dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *dictAnswer = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSString *strPronounciation = [dictAnswer valueForKey:@"pronoun"];
+    
+    //A word may has many meanings corresponding to many fields (common, it, economic...)
+    //The meaning of each field is considered as a package
+    NSDictionary *dictPackages = [dictAnswer valueForKey:@"packages"];
+    NSDictionary *dictSinglePackage = [dictPackages valueForKey:@"common"];
+    //"common":{"meaning":"", "explain":"<p>The edge of something is the part of it that is farthest from the center.</p>", "example":"<p>He ran to the edge of the cliff.</p>"}}
+    
+    NSString *strMeaning = [dictSinglePackage valueForKey:@"meaning"];
+    strMeaning = [[Common sharedCommon] stringByRemovingHTMLTag:strMeaning];
+    
+    cell.lbWord.text = wordObj.question;
+    cell.lbPronounce.text = strPronounciation;
+    cell.lbMeaning.text = strMeaning;
     
     return cell;
 }
@@ -71,6 +132,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSString *key = [NSString stringWithFormat:@"%ld", (long)indexPath.section + 1];
+    NSArray *arrWords = [levelsDictionary objectForKey:key];
+    WordObject *wordObj = [arrWords objectAtIndex:indexPath.row];
+    
+    StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
+    studyViewController.isReviewScreen = YES;
+    studyViewController.wordObj = wordObj;
+    
+    [self.navigationController pushViewController:studyViewController animated:YES];
 
 }
 @end
