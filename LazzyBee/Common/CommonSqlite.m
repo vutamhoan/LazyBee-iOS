@@ -40,6 +40,47 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (WordObject *)getWordInformation:(NSString *)word {
+    NSString *strQuery = [NSString stringWithFormat: @"SELECT id, question, answers, subcats, status, package, level FROM \"vocabulary\" WHERE question = '%@'", word];
+    
+    NSArray *resArr = [self getWordByQueryString:strQuery];
+    
+    return [resArr objectAtIndex:0];
+}
+
+- (NSArray *)getStudiedList {
+    NSString *strQuery = @"SELECT id, question, answers, subcats, status, package, level FROM \"vocabulary\" where queue >= 1 ORDER BY level";
+    
+    NSArray *resArr = [self getWordByQueryString:strQuery];
+    
+    return resArr;
+}
+
+- (NSArray *)getNewWordsList {
+    NSString *strQuery = @"SELECT id, question, answers, subcats, status, package, level FROM \"vocabulary\" where ORDER BY level";
+    
+    NSArray *resArr = [self getWordByQueryString:strQuery];
+    
+    return resArr;
+}
+
+- (NSArray *)getStudyAgainList {
+    NSString *strQuery = @"SELECT id, question, answers, subcats, status, package, level FROM \"vocabulary\" where queue = 1 ORDER BY level";
+    
+    NSArray *resArr = [self getWordByQueryString:strQuery];
+    
+    return resArr;
+}
+
+- (NSArray *)getReviewList {
+    NSString *strQuery = @"SELECT id, question, answers, subcats, status, package, level FROM \"vocabulary\" where queue = 2 ORDER BY level";
+    
+    NSArray *resArr = [self getWordByQueryString:strQuery];
+    
+    return resArr;
+}
+
+//selected fields in the query string must be ordered as: id, question, answers, subcats, status, package, level
+- (NSArray *)getWordByQueryString:(NSString *)strQuery {
     NSString *dbPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
     NSURL *storeURL = [NSURL URLWithString:dbPath];
     
@@ -52,15 +93,15 @@ static CommonSqlite* sharedCommonSqlite = nil;
         return nil;
     }
     sqlite3_stmt *dbps;
-    
-    NSString *strQuery = [NSString stringWithFormat: @"SELECT id, question, answers, subcats, status, package, level FROM \"vocabulary\" WHERE question = '%@'", word];
-    
+
     const char *charQuery = [strQuery UTF8String];
     
     sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
     
-    WordObject *wordObj = [[WordObject alloc] init];
+    NSMutableArray *resArr = [[NSMutableArray alloc] init];
+    
     while(sqlite3_step(dbps) == SQLITE_ROW) {
+        WordObject *wordObj = [[WordObject alloc] init];
         
         if (sqlite3_column_text(dbps, 0)) {
             wordObj.wordid = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 0)];
@@ -89,67 +130,42 @@ static CommonSqlite* sharedCommonSqlite = nil;
         if (sqlite3_column_text(dbps, 6)) {
             wordObj.level = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 6)];
         }
+        
+        [resArr addObject:wordObj];
     }
     
     sqlite3_finalize(dbps);
     sqlite3_close(db);
     
-    return wordObj;
+    return resArr;
 }
 
-/*
- -(void) deleteAirplaneOfCompany:(NSString *) companyAcronym {
-	NSURL *applicationDataFolderURL = [NSURL fileURLWithPath:[[TDRCommon sharedData] applicationDataFolder]];
-	NSURL *storeURL = [applicationDataFolderURL URLByAppendingPathComponent:@"CoreDataToC.sqlite"];
- 
-	const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
-	sqlite3 *db;
-	int dbrc; //database return code
-	dbrc = sqlite3_open(dbFilePathUTF8, &db);
-	
-	if (dbrc) {
- return;
-	}
-	sqlite3_stmt *dbps;
-	
-	NSString *nsDeleteAirplanes = [NSString stringWithFormat: @"DELETE FROM \"ZTSAIRPLANEDATA\" WHERE ZOPERATORCD = '%@' AND '%@' NOT IN (SELECT ZCOMPANYACRONYM FROM \"ZPUBLICATION\")",  companyAcronym, companyAcronym];
-	
-	const char *deleteAirplanes = [nsDeleteAirplanes UTF8String];
- 
-	sqlite3_prepare_v2(db, deleteAirplanes, -1, &dbps, NULL);
-	sqlite3_step(dbps);
- 
-	sqlite3_finalize(dbps);
-	sqlite3_close(db);
- }
- */
+- (void)updateWord:(WordObject *)wordObj {
+    NSString *dbPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
+    NSURL *storeURL = [NSURL URLWithString:dbPath];
+    
+    const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
+    sqlite3 *db;
+    int dbrc; //database return code
+    dbrc = sqlite3_open(dbFilePathUTF8, &db);
+    
+    if (dbrc) {
+        return;
+    }
+    sqlite3_stmt *dbps;
+    
+    NSString *strQuery = [NSString stringWithFormat:@"UPDATE \"vocabulary\" SET queue = %d where question = \'%@\'", [wordObj.queue intValue], wordObj.question];
+    const char *charQuery = [strQuery UTF8String];
+    
+    sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+    
+    if(SQLITE_DONE != sqlite3_step(dbps)) {
+        NSLog(@"Error while updating. %s", sqlite3_errmsg(db));
+    }
+    
+    sqlite3_finalize(dbps);
+    sqlite3_close(db);
 
-/*
- //vacuum coredata, call this function after delete records
- -(void) vacuumCoredata {
-	NSURL *applicationDataFolderURL = [NSURL fileURLWithPath:[[TDRCommon sharedData] applicationDataFolder]];
-	NSURL *storeURL = [applicationDataFolderURL URLByAppendingPathComponent:@""];
-	
-	const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
-	sqlite3 *db;
-	int dbrc; //database return code
-	dbrc = sqlite3_open(dbFilePathUTF8, &db);
-	
-	if (dbrc) {
- return;
-	}
-	sqlite3_stmt *dbps;
-	
-	//run vaccum command to defrag and reduce database size
-	NSString *nsVaccum = @"VACUUM";
-	
-	dbrc = sqlite3_prepare_v2(db, [nsVaccum UTF8String], -1, &dbps, NULL);
-	dbrc = sqlite3_step(dbps);
- 
-	sqlite3_finalize(dbps);
-	sqlite3_close(db);
- }
- */
-
+}
 
 @end

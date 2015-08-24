@@ -33,9 +33,8 @@
     [self setTitle:@"LazzyBee"];
 
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchBar)];
-    UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionsPanel)];
     
-    self.navigationItem.rightBarButtonItems = @[actionButton, searchButton];
+    self.navigationItem.rightBarButtonItem = searchButton;
     
     [viewInformation setBackgroundColor:COMMON_COLOR];
 }
@@ -56,10 +55,6 @@
 */
 
 - (void)showSearchBar {
-    
-}
-
-- (void)showActionsPanel {
     
 }
 

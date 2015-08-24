@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WordObject.h"
 
 typedef enum {
     Mode_New_Word = 0,
@@ -23,5 +24,12 @@ typedef enum {
     
 }
 
-@property (nonatomic, assign) STUDY_SCREEN_MODE screenMode;
+@property (nonatomic, assign) STUDY_SCREEN_MODE studyScreenMode;
+@property (nonatomic, assign) BOOL isReviewScreen;  //transfered from studiedlist
+@property (nonatomic, strong) WordObject *wordObj;  //current word
+
+@property (nonatomic, strong) NSMutableArray *nwordList;
+@property (nonatomic, strong) NSMutableArray *studyAgainList;
+@property (nonatomic, strong) NSMutableArray *reviewWordList;
+
 @end
