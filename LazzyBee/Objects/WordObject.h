@@ -1,14 +1,14 @@
 //
 //  WordObject.h
-//  MobileTV
+//  LazzyBee
 //
 //  Created by HuKhong on 3/31/15.
 //  Copyright (c) 2015 HuKhong. All rights reserved.
 //
 
 
-#ifndef MobileTV_WordObject_h
-#define MobileTV_WordObject_h
+#ifndef LazzyBee_WordObject_h
+#define LazzyBee_WordObject_h
 
 #import <UIKit/UIKit.h>
 

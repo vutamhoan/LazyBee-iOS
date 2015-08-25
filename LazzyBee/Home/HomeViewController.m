@@ -32,9 +32,9 @@
     
     [self setTitle:@"LazzyBee"];
 
-    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchBar)];
-    
-    self.navigationItem.rightBarButtonItem = searchButton;
+//    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchBar)];
+//    
+//    self.navigationItem.rightBarButtonItem = searchButton;
     
     [viewInformation setBackgroundColor:COMMON_COLOR];
 }
@@ -67,6 +67,7 @@
 
 - (IBAction)btnStudiedListClick:(id)sender {
     StudiedListViewController *studiedListViewController = [[StudiedListViewController alloc] initWithNibName:@"StudiedListViewController" bundle:nil];
+    studiedListViewController.screenType = List_StudiedList;
     
     [self.navigationController pushViewController:studiedListViewController animated:YES];
 }

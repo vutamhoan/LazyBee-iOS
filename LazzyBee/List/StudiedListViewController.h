@@ -8,9 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    List_Unknown = 0,
+    List_StudiedList,
+    List_SearchHint,
+    List_SearchResult,
+    List_Max
+} SCREEN_TYPE;
+
 @interface StudiedListViewController : UIViewController
 {
     IBOutlet UILabel *lbHeaderInfo;
     
 }
+
+@property (nonatomic, assign) SCREEN_TYPE screenType;
+@property (nonatomic, strong) NSString *searchText;     //use for search hint and search result
 @end

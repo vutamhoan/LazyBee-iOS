@@ -19,6 +19,13 @@
 - (WordObject *)getWordInformation:(NSString *)word;
 - (NSArray *)getStudiedList;
 - (void)updateWord:(WordObject *)wordObj;
+
+- (NSArray *)getNewWordsList;
+- (NSArray *)getStudyAgainList;
+- (NSArray *)getReviewList;
+
+- (NSArray *)getSearchHintList:(NSString *)searchText;
+- (NSArray *)getSearchResultList:(NSString *)searchText;
 @end
 
 #endif
