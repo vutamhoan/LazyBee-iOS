@@ -97,6 +97,9 @@ Again</string>
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnAgainClick:" destination="-1" eventType="touchUpInside" id="Rrg-7T-fcj"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="quq-gJ-D7i">
                             <rect key="frame" x="86" y="4" width="70" height="48"/>
@@ -105,6 +108,9 @@ Again</string>
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnHardClick:" destination="-1" eventType="touchUpInside" id="cCi-rZ-sNp"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="BTU-UK-4xW">
                             <rect key="frame" x="164" y="4" width="70" height="48"/>
@@ -113,6 +119,9 @@ Again</string>
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnNormClick:" destination="-1" eventType="touchUpInside" id="9Su-A9-CHV"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="qJL-Ae-ZMZ">
                             <rect key="frame" x="242" y="4" width="70" height="48"/>
@@ -121,6 +130,9 @@ Again</string>
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btnEasyClick:" destination="-1" eventType="touchUpInside" id="64W-mU-m43"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>

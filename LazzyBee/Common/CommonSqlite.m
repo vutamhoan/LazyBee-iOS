@@ -10,6 +10,8 @@
 #import "UIKit/UIKit.h"
 #import "sqlite3.h"
 #import "CommonDefine.h"
+#import "Common.h"
+
 // Singleton
 static CommonSqlite* sharedCommonSqlite = nil;
 
@@ -56,7 +58,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSArray *)getNewWordsList {
-    NSString *strQuery = @"SELECT id, question, answers, subcats, status, package, level FROM \"vocabulary\" where ORDER BY level";
+    NSString *strQuery = @"SELECT id, question, answers, subcats, status, package, level FROM \"vocabulary\" where queue = 1 ORDER BY level";
     
     NSArray *resArr = [self getWordByQueryString:strQuery];
     
@@ -72,7 +74,23 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSArray *)getReviewList {
-    NSString *strQuery = @"SELECT id, question, answers, subcats, status, package, level FROM \"vocabulary\" where queue = 2 ORDER BY level";
+    NSString *strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level FROM \"vocabulary\" where queue = 2 AND due <= %f ORDER BY level", [self getNextDayInSec]];
+    
+    NSArray *resArr = [self getWordByQueryString:strQuery];
+    
+    return resArr;
+}
+
+- (NSArray *)getSearchHintList:(NSString *)searchText {
+    NSString *strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level FROM \"vocabulary\" where question like '%@%%' ORDER BY level LIMIT 10", searchText];
+    
+    NSArray *resArr = [self getWordByQueryString:strQuery];
+    
+    return resArr;
+}
+
+- (NSArray *)getSearchResultList:(NSString *)searchText {
+    NSString *strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level FROM \"vocabulary\" where question like '%@%%' ORDER BY level", searchText];
     
     NSArray *resArr = [self getWordByQueryString:strQuery];
     
@@ -166,6 +184,14 @@ static CommonSqlite* sharedCommonSqlite = nil;
     sqlite3_finalize(dbps);
     sqlite3_close(db);
 
+}
+
+- (NSTimeInterval)getNextDayInSec {
+    NSTimeInterval datetime = [[Common sharedCommon] getCurrentDatetimeInMinisec];
+    
+    datetime = datetime + 24*3600;
+    
+    return datetime;
 }
 
 @end

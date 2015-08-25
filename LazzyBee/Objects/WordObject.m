@@ -1,6 +1,6 @@
 //
 //  WordObject.m
-//  MobileTV
+//  LazzyBee
 //
 //  Created by HuKhong on 3/31/15.
 //  Copyright (c) 2015 HuKhong. All rights reserved.

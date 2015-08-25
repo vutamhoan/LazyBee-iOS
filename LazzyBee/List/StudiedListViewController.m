@@ -15,6 +15,7 @@
 @interface StudiedListViewController ()
 {
     NSMutableDictionary *levelsDictionary;
+    NSArray *keyArr;
 }
 @end
 
@@ -23,11 +24,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self setTitle:@"Studied list"];
+    
     levelsDictionary = [[NSMutableDictionary alloc] init];
     
-    NSArray *studiedList = [[CommonSqlite sharedCommonSqlite] getStudiedList];
+    NSArray *wordList = nil;
 
-    for (WordObject *wordObj in studiedList) {
+    if (_screenType == List_StudiedList) {
+        wordList = [[CommonSqlite sharedCommonSqlite] getStudiedList];
+        
+    } else if (_screenType == List_SearchHint) {
+        wordList = [[CommonSqlite sharedCommonSqlite] getSearchHintList:_searchText];
+        
+    } else if (_screenType == List_SearchResult) {
+        wordList = [[CommonSqlite sharedCommonSqlite] getSearchResultList:_searchText];
+    }
+
+    //group by level
+    for (WordObject *wordObj in wordList) {
         NSMutableArray *arr = [levelsDictionary objectForKey:wordObj.level];
         
         if (arr == nil) {
@@ -38,7 +52,10 @@
         [levelsDictionary setObject:arr forKey:wordObj.level];
     }
     
-    lbHeaderInfo.text = [NSString stringWithFormat:@"Total studied word: %lu", (unsigned long)[studiedList count]];
+    keyArr = [levelsDictionary allKeys];
+    keyArr = [keyArr sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    
+    lbHeaderInfo.text = [NSString stringWithFormat:@"Total: %lu", (unsigned long)[wordList count]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,7 +80,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *headerTitle = [NSString stringWithFormat:@"Level %ld", (long)section + 1];
+    NSString *headerTitle = [NSString stringWithFormat:@"Level %@", [keyArr objectAtIndex:section]];
     
     return headerTitle;
 }
@@ -83,7 +100,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
-    NSString *key = [NSString stringWithFormat:@"%ld", (long)section + 1];
+    NSString *key = [keyArr objectAtIndex:section];
     
     return [[levelsDictionary objectForKey:key] count];
 }
@@ -102,8 +119,9 @@
         cell = [nib objectAtIndex:0];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+
+    NSString *key = [keyArr objectAtIndex:indexPath.section];
     
-    NSString *key = [NSString stringWithFormat:@"%ld", (long)indexPath.section + 1];
     NSArray *arrWords = [levelsDictionary objectForKey:key];
     WordObject *wordObj = [arrWords objectAtIndex:indexPath.row];
     
@@ -133,15 +151,20 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSString *key = [NSString stringWithFormat:@"%ld", (long)indexPath.section + 1];
+    NSString *key = [keyArr objectAtIndex:indexPath.section];
     NSArray *arrWords = [levelsDictionary objectForKey:key];
     WordObject *wordObj = [arrWords objectAtIndex:indexPath.row];
     
-    StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
-    studyViewController.isReviewScreen = YES;
-    studyViewController.wordObj = wordObj;
-    
-    [self.navigationController pushViewController:studyViewController animated:YES];
+    if (_screenType == List_SearchHint) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"didSelectRowFromSearch" object:wordObj];
+        
+    } else {
+        StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
+        studyViewController.isReviewScreen = YES;
+        studyViewController.wordObj = wordObj;
+        
+        [self.navigationController pushViewController:studyViewController animated:YES];
+    }
 
 }
 @end

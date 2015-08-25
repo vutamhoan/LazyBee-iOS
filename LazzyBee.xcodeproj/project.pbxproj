@@ -67,6 +67,8 @@
 		552DC77A1B87292F00770FA1 /* StudiedListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 552DC7781B87292F00770FA1 /* StudiedListViewController.xib */; };
 		552DC77E1B872A4F00770FA1 /* StudiedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 552DC77C1B872A4F00770FA1 /* StudiedTableViewCell.m */; };
 		552DC77F1B872A4F00770FA1 /* StudiedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 552DC77D1B872A4F00770FA1 /* StudiedTableViewCell.xib */; };
+		554330401B8C21D5001DFB6F /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5543303E1B8C21D5001DFB6F /* SearchViewController.m */; };
+		554330411B8C21D5001DFB6F /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5543303F1B8C21D5001DFB6F /* SearchViewController.xib */; };
 		557D7A841B857DBD00834A44 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 557D7A831B857DBD00834A44 /* libsqlite3.dylib */; };
 		557D7AB21B857DFD00834A44 /* english.db in Resources */ = {isa = PBXBuildFile; fileRef = 557D7AB11B857DFD00834A44 /* english.db */; };
 		557D7ABC1B8587AF00834A44 /* btnbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 557D7AB91B8587AF00834A44 /* btnbg.png */; };
@@ -173,6 +175,9 @@
 		552DC77B1B872A4F00770FA1 /* StudiedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StudiedTableViewCell.h; path = List/StudiedTableViewCell.h; sourceTree = "<group>"; };
 		552DC77C1B872A4F00770FA1 /* StudiedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StudiedTableViewCell.m; path = List/StudiedTableViewCell.m; sourceTree = "<group>"; };
 		552DC77D1B872A4F00770FA1 /* StudiedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StudiedTableViewCell.xib; path = List/StudiedTableViewCell.xib; sourceTree = "<group>"; };
+		5543303D1B8C21D5001DFB6F /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = Mainsreen/SearchViewController.h; sourceTree = "<group>"; };
+		5543303E1B8C21D5001DFB6F /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = Mainsreen/SearchViewController.m; sourceTree = "<group>"; };
+		5543303F1B8C21D5001DFB6F /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchViewController.xib; path = Mainsreen/SearchViewController.xib; sourceTree = "<group>"; };
 		557D7A831B857DBD00834A44 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		557D7AB11B857DFD00834A44 /* english.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = english.db; sourceTree = "<group>"; };
 		557D7AB91B8587AF00834A44 /* btnbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnbg.png; sourceTree = "<group>"; };
@@ -501,6 +506,9 @@
 		557D7ABF1B8589EF00834A44 /* Mainscreen */ = {
 			isa = PBXGroup;
 			children = (
+				5543303D1B8C21D5001DFB6F /* SearchViewController.h */,
+				5543303E1B8C21D5001DFB6F /* SearchViewController.m */,
+				5543303F1B8C21D5001DFB6F /* SearchViewController.xib */,
 				557D7AC01B858BE300834A44 /* StudyWordViewController.h */,
 				557D7AC11B858BE300834A44 /* StudyWordViewController.m */,
 				557D7AC21B858BE300834A44 /* StudyWordViewController.xib */,
@@ -609,6 +617,7 @@
 				4DD3C3E41B6F218700B6DA71 /* cancel@2x.png in Resources */,
 				4DD3C3DC1B6F218700B6DA71 /* ic_share@3x.png in Resources */,
 				4DD3C3AF1B6F199B00B6DA71 /* HomeViewController.xib in Resources */,
+				554330411B8C21D5001DFB6F /* SearchViewController.xib in Resources */,
 				4DD3C3E01B6F218700B6DA71 /* avatarDefault.png in Resources */,
 				4DD3C3E31B6F218700B6DA71 /* cancel.png in Resources */,
 				4DD3C3781B6F18D700B6DA71 /* SubRearViewController.xib in Resources */,
@@ -669,6 +678,7 @@
 				557D7AC71B85AF6500834A44 /* HTMLHelper.m in Sources */,
 				4DD3C3BB1B6F1AA700B6DA71 /* CommonDefine.m in Sources */,
 				552DC7791B87292F00770FA1 /* StudiedListViewController.m in Sources */,
+				554330401B8C21D5001DFB6F /* SearchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -727,7 +737,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -765,7 +775,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -785,7 +795,7 @@
 					"$(PROJECT_DIR)/LazzyBee/Lib/FacebookSDK",
 				);
 				INFOPLIST_FILE = LazzyBee/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -805,7 +815,7 @@
 					"$(PROJECT_DIR)/LazzyBee/Lib/FacebookSDK",
 				);
 				INFOPLIST_FILE = LazzyBee/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
