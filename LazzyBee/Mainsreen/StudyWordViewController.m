@@ -86,6 +86,9 @@
         _wordObj = [self getAWordFromCurrentList];
         [self displayQuestion:_wordObj];
         
+        //for test
+        [[CommonSqlite sharedCommonSqlite] prepareWordsToStudyingQueue:100];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(searchBarSearchButtonClicked:)
                                                      name:@"searchBarSearchButtonClicked"

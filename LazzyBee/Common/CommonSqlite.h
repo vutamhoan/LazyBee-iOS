@@ -26,6 +26,9 @@
 
 - (NSArray *)getSearchHintList:(NSString *)searchText;
 - (NSArray *)getSearchResultList:(NSString *)searchText;
+
+- (void)prepareWordsToStudyingQueue:(NSInteger)amount;
+- (void)addAWordToStydyingQueue:(WordObject *)wordObj;
 @end
 
 #endif

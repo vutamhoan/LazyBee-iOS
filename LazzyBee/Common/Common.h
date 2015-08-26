@@ -61,6 +61,7 @@ typedef enum {
 - (NSString *)stringDateFromString:(NSString *)dateStr;
 - (NSDate *)dateFromString:(NSString *)dateStr;
 - (NSTimeInterval)getCurrentDatetimeInMinisec;
+- (NSTimeInterval)getCurrentDateInMinisec;
 
 - (void)trashFileAtPathAndEmpptyTrash:(NSString *)path;
 - (NSString *)trashFileAtPath:(NSString *)path;
@@ -85,5 +86,6 @@ typedef enum {
 - (NSString *)hidePhoneNumber:(NSString *)phonenumber;
 
 - (NSString *) stringByRemovingHTMLTag:(NSString *)text;
+- (NSString *)stringByRemovingSpaceAndNewLineSymbol:(NSString *)text;
 @end
 #endif
