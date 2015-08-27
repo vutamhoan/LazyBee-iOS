@@ -27,11 +27,14 @@
 
 #define DATABASENAME @"english.db"
 
-#define QUEUE_NEW_WORD  0;
-#define QUEUE_LEARNED 1;
-#define QUEUE_NEW_REVIEW 2;
-#define QUEUE_SUSPENDED -1;
-#define QUEUE_DONE -2;
+#define QUEUE_NEW_WORD 0
+#define QUEUE_LEARNED 1
+#define QUEUE_NEW_REVIEW 2
+#define QUEUE_SUSPENDED -1
+#define QUEUE_DONE -2
+
+#define BUFFER_SIZE 100
+#define PICKED_WORDS_QUEUE_SIZE 10
 
 @interface CommonDefine : NSObject
 

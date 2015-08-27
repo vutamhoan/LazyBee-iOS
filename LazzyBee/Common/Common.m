@@ -122,6 +122,15 @@
     return datetime;
 }
 
+//doesn't count seconds
+- (NSTimeInterval)getCurrentDateInMinisec {
+    NSString *curDateString = [self getCurrentDatetimeWithFormat:@"dd/MM/yyyy"];
+    NSDate *curDate = [self dateFromString:curDateString];
+    NSTimeInterval datetime = [curDate timeIntervalSince1970] * 1000;
+    
+    return datetime;
+}
+
 - (NSString *)getCurrentDatetimeWithFormat:(NSString *)formatString {
     NSString *dateString = nil;
     
@@ -689,5 +698,11 @@
         res = [res stringByReplacingCharactersInRange:range withString:@""];
     }
     return res;
+}
+
+- (NSString *)stringByRemovingSpaceAndNewLineSymbol:(NSString *)text {
+    NSString *newText = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    return newText;
 }
 @end

@@ -26,6 +26,12 @@
 
 - (NSArray *)getSearchHintList:(NSString *)searchText;
 - (NSArray *)getSearchResultList:(NSString *)searchText;
+
+- (void)prepareWordsToStudyingQueue:(NSInteger)amount;
+- (void)pickUpRandom10WordsToStudyingQueue:(NSInteger)amount;
+- (void)addAWordToStydyingQueue:(WordObject *)wordObj;
+- (void)updatePickedWordList:(NSArray *)wordsArr;
+- (NSInteger)getCountOfPickedWord;
 @end
 
 #endif
