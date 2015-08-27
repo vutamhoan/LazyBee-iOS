@@ -10,6 +10,7 @@
 #import "StudyWordViewController.h"
 #import "StudiedListViewController.h"
 #import "CommonDefine.h"
+#import "CommonSqlite.h"
 
 @interface HomeViewController ()
 
@@ -37,6 +38,9 @@
 //    self.navigationItem.rightBarButtonItem = searchButton;
     
     [viewInformation setBackgroundColor:COMMON_COLOR];
+    
+    //prepare 100 words
+    [[CommonSqlite sharedCommonSqlite] prepareWordsToStudyingQueue:BUFFER_SIZE];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,6 +64,9 @@
 
 #pragma mark buttons handle
 - (IBAction)btnStudyClick:(id)sender {
+    //check and pick new words
+    [[CommonSqlite sharedCommonSqlite] pickUpRandom10WordsToStudyingQueue:PICKED_WORDS_QUEUE_SIZE];
+    
     StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
     
     [self.navigationController pushViewController:studyViewController animated:YES];
@@ -72,4 +79,36 @@
     [self.navigationController pushViewController:studiedListViewController animated:YES];
 }
 
+- (IBAction)btnMoreWordClick:(id)sender {
+    NSInteger count = [[CommonSqlite sharedCommonSqlite] getCountOfPickedWord];
+    
+    if (count > 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notice" message:@"You need to complete your current target before add more words." delegate:(id)self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Study now", nil];
+        alert.tag = 1;
+        
+        [alert show];
+        
+    } else {
+        //pick more words from buffer
+        [[CommonSqlite sharedCommonSqlite] pickUpRandom10WordsToStudyingQueue:PICKED_WORDS_QUEUE_SIZE];
+        
+        //transfer to study screen
+        StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
+        
+        [self.navigationController pushViewController:studyViewController animated:YES];
+    }
+}
+
+#pragma mark alert delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (alertView.tag == 1) {   //add more words alert
+        if (buttonIndex != 0) {
+            //transfer to study screen
+            StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
+            
+            [self.navigationController pushViewController:studyViewController animated:YES];
+        }
+    }
+}
 @end

@@ -12,6 +12,7 @@
 #import "SearchViewController.h"
 #import "StudiedListViewController.h"
 #import "AppDelegate.h"
+#import "CommonDefine.h"
 
 @interface StudyWordViewController ()
 {
@@ -82,12 +83,8 @@
         [_studyAgainList addObjectsFromArray:[[CommonSqlite sharedCommonSqlite] getStudyAgainList]];
         [_reviewWordList addObjectsFromArray:[[CommonSqlite sharedCommonSqlite] getReviewList]];
         
-        //for test
         _wordObj = [self getAWordFromCurrentList];
         [self displayQuestion:_wordObj];
-        
-        //for test
-        [[CommonSqlite sharedCommonSqlite] prepareWordsToStudyingQueue:100];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(searchBarSearchButtonClicked:)
