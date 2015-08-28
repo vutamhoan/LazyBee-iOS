@@ -187,7 +187,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSTimeInterval)getNextDayInSec {
-    NSTimeInterval datetime = [[Common sharedCommon] getCurrentDateInMinisec];
+    NSTimeInterval datetime = [[Common sharedCommon] getCurrentDateInSec];
     
     datetime = datetime + 24*3600;
     
@@ -335,7 +335,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     }
     
     //compare current date
-    NSTimeInterval curDate = [[Common sharedCommon] getCurrentDateInMinisec];
+    NSTimeInterval curDate = [[Common sharedCommon] getCurrentDateInSec];
     
     if (oldDate == 0 || curDate > oldDate + 24*3600) {
         //get random 10 words from system table
@@ -357,15 +357,12 @@ static CommonSqlite* sharedCommonSqlite = nil;
         sqlite3_finalize(dbps);
         
         //parse the result to get word-id list
-        NSArray *idListArr = nil;
+        NSMutableArray *idListArr = [[NSMutableArray alloc] init];
         data = [strJson dataUsingEncoding:NSUTF8StringEncoding];
         if (data) {
             NSDictionary *dictIDList = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            idListArr = [dictIDList valueForKey:@"card"];
-            
-            if (idListArr == nil) {
-                idListArr = [[NSArray alloc] init];
-            }
+            [idListArr addObjectsFromArray:[dictIDList valueForKey:@"card"]];
+
         }
         
         NSUInteger randomIndex = 0;
@@ -378,7 +375,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
         
         //create json to add to db
         NSMutableDictionary *dictNewWords = [[NSMutableDictionary alloc] init];
-        NSString *strDate = [NSString stringWithFormat:@"%f",[[Common sharedCommon] getCurrentDateInMinisec]];
+        NSString *strDate = [NSString stringWithFormat:@"%f",[[Common sharedCommon] getCurrentDateInSec]];
         
         [dictNewWords setObject:strDate forKey:@"date"];
         [dictNewWords setObject:pickedIDArr forKey:@"card"];
@@ -395,8 +392,39 @@ static CommonSqlite* sharedCommonSqlite = nil;
             strJson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         }
         
-        //update new buffer to db
+        //update new pickedword to db
         strQuery = [NSString stringWithFormat:@"UPDATE \"system\" SET value = \'%@\' where key = 'pickedword'", strJson];
+        
+        charQuery = [strQuery UTF8String];
+        
+        sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+        
+        if(SQLITE_DONE != sqlite3_step(dbps)) {
+            NSLog(@"Error while updating. %s", sqlite3_errmsg(db));
+        }
+        
+        sqlite3_finalize(dbps);
+        
+        //remove these words from buffer
+        [idListArr removeObjectsInArray:pickedIDArr];
+        
+        NSMutableDictionary *dictReAdd = [[NSMutableDictionary alloc] init];
+        [dictReAdd setObject:[[NSNumber alloc] initWithInteger:[idListArr count]] forKey:@"count"];
+        [dictReAdd setObject:idListArr forKey:@"card"];
+        
+        //convert to json string
+        jsonData = [NSJSONSerialization dataWithJSONObject:dictReAdd
+                                                           options:NSJSONWritingPrettyPrinted
+                                                             error:&error];
+        
+        if (!jsonData) {
+            NSLog(@"Got an error: %@", error);
+        } else {
+            strJson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        }
+        
+        //update new buffer to db
+        strQuery = [NSString stringWithFormat:@"UPDATE \"system\" SET value = \'%@\' where key = 'buffer'", strJson];
         
         charQuery = [strQuery UTF8String];
         
@@ -455,7 +483,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     
     //create json to add to db
     NSMutableDictionary *dictNewWords = [[NSMutableDictionary alloc] init];
-    NSString *strDate = [NSString stringWithFormat:@"%f",[[Common sharedCommon] getCurrentDateInMinisec]];
+    NSString *strDate = [NSString stringWithFormat:@"%f",[[Common sharedCommon] getCurrentDateInSec]];
     
     [dictNewWords setObject:strDate forKey:@"date"];
     [dictNewWords setObject:idListArr forKey:@"card"];
@@ -513,7 +541,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     NSString *strJson = @"";
     //create json to add to db
     NSMutableDictionary *dictNewWords = [[NSMutableDictionary alloc] init];
-    NSString *strDate = [NSString stringWithFormat:@"%f",[[Common sharedCommon] getCurrentDateInMinisec]];
+    NSString *strDate = [NSString stringWithFormat:@"%f",[[Common sharedCommon] getCurrentDateInSec]];
     
     [dictNewWords setObject:strDate forKey:@"date"];
     [dictNewWords setObject:idListArr forKey:@"card"];

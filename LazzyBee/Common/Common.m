@@ -131,6 +131,22 @@
     return datetime;
 }
 
+- (NSTimeInterval)getCurrentDatetimeInSec {
+    
+    NSTimeInterval datetime = [[NSDate date] timeIntervalSince1970];
+    
+    return datetime;
+}
+
+//doesn't count seconds
+- (NSTimeInterval)getCurrentDateInSec {
+    NSString *curDateString = [self getCurrentDatetimeWithFormat:@"dd/MM/yyyy"];
+    NSDate *curDate = [self dateFromString:curDateString];
+    NSTimeInterval datetime = [curDate timeIntervalSince1970];
+    
+    return datetime;
+}
+
 - (NSString *)getCurrentDatetimeWithFormat:(NSString *)formatString {
     NSString *dateString = nil;
     

@@ -11,13 +11,18 @@
 #import <Foundation/Foundation.h>
 #import "WordObject.h"
 
+#define EASE_AGAIN 0
+#define EASE_HARD 1
+#define EASE_GOOD 2
+#define EASE_EASY 3
+
 @interface Algorithm : NSObject
 
 // a singleton:
 + (Algorithm*) sharedAlgorithm;
 
-- (NSArray *)getArrayOfDaysToReview:(WordObject *)wordObj;
-- (void)updateScheduleToReviewWord:(WordObject *)wordObj afterDays:(NSInteger)days;
+- (NSArray *)nextIvlStrLst:(WordObject *)wordObj;
+- (void)updateWord:(WordObject *)wordObj withEaseLevel:(int)ease;
 @end
 
 #endif

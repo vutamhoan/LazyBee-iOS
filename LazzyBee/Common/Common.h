@@ -62,6 +62,8 @@ typedef enum {
 - (NSDate *)dateFromString:(NSString *)dateStr;
 - (NSTimeInterval)getCurrentDatetimeInMinisec;
 - (NSTimeInterval)getCurrentDateInMinisec;
+- (NSTimeInterval)getCurrentDatetimeInSec;
+- (NSTimeInterval)getCurrentDateInSec;
 
 - (void)trashFileAtPathAndEmpptyTrash:(NSString *)path;
 - (NSString *)trashFileAtPath:(NSString *)path;
