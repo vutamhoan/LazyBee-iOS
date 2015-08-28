@@ -12,6 +12,12 @@
 
 #import <UIKit/UIKit.h>
 
+#define QUEUE_NEW_WORD 0
+#define QUEUE_LEARNED 1
+#define QUEUE_REVIEW 2
+#define QUEUE_SUSPENDED -1
+#define QUEUE_DONE -2
+
 @interface WordObject : NSObject
 {
     

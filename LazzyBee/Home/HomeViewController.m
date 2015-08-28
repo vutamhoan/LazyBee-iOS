@@ -41,6 +41,11 @@
     
     //prepare 100 words
     [[CommonSqlite sharedCommonSqlite] prepareWordsToStudyingQueue:BUFFER_SIZE];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(completedDailyTarget)
+                                                 name:@"completedDailyTarget"
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -110,5 +115,16 @@
             [self.navigationController pushViewController:studyViewController animated:YES];
         }
     }
+}
+
+- (void)completedDailyTarget {
+    //update screen info
+    
+    
+    //show alert to congrat
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulation" message:@"You have completed your daily target." delegate:(id)self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    alert.tag = 2;
+    
+    [alert show];
 }
 @end

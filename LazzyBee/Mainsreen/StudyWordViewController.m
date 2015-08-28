@@ -13,6 +13,7 @@
 #import "StudiedListViewController.h"
 #import "AppDelegate.h"
 #import "CommonDefine.h"
+#import "Algorithm.h"
 
 @interface StudyWordViewController ()
 {
@@ -231,28 +232,24 @@
     if ([_studyAgainList count] > 0) {
         self.studyScreenMode = Mode_Study;
         
-    } else if (_studyScreenMode == Mode_Review) {
+    } else if ([_reviewWordList count] > 0) {
         self.studyScreenMode = Mode_Review;
         
-    } else {
+    } else if ([_nwordList count] > 0) {
         self.studyScreenMode = Mode_New_Word;
+    } else {
+        return nil; //back to home in this case
     }
     
     //switch screen mode
     if (_studyScreenMode == Mode_New_Word) {
-        if ([_nwordList count] > 0) {
-            res = [_nwordList objectAtIndex:0];
-        }
+        res = [_nwordList objectAtIndex:0];
         
     } else if (_studyScreenMode == Mode_Study) {
-        if ([_studyAgainList count] > 0) {
-            res = [_studyAgainList objectAtIndex:0];
-        }
+        res = [_studyAgainList objectAtIndex:0];
         
     } else if (_studyScreenMode == Mode_Review) {
-        if ([_reviewWordList count] > 0) {
-            res = [_reviewWordList objectAtIndex:0];
-        }
+        res = [_reviewWordList objectAtIndex:0];
     }
     
     return res;
@@ -265,43 +262,75 @@
 }
 
 - (IBAction)btnAgainClick:(id)sender {
-    //update word to db
+    //update word and update db
+    [[Algorithm sharedAlgorithm] updateWord:_wordObj withEaseLevel:EASE_AGAIN];
     
     //show next word
     _wordObj = [self getAWordFromCurrentList];
-    [self displayQuestion:_wordObj];
     
-    [self showHideButtonsPanel:NO];
+    if (_wordObj) {
+        [self displayQuestion:_wordObj];
+        
+        [self showHideButtonsPanel:NO];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"completedDailyTarget" object:nil];
+    }
 }
 
 - (IBAction)btnHardClick:(id)sender {
-    //update word to db
+    //update word and update db
+    [[Algorithm sharedAlgorithm] updateWord:_wordObj withEaseLevel:EASE_HARD];
     
     //show next word
     _wordObj = [self getAWordFromCurrentList];
-    [self displayQuestion:_wordObj];
     
-    [self showHideButtonsPanel:NO];
+    if (_wordObj) {
+        [self displayQuestion:_wordObj];
+        
+        [self showHideButtonsPanel:NO];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"completedDailyTarget" object:nil];
+    }
 }
 
 - (IBAction)btnNormClick:(id)sender {
-    //update word to db
+    //update word and update db
+    [[Algorithm sharedAlgorithm] updateWord:_wordObj withEaseLevel:EASE_GOOD];
     
     //show next word
     _wordObj = [self getAWordFromCurrentList];
-    [self displayQuestion:_wordObj];
     
-    [self showHideButtonsPanel:NO];
+    if (_wordObj) {
+        [self displayQuestion:_wordObj];
+        
+        [self showHideButtonsPanel:NO];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"completedDailyTarget" object:nil];
+    }
 }
 
 - (IBAction)btnEasyClick:(id)sender {
-    //update word to db
+    //update word and update db
+    [[Algorithm sharedAlgorithm] updateWord:_wordObj withEaseLevel:EASE_EASY];
     
     //show next word
     _wordObj = [self getAWordFromCurrentList];
-    [self displayQuestion:_wordObj];
     
-    [self showHideButtonsPanel:NO];
+    if (_wordObj) {
+        [self displayQuestion:_wordObj];
+        
+        [self showHideButtonsPanel:NO];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"completedDailyTarget" object:nil];
+    }
 }
 
 
