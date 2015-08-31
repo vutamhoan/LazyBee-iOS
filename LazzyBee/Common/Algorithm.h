@@ -23,6 +23,8 @@
 
 - (NSArray *)nextIvlStrLst:(WordObject *)wordObj;
 - (void)updateWord:(WordObject *)wordObj withEaseLevel:(int)ease;
+
+- (NSArray *)distributeWordByLevel;
 @end
 
 #endif
