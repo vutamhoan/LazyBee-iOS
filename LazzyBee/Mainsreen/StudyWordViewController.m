@@ -257,13 +257,19 @@
 
 #pragma mark buttons handle
 - (IBAction)btnShowAnswerClick:(id)sender {
-    [self displayAnswer:_wordObj];
-    [self showHideButtonsPanel:YES];
+    if (_wordObj) {
+        [self displayAnswer:_wordObj];
+        [self showHideButtonsPanel:YES];
+    }
 }
 
 - (IBAction)btnAgainClick:(id)sender {
     //update word and update db
-    [[Algorithm sharedAlgorithm] updateWord:_wordObj withEaseLevel:EASE_AGAIN];
+    if (_wordObj) {
+        [[Algorithm sharedAlgorithm] updateWord:_wordObj withEaseLevel:EASE_AGAIN];
+        
+        [[CommonSqlite sharedCommonSqlite] updateWord:_wordObj];
+    }
     
     //show next word
     _wordObj = [self getAWordFromCurrentList];
@@ -281,7 +287,11 @@
 
 - (IBAction)btnHardClick:(id)sender {
     //update word and update db
-    [[Algorithm sharedAlgorithm] updateWord:_wordObj withEaseLevel:EASE_HARD];
+    if (_wordObj) {
+        [[Algorithm sharedAlgorithm] updateWord:_wordObj withEaseLevel:EASE_HARD];
+        
+        [[CommonSqlite sharedCommonSqlite] updateWord:_wordObj];
+    }
     
     //show next word
     _wordObj = [self getAWordFromCurrentList];
@@ -299,7 +309,11 @@
 
 - (IBAction)btnNormClick:(id)sender {
     //update word and update db
-    [[Algorithm sharedAlgorithm] updateWord:_wordObj withEaseLevel:EASE_GOOD];
+    if (_wordObj) {
+        [[Algorithm sharedAlgorithm] updateWord:_wordObj withEaseLevel:EASE_GOOD];
+        
+        [[CommonSqlite sharedCommonSqlite] updateWord:_wordObj];
+    }
     
     //show next word
     _wordObj = [self getAWordFromCurrentList];
@@ -317,7 +331,11 @@
 
 - (IBAction)btnEasyClick:(id)sender {
     //update word and update db
-    [[Algorithm sharedAlgorithm] updateWord:_wordObj withEaseLevel:EASE_EASY];
+    if (_wordObj) {
+        [[Algorithm sharedAlgorithm] updateWord:_wordObj withEaseLevel:EASE_EASY];
+        
+        [[CommonSqlite sharedCommonSqlite] updateWord:_wordObj];
+    }
     
     //show next word
     _wordObj = [self getAWordFromCurrentList];

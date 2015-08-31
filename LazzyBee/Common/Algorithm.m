@@ -198,4 +198,19 @@ static Algorithm* sharedAlgorithm = nil;
     wordObj.eFactor = [NSString stringWithFormat:@"%d", eFactor];
 }
 
+- (NSArray *)distributeWordByLevel {
+    NSMutableArray *res = [[NSMutableArray alloc] init];
+    
+    [res addObject:[NSNumber numberWithInteger:0]];
+    [res addObject:[NSNumber numberWithInteger:10]];
+    [res addObject:[NSNumber numberWithInteger:15]];
+    [res addObject:[NSNumber numberWithInteger:40]];
+    [res addObject:[NSNumber numberWithInteger:25]];
+    [res addObject:[NSNumber numberWithInteger:10]];
+    [res addObject:[NSNumber numberWithInteger:0]];
+    [res addObject:[NSNumber numberWithInteger:0]];
+    
+    return res;
+}
+
 @end

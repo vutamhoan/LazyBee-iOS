@@ -107,10 +107,22 @@ static HTMLHelper* sharedHTMLHelper = nil;
     NSString *strExample = [dictSinglePackage valueForKey:@"example"];
     
     //remove html tag, use for playing speech
-    NSString *plainExplanation = [[Common sharedCommon] stringByRemovingHTMLTag:strExplanation];
-    NSString *plainExample = [[Common sharedCommon] stringByRemovingHTMLTag:strExample];
+    NSString *plainExplanation = @"";
+    NSString *plainExample = @"";
     
-    NSString *strMeaning = [dictSinglePackage valueForKey:@"meaning"];
+    if (strExplanation) {
+        [[Common sharedCommon] stringByRemovingHTMLTag:strExplanation];
+    }
+    
+    if (strExample) {
+        [[Common sharedCommon] stringByRemovingHTMLTag:strExample];
+    }
+    
+    NSString *strMeaning = @"";
+    
+    if ([dictSinglePackage valueForKey:@"meaning"]) {
+        strMeaning = [dictSinglePackage valueForKey:@"meaning"];
+    }
     
     NSString *strExplainIconTag = @"";
     NSString *strExampleIconTag = @"";
