@@ -11,6 +11,7 @@
 #import "RearViewController.h"
 #import "JASidePanelController.h"
 #import "CommonDefine.h"
+#import "Common.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
@@ -21,6 +22,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self copyDatabaseIntoDocumentsDirectory];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     HomeViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
@@ -58,6 +61,24 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+-(void)copyDatabaseIntoDocumentsDirectory {
+    NSString *destinationPath = [[[Common sharedCommon] privateDocumentsFolder] stringByAppendingPathComponent:DATABASENAME];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:destinationPath]) {
+        [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:destinationPath];
+    }
+    
+    NSString *sourcePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
+
+    NSError *error;
+    [[NSFileManager defaultManager] copyItemAtPath:sourcePath toPath:destinationPath error:&error];
+
+    if (error != nil) {
+        NSLog(@"%@", [error localizedDescription]);
+    }
 }
 
 @end
