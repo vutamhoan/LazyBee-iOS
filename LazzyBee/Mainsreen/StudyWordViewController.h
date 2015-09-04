@@ -22,6 +22,14 @@ typedef enum {
     IBOutlet UIView *viewButtonsPanel;
     IBOutlet UIView *viewShowAnswer;
     
+    IBOutlet UIButton *btnAgain;
+    IBOutlet UIButton *btnHard;
+    IBOutlet UIButton *btnNorm;
+    IBOutlet UIButton *btnEasy;
+    
+    IBOutlet UILabel *lbNewCount;
+    IBOutlet UILabel *lbAgainCount;
+    IBOutlet UILabel *lbReviewCount;
 }
 
 @property (nonatomic, assign) STUDY_SCREEN_MODE studyScreenMode;

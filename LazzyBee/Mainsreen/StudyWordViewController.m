@@ -84,6 +84,8 @@
         [_studyAgainList addObjectsFromArray:[[CommonSqlite sharedCommonSqlite] getStudyAgainList]];
         [_reviewWordList addObjectsFromArray:[[CommonSqlite sharedCommonSqlite] getReviewList]];
         
+        [self updateHeaderInfo];
+        
         _wordObj = [self getAWordFromCurrentList];
         [self displayQuestion:_wordObj];
         
@@ -164,6 +166,14 @@
 }
 
 - (void)showHideButtonsPanel:(BOOL)show {
+    //update buttons's title
+    NSArray *arrTitle = [[Algorithm sharedAlgorithm] nextIvlStrLst:_wordObj];
+    
+    [btnAgain setTitle:[NSString stringWithFormat:@"%@\n(Again)", [arrTitle objectAtIndex:0]] forState:UIControlStateNormal];
+    [btnHard setTitle:[NSString stringWithFormat:@"%@\n(Hard)", [arrTitle objectAtIndex:1]] forState:UIControlStateNormal];
+    [btnNorm setTitle:[NSString stringWithFormat:@"%@\n(Norm)", [arrTitle objectAtIndex:2]] forState:UIControlStateNormal];
+    [btnEasy setTitle:[NSString stringWithFormat:@"%@\n(Easy)", [arrTitle objectAtIndex:3]] forState:UIControlStateNormal];
+    
     [UIView animateWithDuration:0.3 animations:^(void) {
         CGRect mainRect = [UIScreen mainScreen].bounds;
         CGRect showAnswerrect = viewShowAnswer.frame;
@@ -215,6 +225,9 @@
     if (_studyScreenMode == Mode_New_Word) {
         if (_wordObj) {
             [_nwordList removeObject:_wordObj];
+            
+            //update pickedword field
+            [[CommonSqlite sharedCommonSqlite] updatePickedWordList:_nwordList];
         }
 
     } else if (_studyScreenMode == Mode_Study) {
@@ -251,6 +264,8 @@
     } else if (_studyScreenMode == Mode_Review) {
         res = [_reviewWordList objectAtIndex:0];
     }
+    
+    [self updateHeaderInfo];
     
     return res;
 }
@@ -351,6 +366,11 @@
     }
 }
 
+- (void)updateHeaderInfo {
+    lbNewCount.text = [NSString stringWithFormat:@"New: %ld", [_nwordList count]];
+    lbAgainCount.text = [NSString stringWithFormat:@"Again: %ld", [_studyAgainList count]];
+    lbReviewCount.text = [NSString stringWithFormat:@"Review: %ld", [_reviewWordList count]];
+}
 
 #pragma mark actions sheet handle
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {

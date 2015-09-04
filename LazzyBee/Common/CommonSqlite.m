@@ -100,7 +100,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 
 //selected fields in the query string must be ordered as: id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor
 - (NSArray *)getWordByQueryString:(NSString *)strQuery {
-    NSString *dbPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
+    NSString *dbPath = [self getDatabasePath];
     NSURL *storeURL = [NSURL URLWithString:dbPath];
     
     const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
@@ -181,7 +181,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (void)updateWord:(WordObject *)wordObj {
-    NSString *dbPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
+    NSString *dbPath = [self getDatabasePath];
     NSURL *storeURL = [NSURL URLWithString:dbPath];
     
     const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
@@ -220,7 +220,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 //pick up "amount" news word-ids from vocabulary, then add to buffer
 - (void)prepareWordsToStudyingQueue:(NSInteger)amount {
     //get current words list from system table
-    NSString *dbPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
+    NSString *dbPath = [self getDatabasePath];
     NSURL *storeURL = [NSURL URLWithString:dbPath];
     
     const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
@@ -278,7 +278,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
         charQuery = [strQuery UTF8String];
         
         sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
-        
+        NSLog(@"Error while updating. %s", sqlite3_errmsg(db));
         while(sqlite3_step(dbps) == SQLITE_ROW) {
             if (sqlite3_column_text(dbps, 0)) {
                 NSString *wordID = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 0)];
@@ -310,8 +310,10 @@ static CommonSqlite* sharedCommonSqlite = nil;
                 [resArr addObject:wordID];
             }
         }
+        
+        sqlite3_finalize(dbps);
     }
-    
+
     //create json to re-add to db
     NSMutableDictionary *dictNewWords = [[NSMutableDictionary alloc] init];
     [dictNewWords setObject:[[NSNumber alloc] initWithInteger:[resArr count]] forKey:@"count"];
@@ -349,7 +351,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 
 //pick up "amount" word-ids from buffer, then add to pickedword (this list is to study)
 - (void)pickUpRandom10WordsToStudyingQueue:(NSInteger)amount {
-    NSString *dbPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
+    NSString *dbPath = [self getDatabasePath];
     NSURL *storeURL = [NSURL URLWithString:dbPath];
     
     const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
@@ -496,7 +498,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 //add a word to pickedword list more
 - (void)addAWordToStydyingQueue:(WordObject *)wordObj {
     //get current value then add a word to "pickedword" more
-    NSString *dbPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
+    NSString *dbPath = [self getDatabasePath];
     NSURL *storeURL = [NSURL URLWithString:dbPath];
     
     const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
@@ -578,7 +580,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     }
     
     //write to db
-    NSString *dbPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
+    NSString *dbPath = [self getDatabasePath];
     NSURL *storeURL = [NSURL URLWithString:dbPath];
     
     const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
@@ -630,7 +632,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 //fetch word objects from vocabulary by word-id that contained in pickedword
 - (NSArray *)fetchPickedWordFromVocabulary {
     //get word id from pickedword
-    NSString *dbPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
+    NSString *dbPath = [self getDatabasePath];
     NSURL *storeURL = [NSURL URLWithString:dbPath];
     
     const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
@@ -722,7 +724,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 
 - (NSInteger)getCountOfPickedWord {
     //get word id from pickedword
-    NSString *dbPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
+    NSString *dbPath = [self getDatabasePath];
     NSURL *storeURL = [NSURL URLWithString:dbPath];
     
     const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
@@ -761,5 +763,15 @@ static CommonSqlite* sharedCommonSqlite = nil;
     sqlite3_close(db);
     
     return [idListArr count];
+}
+
+- (NSString *)getDatabasePath {
+    NSString *dbPath = [[[Common sharedCommon] privateDocumentsFolder] stringByAppendingPathComponent:DATABASENAME];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:dbPath]) {
+        return dbPath;
+    } else {
+        return @"";
+    }
 }
 @end

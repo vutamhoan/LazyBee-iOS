@@ -111,11 +111,11 @@ static HTMLHelper* sharedHTMLHelper = nil;
     NSString *plainExample = @"";
     
     if (strExplanation) {
-        [[Common sharedCommon] stringByRemovingHTMLTag:strExplanation];
+        plainExplanation = [[Common sharedCommon] stringByRemovingHTMLTag:strExplanation];
     }
     
     if (strExample) {
-        [[Common sharedCommon] stringByRemovingHTMLTag:strExample];
+        plainExample = [[Common sharedCommon] stringByRemovingHTMLTag:strExample];
     }
     
     NSString *strMeaning = @"";
@@ -183,7 +183,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     "   var speaker = new SpeechSynthesisUtterance();"
     "   speaker.text = content;"
     "   speaker.lang = 'en-US';"
-    "   speaker.rate = 0.2;"
+    "   speaker.rate = 0.1;"
     "   speaker.pitch = 1.0;"
     "   speaker.volume = 1.0;"
     "   speechSynthesis.speak(speaker);"

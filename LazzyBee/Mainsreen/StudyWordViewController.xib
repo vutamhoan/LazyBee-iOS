@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StudyWordViewController">
             <connections>
+                <outlet property="btnAgain" destination="8ID-5O-DH1" id="Ely-hs-gOt"/>
+                <outlet property="btnEasy" destination="qJL-Ae-ZMZ" id="yeE-4c-g5m"/>
+                <outlet property="btnHard" destination="quq-gJ-D7i" id="Ibn-mv-Tf2"/>
+                <outlet property="btnNorm" destination="BTU-UK-4xW" id="d1Q-NL-76A"/>
+                <outlet property="lbAgainCount" destination="cFQ-92-Eku" id="mzp-aw-OFB"/>
+                <outlet property="lbNewCount" destination="dKV-fp-xDc" id="KTa-6D-MoD"/>
+                <outlet property="lbReviewCount" destination="IZy-ES-gsA" id="3Oc-CM-ooW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewButtonsPanel" destination="hGJ-t1-liu" id="AHe-nd-XoM"/>
                 <outlet property="viewReservationForAds" destination="vxi-5A-nRf" id="Hhb-hb-9Tq"/>
