@@ -86,8 +86,16 @@
         
         [self updateHeaderInfo];
         
-        _wordObj = [self getAWordFromCurrentList];
-        [self displayQuestion:_wordObj];
+        _wordObj = [self getAWordFromCurrentList:nil];
+        if (_wordObj) {
+            [self displayQuestion:_wordObj];
+            
+            [self showHideButtonsPanel:NO];
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"noWordToStudyToday" object:nil];
+        }
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(searchBarSearchButtonClicked:)
@@ -219,7 +227,8 @@
     [webViewWord loadHTMLString:htmlString baseURL:baseURL];
 }
 
-- (WordObject *)getAWordFromCurrentList {
+//only need to check sender in case click on Again button
+- (WordObject *)getAWordFromCurrentList:(id)sender {
     WordObject *res = nil;
     //remove the old word from array
     if (_studyScreenMode == Mode_New_Word) {
@@ -233,6 +242,10 @@
     } else if (_studyScreenMode == Mode_Study) {
         if (_wordObj) {
             [_studyAgainList removeObject:_wordObj];
+            
+            if ([sender isEqual:btnAgain]) {
+                [_studyAgainList addObject:_wordObj];
+            }
         }
         
     } else if (_studyScreenMode == Mode_Review) {
@@ -287,7 +300,7 @@
     }
     
     //show next word
-    _wordObj = [self getAWordFromCurrentList];
+    _wordObj = [self getAWordFromCurrentList:sender];
     
     if (_wordObj) {
         [self displayQuestion:_wordObj];
@@ -309,7 +322,7 @@
     }
     
     //show next word
-    _wordObj = [self getAWordFromCurrentList];
+    _wordObj = [self getAWordFromCurrentList:sender];
     
     if (_wordObj) {
         [self displayQuestion:_wordObj];
@@ -331,7 +344,7 @@
     }
     
     //show next word
-    _wordObj = [self getAWordFromCurrentList];
+    _wordObj = [self getAWordFromCurrentList:sender];
     
     if (_wordObj) {
         [self displayQuestion:_wordObj];
@@ -353,7 +366,7 @@
     }
     
     //show next word
-    _wordObj = [self getAWordFromCurrentList];
+    _wordObj = [self getAWordFromCurrentList:sender];
     
     if (_wordObj) {
         [self displayQuestion:_wordObj];
@@ -378,7 +391,7 @@
     if (actionSheet.tag == 1) {
         if (buttonIndex == 0) {
             NSLog(@"Add to study");
-            
+            [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:_wordObj];
             
         } else if (buttonIndex == 3) {
             NSLog(@"Cancel");
@@ -391,8 +404,17 @@
             [[CommonSqlite sharedCommonSqlite] updateWord:_wordObj];
             
             //remove this word from list, display the next one
-            _wordObj = [self getAWordFromCurrentList];
-            [self displayQuestion:_wordObj];
+            _wordObj = [self getAWordFromCurrentList:nil];
+            
+            if (_wordObj) {
+                [self displayQuestion:_wordObj];
+                
+                [self showHideButtonsPanel:NO];
+            } else {
+                [self.navigationController popViewControllerAnimated:YES];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"completedDailyTarget" object:nil];
+            }
             
         } else if (buttonIndex == 3) {
             NSLog(@"Cancel");

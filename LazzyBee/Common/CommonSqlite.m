@@ -75,7 +75,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSArray *)getReviewList {
-    NSString *strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor FROM \"vocabulary\" where queue = 2 AND due <= %f ORDER BY level", [self getNextDayInSec]];
+    NSString *strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor FROM \"vocabulary\" where queue = 2 AND due <= %f ORDER BY level", [self getEndOfDayInSec]];
     
     NSArray *resArr = [self getWordByQueryString:strQuery];
     
@@ -167,7 +167,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
             wordObj.lastInterval = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 10)];
         }
         
-        if (sqlite3_column_text(dbps, 10)) {
+        if (sqlite3_column_text(dbps, 11)) {
             wordObj.eFactor = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 11)];
         }
         
@@ -193,8 +193,22 @@ static CommonSqlite* sharedCommonSqlite = nil;
         return;
     }
     sqlite3_stmt *dbps;
-    
-    NSString *strQuery = [NSString stringWithFormat:@"UPDATE \"vocabulary\" SET queue = %d where question = \'%@\'", [wordObj.queue intValue], wordObj.question];
+    /**
+     @property (nonatomic, strong) NSString *wordid;
+     @property (nonatomic, strong) NSString *question;
+     @property (nonatomic, strong) NSString *answers;
+     @property (nonatomic, strong) NSString *subcats;
+     @property (nonatomic, strong) NSString *status;
+     @property (nonatomic, strong) NSString *package;
+     @property (nonatomic, strong) NSString *level;
+     @property (nonatomic, strong) NSString *queue;
+     @property (nonatomic, strong) NSString *due;
+     @property (nonatomic, strong) NSString *revCount;
+     @property (nonatomic, strong) NSString *lastInterval;
+     @property (nonatomic, strong) NSString *eFactor;
+     id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor
+     */
+    NSString *strQuery = [NSString stringWithFormat:@"UPDATE \"vocabulary\" SET queue = %d, due = %d, rev_count = %d, last_ivl = %d, e_factor = %d where question = \'%@\'", [wordObj.queue intValue], [wordObj.due intValue], [wordObj.revCount intValue], [wordObj.lastInterval intValue], [wordObj.eFactor intValue], wordObj.question];
     const char *charQuery = [strQuery UTF8String];
     
     sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
@@ -208,7 +222,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 
 }
 
-- (NSTimeInterval)getNextDayInSec {
+- (NSTimeInterval)getEndOfDayInSec {
     NSTimeInterval datetime = [[Common sharedCommon] getCurrentDateInSec];
     
     datetime = datetime + 24*3600;
@@ -227,7 +241,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     sqlite3 *db;
     int dbrc; //database return code
     dbrc = sqlite3_open(dbFilePathUTF8, &db);
-    
+
     if (dbrc) {
         return;
     }
@@ -291,6 +305,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     }
     
     //if not enough "amount" words
+    int count = 0; //to prevent infinity loop
     while ([resArr count] < amount) {
         NSInteger randomIndex = arc4random() % ([wordAmountByLevel count] - 1);
         
@@ -312,6 +327,11 @@ static CommonSqlite* sharedCommonSqlite = nil;
         }
         
         sqlite3_finalize(dbps);
+        
+        count ++;
+        if (count == 10) {
+            break;
+        }
     }
 
     //create json to re-add to db
@@ -391,7 +411,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     }
     
     //compare current date
-    NSTimeInterval curDate = [[Common sharedCommon] getCurrentDateInSec];
+    NSTimeInterval curDate = [[Common sharedCommon] getCurrentDatetimeInSec];
     
     if (oldDate == 0 || curDate > oldDate + 24*3600) {
         //get random 10 words in buffer from system table
@@ -431,7 +451,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
         
         //create json to add to db
         NSMutableDictionary *dictNewWords = [[NSMutableDictionary alloc] init];
-        NSString *strDate = [NSString stringWithFormat:@"%f",[[Common sharedCommon] getCurrentDateInSec]];
+        NSString *strDate = [NSString stringWithFormat:@"%f",[[Common sharedCommon] getCurrentDatetimeInSec]];
         
         [dictNewWords setObject:strDate forKey:@"date"];
         [dictNewWords setObject:pickedIDArr forKey:@"card"];
@@ -527,11 +547,14 @@ static CommonSqlite* sharedCommonSqlite = nil;
     sqlite3_finalize(dbps);
     
     //parse the result to get word-id list
+    NSTimeInterval oldDate = 0;
     NSMutableArray *idListArr = [[NSMutableArray alloc] init];
     NSData *data = [strJson dataUsingEncoding:NSUTF8StringEncoding];
+    
     if (data) {
         NSDictionary *dictIDList = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         [idListArr addObjectsFromArray:[dictIDList valueForKey:@"card"]];
+        oldDate = [[dictIDList valueForKey:@"date"] doubleValue];
     }
     
     //add new word
@@ -539,7 +562,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     
     //create json to add to db
     NSMutableDictionary *dictNewWords = [[NSMutableDictionary alloc] init];
-    NSString *strDate = [NSString stringWithFormat:@"%f",[[Common sharedCommon] getCurrentDateInSec]];
+    NSString *strDate = [NSString stringWithFormat:@"%f",oldDate];
     
     [dictNewWords setObject:strDate forKey:@"date"];
     [dictNewWords setObject:idListArr forKey:@"card"];
@@ -597,7 +620,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     NSString *strJson = @"";
     //create json to add to db
     NSMutableDictionary *dictNewWords = [[NSMutableDictionary alloc] init];
-    NSString *strDate = [NSString stringWithFormat:@"%f",[[Common sharedCommon] getCurrentDateInSec]];
+    NSString *strDate = [NSString stringWithFormat:@"%f",[[Common sharedCommon] getCurrentDatetimeInSec]];
     
     [dictNewWords setObject:strDate forKey:@"date"];
     [dictNewWords setObject:idListArr forKey:@"card"];
@@ -709,8 +732,27 @@ static CommonSqlite* sharedCommonSqlite = nil;
         }
         
         if (sqlite3_column_text(dbps, 6)) {
-            NSInteger i = sqlite3_column_int(dbps, 6);
             wordObj.level = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 6)];
+        }
+        
+        if (sqlite3_column_text(dbps, 7)) {
+            wordObj.queue = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 7)];
+        }
+        
+        if (sqlite3_column_text(dbps, 8)) {
+            wordObj.due = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 8)];
+        }
+        
+        if (sqlite3_column_text(dbps, 9)) {
+            wordObj.revCount = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 9)];
+        }
+        
+        if (sqlite3_column_text(dbps, 10)) {
+            wordObj.lastInterval = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 10)];
+        }
+        
+        if (sqlite3_column_text(dbps, 11)) {
+            wordObj.eFactor = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 11)];
         }
         
         [resArr addObject:wordObj];
@@ -766,8 +808,9 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSString *)getDatabasePath {
-    NSString *dbPath = [[[Common sharedCommon] privateDocumentsFolder] stringByAppendingPathComponent:DATABASENAME];
+    NSString *dbPath = [[[Common sharedCommon] documentsFolder] stringByAppendingPathComponent:DATABASENAME];
     
+//    [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME]
     if ([[NSFileManager defaultManager] fileExistsAtPath:dbPath]) {
         return dbPath;
     } else {
