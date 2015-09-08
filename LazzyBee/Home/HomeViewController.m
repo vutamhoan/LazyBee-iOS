@@ -46,6 +46,11 @@
                                              selector:@selector(completedDailyTarget)
                                                  name:@"completedDailyTarget"
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(noWordToStudyToday)
+                                                 name:@"noWordToStudyToday"
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -124,6 +129,14 @@
     //show alert to congrat
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulation" message:@"You have completed your daily target." delegate:(id)self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     alert.tag = 2;
+    
+    [alert show];
+}
+
+- (void)noWordToStudyToday {
+    //show alert to congrat
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"There is no more word to study today. Click \"More Words\" if you really want to study more." delegate:(id)self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    alert.tag = 3;
     
     [alert show];
 }

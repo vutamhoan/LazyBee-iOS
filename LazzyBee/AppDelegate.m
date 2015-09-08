@@ -65,19 +65,18 @@
 
 
 -(void)copyDatabaseIntoDocumentsDirectory {
-    NSString *destinationPath = [[[Common sharedCommon] privateDocumentsFolder] stringByAppendingPathComponent:DATABASENAME];
+    NSString *destinationPath = [[[Common sharedCommon] documentsFolder] stringByAppendingPathComponent:DATABASENAME];
     
-    if ([[NSFileManager defaultManager] fileExistsAtPath:destinationPath]) {
-        [[Common sharedCommon] trashFileAtPathAndEmpptyTrash:destinationPath];
-    }
+    if (![[NSFileManager defaultManager] fileExistsAtPath:destinationPath]) {
     
-    NSString *sourcePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
+        NSString *sourcePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASENAME];
 
-    NSError *error;
-    [[NSFileManager defaultManager] copyItemAtPath:sourcePath toPath:destinationPath error:&error];
+        NSError *error;
+        [[NSFileManager defaultManager] copyItemAtPath:sourcePath toPath:destinationPath error:&error];
 
-    if (error != nil) {
-        NSLog(@"%@", [error localizedDescription]);
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        }
     }
 }
 

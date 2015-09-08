@@ -142,7 +142,7 @@ static Algorithm* sharedAlgorithm = nil;
     }
     
     NSInteger due = [wordObj.due integerValue];
-    NSInteger now = [[Common sharedCommon] getCurrentDateInSec];
+    NSInteger now = [[Common sharedCommon] getCurrentDatetimeInSec];    //have to get exactly date time in sec
     
     NSInteger diff_day = (now - due)/SECONDS_PERDAY;
     return MAX(0, diff_day);
@@ -178,7 +178,7 @@ static Algorithm* sharedAlgorithm = nil;
 - (void)updateWord:(WordObject *)wordObj withEaseLevel:(int)ease {
     int nextIvl = [self nextIntervalBySeconds:wordObj withEaseLevel:ease];
     
-    NSTimeInterval current = [[Common sharedCommon] getCurrentDateInSec];
+    NSTimeInterval current = [[Common sharedCommon] getCurrentDatetimeInSec];//have to get exactly date time in seconds
     
     if (nextIvl < SECONDS_PERDAY) {
         /*User forget card or just learnt
@@ -196,6 +196,12 @@ static Algorithm* sharedAlgorithm = nil;
     
     int eFactor = MAX( MIN_FACTOR, [wordObj.eFactor intValue] + [self factorAdditionValue:ease]);
     wordObj.eFactor = [NSString stringWithFormat:@"%d", eFactor];
+    /*
+    /Sep 08, 2015: Now we decrease for EASE_AGAIN only when it from review queue
+        if ((card.getQueue() == Card.QUEUE_REV2) && ease == EASE_AGAIN)
+            card.setFactor(card.getFactor() - FORGET_FINE);FORGET_FINE=300
+        else
+            card.setFactor(Math.max(MIN_FACTOR, card.getFactor() + FACTOR_ADDITION_VALUES[ease]));*/
 }
 
 - (NSArray *)distributeWordByLevel {
