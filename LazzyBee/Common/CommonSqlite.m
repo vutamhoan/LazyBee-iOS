@@ -292,7 +292,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
         charQuery = [strQuery UTF8String];
         
         sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
-        NSLog(@"Error while updating. %s", sqlite3_errmsg(db));
+
         while(sqlite3_step(dbps) == SQLITE_ROW) {
             if (sqlite3_column_text(dbps, 0)) {
                 NSString *wordID = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 0)];
@@ -305,7 +305,8 @@ static CommonSqlite* sharedCommonSqlite = nil;
     }
     
     //if not enough "amount" words
-    int count = 0; //to prevent infinity loop
+    int count = 0; //to prevent infinite loop
+    NSString *strIDList = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:[resArr description]];
     while ([resArr count] < amount) {
         NSInteger randomIndex = arc4random() % ([wordAmountByLevel count] - 1);
         
@@ -313,7 +314,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
             randomIndex ++;
         }
 
-        strQuery = [NSString stringWithFormat:@"SELECT id from \"vocabulary\" WHERE queue = 0 AND level = %ld ORDER BY id LIMIT %ld", (long)randomIndex, amount - [resArr count]];
+        strQuery = [NSString stringWithFormat:@"SELECT id from \"vocabulary\" WHERE queue = 0 AND level = %ld AND id NOT IN %@ ORDER BY id LIMIT %ld", (long)randomIndex, strIDList, amount - [resArr count]];
         charQuery = [strQuery UTF8String];
         
         sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
@@ -370,7 +371,8 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 //pick up "amount" word-ids from buffer, then add to pickedword (this list is to study)
-- (void)pickUpRandom10WordsToStudyingQueue:(NSInteger)amount {
+//forceFlag: YES: dont need to check date
+- (void)pickUpRandom10WordsToStudyingQueue:(NSInteger)amount withForceFlag:(BOOL)force {
     NSString *dbPath = [self getDatabasePath];
     NSURL *storeURL = [NSURL URLWithString:dbPath];
     
@@ -413,7 +415,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     //compare current date
     NSTimeInterval curDate = [[Common sharedCommon] getCurrentDatetimeInSec];
     
-    if (oldDate == 0 || curDate > oldDate + 24*3600) {
+    if (force == YES || (oldDate == 0 || curDate > oldDate + 24*3600)) {
         //get random 10 words in buffer from system table
         strQuery = @"SELECT value from \"system\" WHERE key = 'buffer'";
         
@@ -443,10 +445,25 @@ static CommonSqlite* sharedCommonSqlite = nil;
         
         NSUInteger randomIndex = 0;
         NSMutableArray *pickedIDArr = [[NSMutableArray alloc] init];
-        for (int i = 0; i < PICKED_WORDS_QUEUE_SIZE; i++) {
+        int count = 0; //to prevent infinite loop
+        
+        NSMutableDictionary *preventDuplicateDict = [[NSMutableDictionary alloc] init]; //to prevent duplicate words
+        NSString *strIndex = @"";
+        
+        while ([pickedIDArr count] < PICKED_WORDS_QUEUE_SIZE) {
             randomIndex = arc4random() % [idListArr count];
+            strIndex = [NSString stringWithFormat:@"%ld", randomIndex];
             
-            [pickedIDArr addObject:[idListArr objectAtIndex:randomIndex]];
+            if (![preventDuplicateDict objectForKey:strIndex]) {
+                [preventDuplicateDict setObject:strIndex forKey:strIndex];
+                
+                [pickedIDArr addObject:[idListArr objectAtIndex:randomIndex]];
+            }
+            
+            count ++;
+            if (count == 30) {  //30 is enough large
+                break;
+            }
         }
         
         //create json to add to db
@@ -691,7 +708,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     if (data) {
         NSDictionary *dictIDList = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         [idListArr addObjectsFromArray:[dictIDList valueForKey:@"card"]];
-
+        
         if (idListArr) {
             strIDList = [[Common sharedCommon] stringByRemovingSpaceAndNewLineSymbol:[idListArr description]];
         }
@@ -780,6 +797,49 @@ static CommonSqlite* sharedCommonSqlite = nil;
     sqlite3_stmt *dbps;
     
     NSString *strQuery = @"SELECT value from \"system\" WHERE key = 'pickedword'";
+    
+    const char *charQuery = [strQuery UTF8String];
+    
+    sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+    NSString *strJson = @"";
+    
+    while(sqlite3_step(dbps) == SQLITE_ROW) {
+        if (sqlite3_column_text(dbps, 0)) {
+            strJson = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 0)];
+        }
+    }
+    
+    //parse the result to get word-id list
+    NSMutableArray *idListArr = [[NSMutableArray alloc] init];
+    NSData *data = [strJson dataUsingEncoding:NSUTF8StringEncoding];
+    
+    if (data) {
+        NSDictionary *dictIDList = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        [idListArr addObjectsFromArray:[dictIDList valueForKey:@"card"]];
+    }
+    
+    sqlite3_finalize(dbps);
+    sqlite3_close(db);
+    
+    return [idListArr count];
+}
+
+- (NSInteger)getCountOfBuffer {
+    //get word id from buffer
+    NSString *dbPath = [self getDatabasePath];
+    NSURL *storeURL = [NSURL URLWithString:dbPath];
+    
+    const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
+    sqlite3 *db;
+    int dbrc; //database return code
+    dbrc = sqlite3_open(dbFilePathUTF8, &db);
+    
+    if (dbrc) {
+        return 0;
+    }
+    sqlite3_stmt *dbps;
+    
+    NSString *strQuery = @"SELECT value from \"system\" WHERE key = 'buffer'";
     
     const char *charQuery = [strQuery UTF8String];
     

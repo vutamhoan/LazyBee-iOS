@@ -84,6 +84,17 @@
         [_studyAgainList addObjectsFromArray:[[CommonSqlite sharedCommonSqlite] getStudyAgainList]];
         [_reviewWordList addObjectsFromArray:[[CommonSqlite sharedCommonSqlite] getReviewList]];
         
+        //check if the list is not empty to switch screen mode
+        if ([_studyAgainList count] > 0) {
+            self.studyScreenMode = Mode_Study;
+            
+        } else if ([_reviewWordList count] > 0) {
+            self.studyScreenMode = Mode_Review;
+            
+        } else if ([_nwordList count] > 0) {
+            self.studyScreenMode = Mode_New_Word;
+        }
+        
         [self updateHeaderInfo];
         
         _wordObj = [self getAWordFromCurrentList:nil];
@@ -231,51 +242,73 @@
 - (WordObject *)getAWordFromCurrentList:(id)sender {
     WordObject *res = nil;
     //remove the old word from array
-    if (_studyScreenMode == Mode_New_Word) {
-        if (_wordObj) {
-            [_nwordList removeObject:_wordObj];
-            
-            //update pickedword field
-            [[CommonSqlite sharedCommonSqlite] updatePickedWordList:_nwordList];
-        }
-
-    } else if (_studyScreenMode == Mode_Study) {
+    if (_studyScreenMode == Mode_Study) {
         if (_wordObj) {
             [_studyAgainList removeObject:_wordObj];
-            
-            if ([sender isEqual:btnAgain]) {
-                [_studyAgainList addObject:_wordObj];
-            }
         }
         
     } else if (_studyScreenMode == Mode_Review) {
         if (_wordObj) {
             [_reviewWordList removeObject:_wordObj];
         }
+        
+    } else if (_studyScreenMode == Mode_New_Word) {
+        if (_wordObj) {
+            [_nwordList removeObject:_wordObj];
+            
+            //update pickedword field
+            [[CommonSqlite sharedCommonSqlite] updatePickedWordList:_nwordList];
+        }
+        
     }
     
-    //check if the list is not empty
-    if ([_studyAgainList count] > 0) {
-        self.studyScreenMode = Mode_Study;
-        
-    } else if ([_reviewWordList count] > 0) {
-        self.studyScreenMode = Mode_Review;
-        
-    } else if ([_nwordList count] > 0) {
-        self.studyScreenMode = Mode_New_Word;
-    } else {
-        return nil; //back to home in this case
-    }
-    
-    //switch screen mode
-    if (_studyScreenMode == Mode_New_Word) {
-        res = [_nwordList objectAtIndex:0];
-        
-    } else if (_studyScreenMode == Mode_Study) {
-        res = [_studyAgainList objectAtIndex:0];
+    //get next word, if it's nil then switch array and screen mod
+    if (_studyScreenMode == Mode_Study) {
+        if ([_studyAgainList count] > 0) {
+            res = [_studyAgainList objectAtIndex:0];
+        }
         
     } else if (_studyScreenMode == Mode_Review) {
-        res = [_reviewWordList objectAtIndex:0];
+        if ([_reviewWordList count] > 0) {
+            res = [_reviewWordList objectAtIndex:0];
+        }
+        
+    } else if (_studyScreenMode == Mode_New_Word) {
+        if ([_nwordList count] > 0) {
+            res = [_nwordList objectAtIndex:0];
+        }
+        
+    }
+    
+    if (res == nil) {
+        //check if the list is not empty to switch screen mode
+        if ([_studyAgainList count] > 0) {
+            self.studyScreenMode = Mode_Study;
+            
+        } else if ([_reviewWordList count] > 0) {
+            self.studyScreenMode = Mode_Review;
+            
+        } else if ([_nwordList count] > 0) {
+            self.studyScreenMode = Mode_New_Word;
+        } else {
+            return nil; //back to home in this case
+        }
+        
+        //get next word again
+        if (_studyScreenMode == Mode_New_Word) {
+            res = [_nwordList objectAtIndex:0];
+            
+        } else if (_studyScreenMode == Mode_Study) {
+            res = [_studyAgainList objectAtIndex:0];
+            
+        } else if (_studyScreenMode == Mode_Review) {
+            res = [_reviewWordList objectAtIndex:0];
+        }
+    }
+    
+    //re-add old to again list after set screen mode
+    if ([sender isEqual:btnAgain]) {
+        [_studyAgainList addObject:_wordObj];
     }
     
     [self updateHeaderInfo];

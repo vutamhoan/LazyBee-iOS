@@ -18,6 +18,7 @@ static Algorithm* sharedAlgorithm = nil;
 //private static final int[] FACTOR_ADDITION_VALUES = { -300, -150, 0, 150 };
 #define BONUS_EASY 1.4
 #define MIN_FACTOR 1300
+#define FORGET_FINE 300
 
 @implementation Algorithm
 
@@ -180,6 +181,17 @@ static Algorithm* sharedAlgorithm = nil;
     
     NSTimeInterval current = [[Common sharedCommon] getCurrentDatetimeInSec];//have to get exactly date time in seconds
     
+    //Now we decrease for EASE_AGAIN only when it from review queue
+    int queue = [wordObj.queue intValue];
+    if (queue == QUEUE_REVIEW && ease == EASE_AGAIN) {
+        int eFactor = [wordObj.eFactor intValue] - FORGET_FINE;
+        wordObj.eFactor = [NSString stringWithFormat:@"%d", eFactor];
+        
+    } else {
+        int eFactor = MAX( MIN_FACTOR, [wordObj.eFactor intValue] + [self factorAdditionValue:ease]);
+        wordObj.eFactor = [NSString stringWithFormat:@"%d", eFactor];
+    }
+    
     if (nextIvl < SECONDS_PERDAY) {
         /*User forget card or just learnt
          * We don't re-count 'due', because app will put it back to learnt queue
@@ -193,15 +205,6 @@ static Algorithm* sharedAlgorithm = nil;
         wordObj.due = [NSString stringWithFormat:@"%.f", current + nextIvl];
         wordObj.lastInterval =  [NSString stringWithFormat:@"%d", [self nextIntervalByDays:wordObj withEaseLevel:ease]];
     }
-    
-    int eFactor = MAX( MIN_FACTOR, [wordObj.eFactor intValue] + [self factorAdditionValue:ease]);
-    wordObj.eFactor = [NSString stringWithFormat:@"%d", eFactor];
-    /*
-    /Sep 08, 2015: Now we decrease for EASE_AGAIN only when it from review queue
-        if ((card.getQueue() == Card.QUEUE_REV2) && ease == EASE_AGAIN)
-            card.setFactor(card.getFactor() - FORGET_FINE);FORGET_FINE=300
-        else
-            card.setFactor(Math.max(MIN_FACTOR, card.getFactor() + FACTOR_ADDITION_VALUES[ease]));*/
 }
 
 - (NSArray *)distributeWordByLevel {
