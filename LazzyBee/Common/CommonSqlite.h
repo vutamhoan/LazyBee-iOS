@@ -28,10 +28,11 @@
 - (NSArray *)getSearchResultList:(NSString *)searchText;
 
 - (void)prepareWordsToStudyingQueue:(NSInteger)amount;
-- (void)pickUpRandom10WordsToStudyingQueue:(NSInteger)amount;
+- (void)pickUpRandom10WordsToStudyingQueue:(NSInteger)amount withForceFlag:(BOOL)force;
 - (void)addAWordToStydyingQueue:(WordObject *)wordObj;
 - (void)updatePickedWordList:(NSArray *)wordsArr;
 - (NSInteger)getCountOfPickedWord;
+- (NSInteger)getCountOfBuffer;
 @end
 
 #endif

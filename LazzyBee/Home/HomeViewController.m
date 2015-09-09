@@ -75,7 +75,11 @@
 #pragma mark buttons handle
 - (IBAction)btnStudyClick:(id)sender {
     //check and pick new words
-    [[CommonSqlite sharedCommonSqlite] pickUpRandom10WordsToStudyingQueue:PICKED_WORDS_QUEUE_SIZE];
+    if ([[CommonSqlite sharedCommonSqlite] getCountOfBuffer] < PICKED_WORDS_QUEUE_SIZE) {
+        [[CommonSqlite sharedCommonSqlite] prepareWordsToStudyingQueue:BUFFER_SIZE];
+    }
+    
+    [[CommonSqlite sharedCommonSqlite] pickUpRandom10WordsToStudyingQueue:PICKED_WORDS_QUEUE_SIZE withForceFlag:NO];
     
     StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
     
@@ -100,7 +104,11 @@
         
     } else {
         //pick more words from buffer
-        [[CommonSqlite sharedCommonSqlite] pickUpRandom10WordsToStudyingQueue:PICKED_WORDS_QUEUE_SIZE];
+        if ([[CommonSqlite sharedCommonSqlite] getCountOfBuffer] < PICKED_WORDS_QUEUE_SIZE) {
+            [[CommonSqlite sharedCommonSqlite] prepareWordsToStudyingQueue:BUFFER_SIZE];
+        }
+        
+        [[CommonSqlite sharedCommonSqlite] pickUpRandom10WordsToStudyingQueue:PICKED_WORDS_QUEUE_SIZE withForceFlag:YES];
         
         //transfer to study screen
         StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
