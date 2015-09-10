@@ -19,6 +19,7 @@
 {
     SearchViewController *searchView;
 }
+
 @end
 
 @implementation StudyWordViewController
@@ -27,6 +28,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    //admob
+    GADRequest *request = [GADRequest request];
+    self.adBanner.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
+    self.adBanner.rootViewController = self;
+    [self.adBanner loadRequest:request];
     
     if (_isReviewScreen == YES) {
         UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionsPanel)];

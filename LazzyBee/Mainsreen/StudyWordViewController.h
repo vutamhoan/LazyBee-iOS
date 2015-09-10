@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WordObject.h"
+@import GoogleMobileAds;
 
 typedef enum {
     Mode_New_Word = 0,
@@ -39,5 +40,7 @@ typedef enum {
 @property (nonatomic, strong) NSMutableArray *nwordList;
 @property (nonatomic, strong) NSMutableArray *studyAgainList;
 @property (nonatomic, strong) NSMutableArray *reviewWordList;
+
+@property (weak, nonatomic) IBOutlet GADBannerView *adBanner;
 
 @end

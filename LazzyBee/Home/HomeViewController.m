@@ -12,7 +12,13 @@
 #import "CommonDefine.h"
 #import "CommonSqlite.h"
 
-@interface HomeViewController ()
+@interface HomeViewController ()<GADInterstitialDelegate>
+{
+    
+}
+
+/// The interstitial ad.
+@property(nonatomic, strong) GADInterstitial *interstitial;
 
 @end
 
@@ -51,6 +57,13 @@
                                              selector:@selector(noWordToStudyToday)
                                                  name:@"noWordToStudyToday"
                                                object:nil];
+    
+    //admob
+    GADRequest *request = [GADRequest request];
+    self.adBanner.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
+    self.adBanner.rootViewController = self;
+    [self.adBanner loadRequest:request];
+    [self createAndLoadInterstitial];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -114,6 +127,11 @@
         StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
         
         [self.navigationController pushViewController:studyViewController animated:YES];
+        
+        //show ad full screen
+        if (self.interstitial.isReady) {
+            [self.interstitial presentFromRootViewController:self];
+        }
     }
 }
 
@@ -147,5 +165,30 @@
     alert.tag = 3;
     
     [alert show];
+}
+
+#pragma mark admob
+- (void)createAndLoadInterstitial {
+        self.interstitial =
+        [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-3940256099942544/4411468910"];
+        self.interstitial.delegate = self;
+    
+        GADRequest *request = [GADRequest request];
+        // Request test ads on devices you specify. Your test device ID is printed to the console when
+        // an ad request is made. GADInterstitial automatically returns test ads when running on a
+        // simulator.
+        request.testDevices = @[
+                                @"8466af21f9717b97f0ba30fa23e53e1ba94d3422"
+                                ];
+        [self.interstitial loadRequest:request];
+}
+
+- (void)interstitial:(GADInterstitial *)interstitial
+didFailToReceiveAdWithError:(GADRequestError *)error {
+    NSLog(@"interstitialDidFailToReceiveAdWithError: %@", [error localizedDescription]);
+}
+
+- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial {
+    NSLog(@"interstitialDidDismissScreen");
 }
 @end

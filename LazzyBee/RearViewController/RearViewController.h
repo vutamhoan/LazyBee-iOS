@@ -9,21 +9,21 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-    RearTable_Section_Test1 = 0,
-    RearTable_Section_Test2,
+    RearTable_Section_Home = 0,
+    RearTable_Section_Support,
     RearTable_Section_Share,
     RearTable_Section_Max
 } REAR_TABLEVIEW_SECTION;
 
 typedef enum {
-    Test1Section_Test1 = 0,
-    Test1Section_Max
-} TEST1_SECTION_ITEM;
+    HomeSection_Home = 0,
+    HomeSection_Max
+} ABOUT_SECTION_ITEM;
 
 typedef enum {
-    Test2Section_Test1 = 0,
-    Test2Section_Max
-} TEST2_SECTION_ITEM;
+    SupportSection_Settings = 0,
+    SupportSection_Max
+} SUUPORT_SECTION_ITEM;
 
 typedef enum {
     ShareSection_ShareFB = 0,
@@ -34,11 +34,8 @@ typedef enum {
 @interface RearViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 {
     IBOutlet UILabel *lbName;
-//    IBOutlet UILabel *lbEmail;
     IBOutlet UIImageView *imgAvatar;
     IBOutlet UIImageView *imgCover;
-//    IBOutlet UIButton *btnLogout;
-//    IBOutlet UIButton *btnLogin;
     
 }
 @property (nonatomic, retain) IBOutlet UITableView *rearTableView;
