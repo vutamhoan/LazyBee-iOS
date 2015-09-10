@@ -413,7 +413,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     }
     
     //compare current date
-    NSTimeInterval curDate = [[Common sharedCommon] getCurrentDatetimeInSec];
+    NSTimeInterval curDate = [[Common sharedCommon] getCurrentDateInSec];   //just get time at the begin of day
     
     if (force == YES || (oldDate == 0 || curDate > oldDate + 24*3600)) {
         //get random 10 words in buffer from system table
@@ -468,7 +468,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
         
         //create json to add to db
         NSMutableDictionary *dictNewWords = [[NSMutableDictionary alloc] init];
-        NSString *strDate = [NSString stringWithFormat:@"%f",[[Common sharedCommon] getCurrentDatetimeInSec]];
+        NSString *strDate = [NSString stringWithFormat:@"%f",curDate];
         
         [dictNewWords setObject:strDate forKey:@"date"];
         [dictNewWords setObject:pickedIDArr forKey:@"card"];
@@ -619,7 +619,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
         [idListArr addObject:wordObj.wordid];
     }
     
-    //write to db
+    //open db
     NSString *dbPath = [self getDatabasePath];
     NSURL *storeURL = [NSURL URLWithString:dbPath];
     
@@ -635,11 +635,35 @@ static CommonSqlite* sharedCommonSqlite = nil;
     
     NSString *strQuery = @"";
     NSString *strJson = @"";
+    
+    //get old date, just update word-id list, keep old date
+    strQuery = @"SELECT value from \"system\" WHERE key = 'pickedword'";
+    
+    const char *charQuery = [strQuery UTF8String];
+    
+    sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+    
+    while(sqlite3_step(dbps) == SQLITE_ROW) {
+        if (sqlite3_column_text(dbps, 0)) {
+            strJson = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 0)];
+        }
+    }
+    
+    sqlite3_finalize(dbps);
+    
+    //parse the result to get old date
+    NSString *strOldDate = @"";
+    NSData *data = [strJson dataUsingEncoding:NSUTF8StringEncoding];
+    
+    if (data) {
+        NSDictionary *dictIDList = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        strOldDate = [dictIDList valueForKey:@"date"];
+    }
+    
     //create json to add to db
     NSMutableDictionary *dictNewWords = [[NSMutableDictionary alloc] init];
-    NSString *strDate = [NSString stringWithFormat:@"%f",[[Common sharedCommon] getCurrentDatetimeInSec]];
     
-    [dictNewWords setObject:strDate forKey:@"date"];
+    [dictNewWords setObject:strOldDate forKey:@"date"];
     [dictNewWords setObject:idListArr forKey:@"card"];
     
     //convert to json string
@@ -657,7 +681,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     //update new buffer to db
     strQuery = [NSString stringWithFormat:@"UPDATE \"system\" SET value = \'%@\' where key = 'pickedword'", strJson];
     
-    const char *charQuery = [strQuery UTF8String];
+    charQuery = [strQuery UTF8String];
     
     sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
     

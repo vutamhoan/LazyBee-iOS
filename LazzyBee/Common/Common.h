@@ -52,8 +52,8 @@ typedef enum {
 
 - (void)saveDataToPlistFile:(NSArray *)data plistFile:(NSString *)plistFile;
 - (NSArray *)loadDataFromPlist:(NSString *)plistFile;
-- (void)saveDataToUserDefaultStandard:(NSDictionary *)dictionary withKey:(NSString *)key;
-- (NSDictionary *)loadDataFromUserDefaultStandardWithKey:(NSString *)key;
+- (void)saveDataToUserDefaultStandard:(id)data withKey:(NSString *)key;
+- (id)loadDataFromUserDefaultStandardWithKey:(NSString *)key;
 
 - (NSString *)getCurrentDatetimeWithFormat:(NSString *)formatString;
 - (NSString *)dateStringFromDate:(NSDate *)date withFormat:(NSString *)formatString;

@@ -100,19 +100,17 @@
     return resArr;
 }
 
-- (void)saveDataToUserDefaultStandard:(NSDictionary *)dictionary withKey:(NSString *)key {
+- (void)saveDataToUserDefaultStandard:(id)data withKey:(NSString *)key {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dictionary];
-    
+   
     [defaults setObject:data forKey:key];
 }
 
-- (NSDictionary *)loadDataFromUserDefaultStandardWithKey:(NSString *)key {
+- (id)loadDataFromUserDefaultStandardWithKey:(NSString *)key {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *data = [defaults objectForKey:key];
-    NSDictionary *res = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    id data = [defaults objectForKey:key];
     
-    return res;
+    return data;
 }
 
 - (NSTimeInterval)getCurrentDatetimeInMinisec {

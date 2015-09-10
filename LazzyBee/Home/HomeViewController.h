@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@import GoogleMobileAds;
 
 @interface HomeViewController : UIViewController
 {
@@ -14,4 +15,7 @@
     IBOutlet UIView *viewInformation;
 
 }
+
+@property (weak, nonatomic) IBOutlet GADBannerView *adBanner;
+
 @end

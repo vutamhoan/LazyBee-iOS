@@ -13,6 +13,7 @@
 #import "RearTableViewCell.h"
 #import "AppDelegate.h"
 #import "HomeViewController.h"
+#import "SettingsViewController.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
@@ -59,11 +60,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == RearTable_Section_Test1) {
-        return Test1Section_Max;
+    if (section == RearTable_Section_Home) {
+        return HomeSection_Max;
         
-    } else if (section == RearTable_Section_Test2) {
-        return Test2Section_Max;
+    } else if (section == RearTable_Section_Support) {
+        return SupportSection_Max;
         
     } else if (section == RearTable_Section_Share) {
         return ShareSection_Max;
@@ -105,17 +106,17 @@
     
     NSString *text = @"";
     
-    if (indexPath.section == RearTable_Section_Test1) {
-        if (indexPath.row == Test1Section_Test1) {
-            text = @"Test1";
-            cell.imgIcon.image = [UIImage imageNamed:@"ic_heart"];
+    if (indexPath.section == RearTable_Section_Home) {
+        if (indexPath.row == HomeSection_Home) {
+            text = @"Home";
+            cell.imgIcon.image = [UIImage imageNamed:@"ic_home"];
         }
         
-    } else if(indexPath.section == RearTable_Section_Test2) {
+    } else if(indexPath.section == RearTable_Section_Support) {
         
-        if (indexPath.row == Test2Section_Test1) {
-            text = @"Test2";
-            cell.imgIcon.image = [UIImage imageNamed:@"ic_heart"];
+        if (indexPath.row == SupportSection_Settings) {
+            text = @"Settings";
+            cell.imgIcon.image = [UIImage imageNamed:@"ic_setting"];
         }
         
     } else if(indexPath.section == RearTable_Section_Share) {
@@ -146,8 +147,8 @@
     // otherwise we'll create a new frontViewController and push it with animation
 
     UIViewController *newFrontController = nil;
-    if (indexPath.section == RearTable_Section_Test1) {
-        if (indexPath.row == Test1Section_Test1) {
+    if (indexPath.section == RearTable_Section_Home) {
+        if (indexPath.row == HomeSection_Home) {
             HomeViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
             
             newFrontController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
@@ -157,8 +158,17 @@
             presentedCell = indexPath;  // <- store the presented row
         }
         
-    } else if (indexPath.section == RearTable_Section_Test2) {
-    
+    } else if (indexPath.section == RearTable_Section_Support) {
+        if (indexPath.row == SupportSection_Settings) {
+            SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
+            
+            newFrontController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+            
+            self.sidePanelController.centerPanel = newFrontController;
+            
+            presentedCell = indexPath;  // <- store the presented row
+        }
+        
     } else if (indexPath.section == RearTable_Section_Share) {
         FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
         content.contentURL = [NSURL URLWithString:@"https://appsto.re/vn/nTpy6.i"];

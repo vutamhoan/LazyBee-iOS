@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StudyWordViewController">
             <connections>
+                <outlet property="adBanner" destination="vxi-5A-nRf" id="Ya4-Fj-l5w"/>
                 <outlet property="btnAgain" destination="8ID-5O-DH1" id="Ely-hs-gOt"/>
                 <outlet property="btnEasy" destination="qJL-Ae-ZMZ" id="yeE-4c-g5m"/>
                 <outlet property="btnHard" destination="quq-gJ-D7i" id="Ibn-mv-Tf2"/>
@@ -72,11 +73,11 @@
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" id="vxi-5A-nRf">
+                <view contentMode="scaleToFill" id="vxi-5A-nRf" customClass="GADBannerView">
                     <rect key="frame" x="0.0" y="461" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reservation for ads" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gST-tw-WLF">
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reservation for ads" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gST-tw-WLF">
                             <rect key="frame" x="8" y="11" width="304" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -146,7 +147,7 @@ Again</string>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="325" y="460"/>
+            <point key="canvasLocation" x="389" y="413"/>
         </view>
     </objects>
     <resources>

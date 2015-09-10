@@ -23,6 +23,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [self copyDatabaseIntoDocumentsDirectory];
+    [self initialConfiguration];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -35,6 +36,9 @@
     JASidePanelController *jaSidePanel = [[JASidePanelController alloc] init];
     jaSidePanel.leftPanel = rearNavigationController;
     jaSidePanel.centerPanel = homeNav;
+    
+    jaSidePanel.bounceOnCenterPanelChange = NO;
+    jaSidePanel.shouldResizeLeftPanel = YES;
     
     self.window.rootViewController = jaSidePanel;
     [self.window makeKeyAndVisible];
@@ -64,7 +68,7 @@
 }
 
 
--(void)copyDatabaseIntoDocumentsDirectory {
+- (void)copyDatabaseIntoDocumentsDirectory {
     NSString *destinationPath = [[[Common sharedCommon] documentsFolder] stringByAppendingPathComponent:DATABASENAME];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:destinationPath]) {
@@ -77,6 +81,29 @@
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
         }
+    }
+}
+
+- (void)initialConfiguration {
+    NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"SpeakingSpeed"];
+    
+    if (!speedNumberObj) {
+        speedNumberObj = [NSNumber numberWithFloat:0.1];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:speedNumberObj withKey:@"SpeakingSpeed"];
+    }
+    
+    NSString *remindTime = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"RemindTime"];
+    
+    if (!remindTime) {
+        remindTime = @"8:00";
+        [[Common sharedCommon] saveDataToUserDefaultStandard:remindTime withKey:@"RemindTime"];
+    }
+    
+    NSNumber *reminderNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"ReminderOnOff"];
+    
+    if (!reminderNumberObj) {
+        reminderNumberObj = [NSNumber numberWithBool:YES];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:reminderNumberObj withKey:@"ReminderOnOff"];
     }
 }
 
