@@ -71,7 +71,7 @@
         if (_studyScreenMode == Mode_New_Word) {
             title = @"New Word";
         } else if (_studyScreenMode == Mode_Study) {
-            title = @"Study Again";
+            title = @"Learn Again";
         } else if (_studyScreenMode == Mode_Review) {
             title = @"Review";
         }
@@ -144,11 +144,11 @@
 - (void)setStudyScreenMode:(STUDY_SCREEN_MODE)studyScreenMode {
     _studyScreenMode = studyScreenMode;
     
-    NSString *title = @"Study";
+    NSString *title = @"Learn";
     if (_studyScreenMode == Mode_New_Word) {
         title = @"New Word";
     } else if (_studyScreenMode == Mode_Study) {
-        title = @"Study Again";
+        title = @"Learn Again";
     } else if (_studyScreenMode == Mode_Review) {
         title = @"Review";
     }
@@ -175,7 +175,7 @@
 
 - (void)showActionsPanel {
     if (_isReviewScreen) {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Add to study" otherButtonTitles: nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Add to learn" otherButtonTitles: nil];
         
         actionSheet.tag = 1;
         actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
@@ -429,7 +429,7 @@
     
     if (actionSheet.tag == 1) {
         if (buttonIndex == 0) {
-            NSLog(@"Add to study");
+            NSLog(@"Add to laern");
             [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:_wordObj];
             
         } else if (buttonIndex == 3) {

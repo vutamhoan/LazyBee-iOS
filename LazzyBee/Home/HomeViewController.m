@@ -11,6 +11,7 @@
 #import "StudiedListViewController.h"
 #import "CommonDefine.h"
 #import "CommonSqlite.h"
+#import "Common.h"
 
 @interface HomeViewController ()<GADInterstitialDelegate>
 {
@@ -37,7 +38,7 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
-    [self setTitle:@"LazzyBee"];
+    [self setTitle:@"Lazzy Bee"];
 
 //    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchBar)];
 //    
@@ -88,11 +89,11 @@
 #pragma mark buttons handle
 - (IBAction)btnStudyClick:(id)sender {
     //check and pick new words
-    if ([[CommonSqlite sharedCommonSqlite] getCountOfBuffer] < PICKED_WORDS_QUEUE_SIZE) {
+    if ([[CommonSqlite sharedCommonSqlite] getCountOfBuffer] < [[Common sharedCommon] getDailyTarget]) {
         [[CommonSqlite sharedCommonSqlite] prepareWordsToStudyingQueue:BUFFER_SIZE];
     }
     
-    [[CommonSqlite sharedCommonSqlite] pickUpRandom10WordsToStudyingQueue:PICKED_WORDS_QUEUE_SIZE withForceFlag:NO];
+    [[CommonSqlite sharedCommonSqlite] pickUpRandom10WordsToStudyingQueue:[[Common sharedCommon] getDailyTarget] withForceFlag:NO];
     
     StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
     
@@ -110,18 +111,18 @@
     NSInteger count = [[CommonSqlite sharedCommonSqlite] getCountOfPickedWord];
     
     if (count > 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notice" message:@"You need to complete your current target before add more words." delegate:(id)self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Study now", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notice" message:@"You need to complete your current target before add more words." delegate:(id)self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Learn now", nil];
         alert.tag = 1;
         
         [alert show];
         
     } else {
         //pick more words from buffer
-        if ([[CommonSqlite sharedCommonSqlite] getCountOfBuffer] < PICKED_WORDS_QUEUE_SIZE) {
+        if ([[CommonSqlite sharedCommonSqlite] getCountOfBuffer] < [[Common sharedCommon] getDailyTarget]) {
             [[CommonSqlite sharedCommonSqlite] prepareWordsToStudyingQueue:BUFFER_SIZE];
         }
         
-        [[CommonSqlite sharedCommonSqlite] pickUpRandom10WordsToStudyingQueue:PICKED_WORDS_QUEUE_SIZE withForceFlag:YES];
+        [[CommonSqlite sharedCommonSqlite] pickUpRandom10WordsToStudyingQueue:[[Common sharedCommon] getDailyTarget] withForceFlag:YES];
         
         //transfer to study screen
         StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
@@ -161,7 +162,7 @@
 
 - (void)noWordToStudyToday {
     //show alert to congrat
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"There is no more word to study today. Click \"More Words\" if you really want to study more." delegate:(id)self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"There is no more word to learn today. Click \"More Words\" if you really want to learn more." delegate:(id)self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     alert.tag = 3;
     
     [alert show];
