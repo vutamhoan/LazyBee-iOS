@@ -62,7 +62,7 @@
                     <rect key="frame" x="8" y="273" width="150" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title="Studied List" backgroundImage="btnbg.png"/>
+                    <state key="normal" title="Learned List" backgroundImage="btnbg.png"/>
                     <connections>
                         <action selector="btnStudiedListClick:" destination="-1" eventType="touchUpInside" id="kFI-dv-jRg"/>
                     </connections>
@@ -80,7 +80,7 @@
                     <rect key="frame" x="8" y="227" width="304" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title="Study" backgroundImage="btnbg.png"/>
+                    <state key="normal" title="Start Learning" backgroundImage="btnbg.png"/>
                     <connections>
                         <action selector="btnStudyClick:" destination="-1" eventType="touchUpInside" id="yAD-81-Bkl"/>
                     </connections>

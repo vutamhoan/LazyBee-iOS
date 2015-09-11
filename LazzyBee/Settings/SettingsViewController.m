@@ -14,9 +14,12 @@
 #import "DailyTargetViewController.h"
 #import "NotificationTableViewCell.h"
 #import "TimeTableViewCell.h"
+#import "TimerViewController.h"
 
 @interface SettingsViewController ()
-
+{
+    TimerViewController *timerView;
+}
 @end
 
 @implementation SettingsViewController
@@ -36,6 +39,11 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
     [self setTitle:@"Settings"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateSettingsScreen)
+                                                 name:@"updateSettingsScreen"
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,6 +60,10 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)updateSettingsScreen {
+    [settingsTableView reloadData];
+}
 
 #pragma mark data source
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -89,7 +101,7 @@
         return @"Speaking Speed";
         
     } else if (section == SettingsTableViewSectionNotification) {
-        return @"Notification";
+        return @"Reminder";
     }
     
     return @"";
@@ -193,6 +205,10 @@
                             cell.accessoryType = UITableViewCellAccessoryNone;
                         }
                         
+                        cell.textLabel.textColor = [UIColor blackColor];
+                        cell.textLabel.font = [UIFont systemFontOfSize:16];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                        
                         NSString *time = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"RemindTime"];
                         
                         if (time) {
@@ -240,11 +256,26 @@
             break;
             
         case SettingsTableViewSectionDailyTarget:
-
+            {
+                DailyTargetViewController *dailyTargetView = [[DailyTargetViewController alloc] initWithNibName:@"DailyTargetViewController" bundle:nil];
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:dailyTargetView];
+                
+                [self.navigationController presentViewController:nav animated:YES completion:nil];
+            }
             break;
             
         case SettingsTableViewSectionNotification:
-
+            switch (indexPath.row) {
+                case NotificationOnOff:
+                    break;
+                    
+                case NotificationTime:
+                    [self showTimePicker];
+                    break;
+                    
+                default:
+                    break;
+            }
             break;
             
         default:
@@ -264,5 +295,21 @@
     return;
 }
 
+- (void)showTimePicker {
+    timerView = [[TimerViewController alloc] initWithNibName:@"TimerViewController" bundle:nil];
 
+    timerView.view.alpha = 0;
+//    
+//    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    CGRect rect = self.view.frame;
+    rect.origin.y = 0;
+    [timerView.view setFrame:rect];
+    
+    [self.view addSubview:timerView.view];
+    
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        timerView.view.alpha = 1;
+    }];
+}
 @end

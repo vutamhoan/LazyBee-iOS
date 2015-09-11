@@ -113,16 +113,24 @@
     return data;
 }
 
+- (NSInteger)getDailyTarget {
+    NSNumber *target  = [self loadDataFromUserDefaultStandardWithKey:@"DailyTarget"];
+    
+    return [target integerValue];
+}
+
 - (NSTimeInterval)getCurrentDatetimeInMinisec {
     
-    NSTimeInterval datetime = [[NSDate date] timeIntervalSince1970] * 1000;
+    NSString *curDateString = [self getCurrentDatetimeWithFormat:@"dd/MM/yyyy HH:mm:ss"];
+    NSDate *curDate = [self dateFromString:curDateString];
+    NSTimeInterval datetime = [curDate timeIntervalSince1970] * 1000;
     
     return datetime;
 }
 
 //doesn't count seconds
-- (NSTimeInterval)getCurrentDateInMinisec {
-    NSString *curDateString = [self getCurrentDatetimeWithFormat:@"dd/MM/yyyy"];
+- (NSTimeInterval)getBeginOfDayInMinisec {
+    NSString *curDateString = [self getCurrentDatetimeWithFormat:@"dd/MM/yyyy 00:00:00"];
     NSDate *curDate = [self dateFromString:curDateString];
     NSTimeInterval datetime = [curDate timeIntervalSince1970] * 1000;
     
@@ -131,14 +139,16 @@
 
 - (NSTimeInterval)getCurrentDatetimeInSec {
     
-    NSTimeInterval datetime = [[NSDate date] timeIntervalSince1970];
+    NSString *curDateString = [self getCurrentDatetimeWithFormat:@"dd/MM/yyyy HH:mm:ss"];
+    NSDate *curDate = [self dateFromString:curDateString];
+    NSTimeInterval datetime = [curDate timeIntervalSince1970];
     
     return datetime;
 }
 
 //doesn't count seconds
-- (NSTimeInterval)getCurrentDateInSec {
-    NSString *curDateString = [self getCurrentDatetimeWithFormat:@"dd/MM/yyyy"];
+- (NSTimeInterval)getBeginOfDayInSec {
+    NSString *curDateString = [self getCurrentDatetimeWithFormat:@"dd/MM/yyyy 00:00:00"];
     NSDate *curDate = [self dateFromString:curDateString];
     NSTimeInterval datetime = [curDate timeIntervalSince1970];
     
@@ -160,9 +170,11 @@
     //this format must be corresponding to the format of publication.revisionDate
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     
-    // set locale default = Eng
-//    NSLocale *englishLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en"];
-//    [format setLocale:englishLocale];
+    NSString *locale = [[NSLocale currentLocale] localeIdentifier];
+    NSLocale *currentLocale = [[NSLocale alloc] initWithLocaleIdentifier:locale];
+    [format setLocale:currentLocale];
+    [format setTimeZone:[NSTimeZone localTimeZone]];
+    
     [format setDateFormat:formatString];
     
     // set default NSGregorianCalendar
@@ -180,9 +192,10 @@
     //this format must be corresponding to the format of publication.revisionDate
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     
-    // set locale default = Eng
-//    NSLocale *englishLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en"];
-//    [format setLocale:englishLocale];
+    NSString *locale = [[NSLocale currentLocale] localeIdentifier];
+    NSLocale *currentLocale = [[NSLocale alloc] initWithLocaleIdentifier:locale];
+    [format setLocale:currentLocale];
+    [format setTimeZone:[NSTimeZone localTimeZone]];
     [format setDateFormat:@"HH:mm"];
     
     // set default NSGregorianCalendar
@@ -198,8 +211,10 @@
 
 - (NSDate *)dateFromString:(NSString *)dateStr {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-//    NSLocale *englishLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en"];
-//    [dateFormatter setLocale:englishLocale];
+    NSString *locale = [[NSLocale currentLocale] localeIdentifier];
+    NSLocale *currentLocale = [[NSLocale alloc] initWithLocaleIdentifier:locale];
+    [dateFormatter setLocale:currentLocale];
+    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
     
     NSDate *date = [dateFormatter dateFromString:dateStr];
     //Apr 25, 2015 5:15:22 AM
@@ -244,6 +259,16 @@
     }
     
     if (date == nil) {
+        dateFormatter.dateFormat = @"dd/MM/yyyy HH:mm:ss";
+        date = [dateFormatter dateFromString:dateStr];
+    }
+    
+    if (date == nil) {
+        dateFormatter.dateFormat = @"dd/MM/yyyy HH:mm";
+        date = [dateFormatter dateFromString:dateStr];
+    }
+    
+    if (date == nil) {
         dateFormatter.dateFormat = @"dd/MM/yyyy";
         date = [dateFormatter dateFromString:dateStr];
     }
@@ -255,6 +280,11 @@
     
     if (date == nil) {
         dateFormatter.dateFormat = @"yyyy/MM/dd";
+        date = [dateFormatter dateFromString:dateStr];
+    }
+    
+    if (date == nil) {
+        dateFormatter.dateFormat = @"HH:mm";
         date = [dateFormatter dateFromString:dateStr];
     }
     

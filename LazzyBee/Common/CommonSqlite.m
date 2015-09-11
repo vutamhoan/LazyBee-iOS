@@ -223,7 +223,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSTimeInterval)getEndOfDayInSec {
-    NSTimeInterval datetime = [[Common sharedCommon] getCurrentDateInSec];
+    NSTimeInterval datetime = [[Common sharedCommon] getBeginOfDayInSec];
     
     datetime = datetime + 24*3600;
     
@@ -413,7 +413,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     }
     
     //compare current date
-    NSTimeInterval curDate = [[Common sharedCommon] getCurrentDateInSec];   //just get time at the begin of day
+    NSTimeInterval curDate = [[Common sharedCommon] getBeginOfDayInSec];   //just get time at the begin of day
     
     if (force == YES || (oldDate == 0 || curDate > oldDate + 24*3600)) {
         //get random 10 words in buffer from system table
@@ -450,7 +450,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
         NSMutableDictionary *preventDuplicateDict = [[NSMutableDictionary alloc] init]; //to prevent duplicate words
         NSString *strIndex = @"";
         
-        while ([pickedIDArr count] < PICKED_WORDS_QUEUE_SIZE) {
+        while ([pickedIDArr count] < [[Common sharedCommon] getDailyTarget]) {
             randomIndex = arc4random() % [idListArr count];
             strIndex = [NSString stringWithFormat:@"%ld", randomIndex];
             

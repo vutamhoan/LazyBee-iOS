@@ -137,12 +137,15 @@
     //"common":{"meaning":"", "explain":"<p>The edge of something is the part of it that is farthest from the center.</p>", "example":"<p>He ran to the edge of the cliff.</p>"}}
     
     NSString *strMeaning = [dictSinglePackage valueForKey:@"meaning"];
-    strMeaning = [[Common sharedCommon] stringByRemovingHTMLTag:strMeaning];
+//    strMeaning = [[Common sharedCommon] stringByRemovingHTMLTag:strMeaning];
     
     cell.lbWord.text = wordObj.question;
     cell.lbPronounce.text = strPronounciation;
-    cell.lbMeaning.text = strMeaning;
+//    cell.lbMeaning.text = strMeaning;
     
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[strMeaning dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    
+    cell.lbMeaning.attributedText = attributedString;
     return cell;
 }
 

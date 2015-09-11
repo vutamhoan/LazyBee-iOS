@@ -171,7 +171,7 @@
         
     } else if (indexPath.section == RearTable_Section_Share) {
         FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-        content.contentURL = [NSURL URLWithString:@"https://appsto.re/vn/nTpy6.i"];
+        content.contentURL = [NSURL URLWithString:@"http://www.lazzybee.com"];
         
         FBSDKShareDialog *shareDialog = [[FBSDKShareDialog alloc] init];
         shareDialog.shareContent = content;
