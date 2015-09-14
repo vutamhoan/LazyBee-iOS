@@ -260,6 +260,9 @@
                 DailyTargetViewController *dailyTargetView = [[DailyTargetViewController alloc] initWithNibName:@"DailyTargetViewController" bundle:nil];
                 UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:dailyTargetView];
                 
+                [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+                [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+                
                 [self.navigationController presentViewController:nav animated:YES completion:nil];
             }
             break;

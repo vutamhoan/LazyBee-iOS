@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setTitle:@"Studied list"];
+    [self setTitle:@"Learned List"];
     
     levelsDictionary = [[NSMutableDictionary alloc] init];
     
@@ -80,7 +80,9 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *headerTitle = [NSString stringWithFormat:@"Level %@", [keyArr objectAtIndex:section]];
+    NSString *key = [keyArr objectAtIndex:section];
+    
+    NSString *headerTitle = [NSString stringWithFormat:@"Level %@: %ld word(s)", key, [[levelsDictionary objectForKey:key] count]];
     
     return headerTitle;
 }

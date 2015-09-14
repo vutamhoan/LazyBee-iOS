@@ -212,13 +212,11 @@ static HTMLHelper* sharedHTMLHelper = nil;
     
     "           <p style=\"text-align: center;\"> %@ </p>\n"  //%@ will be replaced by image link, temporary leave it blank
     
-    "       <div style=\"width:100%%\">\n"
+    "       <div style=\"width:100%%\"></div>\n"
     "            %@ \n"     //%@ will be replaced by strExplainIconTag
-    "       </div>\n"
     
-    "       <div style=\"width:100%%\"><strong>Example: </strong>\n"
+    "       <div style=\"width:100%%\"><strong>Example: </strong></div>\n"
     "            %@ \n"     //%@ will be replaced by strExplainIconTag
-    "       </div>\n"
     
     "   </div>\n"
     "   </body>"

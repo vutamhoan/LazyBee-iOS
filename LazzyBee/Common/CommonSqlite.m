@@ -415,7 +415,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     //compare current date
     NSTimeInterval curDate = [[Common sharedCommon] getBeginOfDayInSec];   //just get time at the begin of day
     
-    if (force == YES || (oldDate == 0 || curDate > oldDate + 24*3600)) {
+    if (force == YES || (oldDate == 0 || curDate >= oldDate + 24*3600)) {
         //get random 10 words in buffer from system table
         strQuery = @"SELECT value from \"system\" WHERE key = 'buffer'";
         

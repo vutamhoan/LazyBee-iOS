@@ -67,7 +67,7 @@
         
         self.navigationItem.rightBarButtonItems = @[actionButton, searchButton];
         
-        NSString *title = @"Study";
+        NSString *title = @"Learn";
         if (_studyScreenMode == Mode_New_Word) {
             title = @"New Word";
         } else if (_studyScreenMode == Mode_Study) {

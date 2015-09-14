@@ -78,6 +78,7 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [FBSDKAppEvents activateApp];
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -153,6 +154,7 @@
         locNotification.repeatCalendar = [NSCalendar currentCalendar];
         locNotification.repeatInterval = kCFCalendarUnitWeekday;
         locNotification.soundName = UILocalNotificationDefaultSoundName;
+        locNotification.applicationIconBadgeNumber = 1;
         
         [[UIApplication sharedApplication] scheduleLocalNotification:locNotification];
     }
