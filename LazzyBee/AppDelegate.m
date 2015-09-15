@@ -41,7 +41,7 @@
     
     jaSidePanel.bounceOnCenterPanelChange = NO;
     jaSidePanel.shouldResizeLeftPanel = YES;
-    jaSidePanel.allowLeftOverpan = YES;
+    jaSidePanel.leftFixedWidth = 260;
     
     self.window.rootViewController = jaSidePanel;
     [self.window makeKeyAndVisible];

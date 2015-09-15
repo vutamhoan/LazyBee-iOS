@@ -33,6 +33,7 @@
 - (void)updatePickedWordList:(NSArray *)wordsArr;
 - (NSInteger)getCountOfPickedWord;
 - (NSInteger)getCountOfBuffer;
+- (void)resetDateOfPickedWordList;
 @end
 
 #endif

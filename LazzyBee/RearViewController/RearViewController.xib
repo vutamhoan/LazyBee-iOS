@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RearViewController">
             <connections>
+                <outlet property="lbVersion" destination="Lyn-KR-ip0" id="wy0-6t-gzX"/>
                 <outlet property="rearTableView" destination="20" id="24"/>
                 <outlet property="view" destination="1" id="21"/>
             </connections>
@@ -27,7 +28,7 @@
                     <gestureRecognizers/>
                 </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="20">
-                    <rect key="frame" x="0.0" y="110" width="320" height="350"/>
+                    <rect key="frame" x="0.0" y="110" width="320" height="320"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
@@ -35,6 +36,13 @@
                         <outlet property="delegate" destination="-1" id="23"/>
                     </connections>
                 </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="version" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Lyn-KR-ip0">
+                    <rect key="frame" x="8" y="433" width="304" height="21"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.19782162410000001" alpha="1" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
