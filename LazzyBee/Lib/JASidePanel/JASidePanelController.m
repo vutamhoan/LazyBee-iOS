@@ -203,46 +203,44 @@ static char ja_kvoContext;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-//    __strong UIViewController *visiblePanel = self.visiblePanel;
-//
-//    if (self.shouldDelegateAutorotateToVisiblePanel) {
-//        return [visiblePanel shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
-//    } else {
-//        return YES;
-//    }
-    return NO;
+    __strong UIViewController *visiblePanel = self.visiblePanel;
+
+    if (self.shouldDelegateAutorotateToVisiblePanel) {
+        return [visiblePanel shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
+    } else {
+        return YES;
+    }
 }
 
 #else
 
 - (BOOL)shouldAutorotate {
-//    __strong UIViewController *visiblePanel = self.visiblePanel;
-//
-//    if (self.shouldDelegateAutorotateToVisiblePanel && [visiblePanel respondsToSelector:@selector(shouldAutorotate)]) {
-//        return [visiblePanel shouldAutorotate];
-//    } else {
-//        return YES;
-//    }
-    return NO;
-}
+    __strong UIViewController *visiblePanel = self.visiblePanel;
 
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
+    if (self.shouldDelegateAutorotateToVisiblePanel && [visiblePanel respondsToSelector:@selector(shouldAutorotate)]) {
+        return [visiblePanel shouldAutorotate];
+    } else {
+        return YES;
+    }
 }
+//
+//- (NSUInteger)supportedInterfaceOrientations {
+//    return UIInterfaceOrientationMaskPortrait;
+//}
 
 #endif
 
-//- (void)willAnimateRotationToInterfaceOrientation:(__unused UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-//    self.centerPanelContainer.frame = [self _adjustCenterFrame];	
-//    [self _layoutSideContainers:YES duration:duration];
-//    [self _layoutSidePanels];
-//    [self styleContainer:self.centerPanelContainer animate:YES duration:duration];
-//    if (self.centerPanelHidden) {
-//        CGRect frame = self.centerPanelContainer.frame;
-//        frame.origin.x = self.state == JASidePanelLeftVisible ? self.centerPanelContainer.frame.size.width : -self.centerPanelContainer.frame.size.width;
-//        self.centerPanelContainer.frame = frame;
-//    }
-//}
+- (void)willAnimateRotationToInterfaceOrientation:(__unused UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    self.centerPanelContainer.frame = [self _adjustCenterFrame];	
+    [self _layoutSideContainers:YES duration:duration];
+    [self _layoutSidePanels];
+    [self styleContainer:self.centerPanelContainer animate:YES duration:duration];
+    if (self.centerPanelHidden) {
+        CGRect frame = self.centerPanelContainer.frame;
+        frame.origin.x = self.state == JASidePanelLeftVisible ? self.centerPanelContainer.frame.size.width : -self.centerPanelContainer.frame.size.width;
+        self.centerPanelContainer.frame = frame;
+    }
+}
 
 #pragma mark - State
 

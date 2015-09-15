@@ -45,17 +45,16 @@
             //hide buttons panel and "show answer" panel, expand webview full screen
             viewButtonsPanel.hidden = YES;
             viewShowAnswer.hidden = YES;
-            
-            CGRect mainRect = [UIScreen mainScreen].bounds;
-            CGRect adsViewRect = viewReservationForAds.frame;
+
+//            CGRect adsViewRect = viewReservationForAds.frame;
             CGRect webViewRect = webViewWord.frame;
+            CGRect showAnswerrect = viewShowAnswer.frame;
             
             webViewRect.origin.y = 0;
-            webViewRect.size.height = mainRect.size.height - adsViewRect.size.height;
+            webViewRect.size.height = showAnswerrect.origin.y;
             [webViewWord setFrame:webViewRect];
-            
-            adsViewRect.origin.y = webViewRect.size.height;
-            [viewReservationForAds setFrame:adsViewRect];
+
+            [viewReservationForAds setFrame:showAnswerrect];
             
             //show word
             [self displayAnswer:_wordObj];
@@ -67,7 +66,7 @@
         
         self.navigationItem.rightBarButtonItems = @[actionButton, searchButton];
         
-        NSString *title = @"Study";
+        NSString *title = @"Learn";
         if (_studyScreenMode == Mode_New_Word) {
             title = @"New Word";
         } else if (_studyScreenMode == Mode_Study) {
@@ -200,7 +199,6 @@
     [btnEasy setTitle:[NSString stringWithFormat:@"%@\n(Easy)", [arrTitle objectAtIndex:3]] forState:UIControlStateNormal];
     
     [UIView animateWithDuration:0.3 animations:^(void) {
-        CGRect mainRect = [UIScreen mainScreen].bounds;
         CGRect showAnswerrect = viewShowAnswer.frame;
         CGRect buttonsPanelRect = viewButtonsPanel.frame;
         
@@ -209,7 +207,7 @@
             buttonsPanelRect.origin.y = showAnswerrect.origin.y;
         } else {
             //move buttons panel from the screen
-            buttonsPanelRect.origin.y = mainRect.size.height;
+            buttonsPanelRect.origin.y = showAnswerrect.origin.y + buttonsPanelRect.size.height;
         }
         
         [viewButtonsPanel setFrame:buttonsPanelRect];

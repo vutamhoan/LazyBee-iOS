@@ -36,6 +36,7 @@ typedef enum {
     IBOutlet UILabel *lbName;
     IBOutlet UIImageView *imgAvatar;
     IBOutlet UIImageView *imgCover;
+    IBOutlet UILabel *lbVersion;
     
 }
 @property (nonatomic, retain) IBOutlet UITableView *rearTableView;

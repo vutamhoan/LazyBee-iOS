@@ -157,6 +157,8 @@
 
 - (NSString *)getCurrentDatetimeWithFormat:(NSString *)formatString {
     NSString *dateString = nil;
+    NSLocale* currentLocale = [NSLocale currentLocale];
+    [[NSDate date] descriptionWithLocale:currentLocale];
     
     NSDate *curDate = [NSDate date];
     
@@ -177,13 +179,8 @@
     
     [format setDateFormat:formatString];
     
-    // set default NSGregorianCalendar
-    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDateComponents *components = [gregorianCalendar components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitYear |NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:date];
-    NSDate *dateNew = [gregorianCalendar dateFromComponents:components];
-    
-    dateString = [format stringFromDate:dateNew];
-    format = nil;
+    dateString = [format stringFromDate:date];
+
     return dateString;
 }
 

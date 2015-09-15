@@ -45,6 +45,10 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
     self.navigationController.navigationBarHidden = YES;
+    
+    NSString *appVer = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+    
+    lbVersion.text = [NSString stringWithFormat:@"Version %@", appVer];
 
 }
 

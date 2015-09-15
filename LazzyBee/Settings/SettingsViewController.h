@@ -13,6 +13,7 @@ typedef enum {
     SettingsTableViewSectionSpeech,
     SettingsTableViewSectionDailyTarget,
     SettingsTableViewSectionNotification,
+    SettingsTableViewSectionReset,
     SettingsTableViewSectionMax
 } SETTINGS_TABLEVIEW_SECTION;
 
@@ -36,6 +37,11 @@ typedef enum {
     NotificationTime,
     NotificationSectionMax
 } NOTIFICATION_SECTION;
+
+typedef enum {
+    Reset = 0,
+    ResetSectionMax
+} RESET_SECTION;
 
 @interface SettingsViewController : UIViewController
 {

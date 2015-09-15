@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import "CommonSqlite.h"
 #import "AboutViewController.h"
 #import "Common.h"
 #import "AppDelegate.h"
@@ -15,6 +16,7 @@
 #import "NotificationTableViewCell.h"
 #import "TimeTableViewCell.h"
 #import "TimerViewController.h"
+
 
 @interface SettingsViewController ()
 {
@@ -90,6 +92,9 @@
         
     } else if (section == SettingsTableViewSectionNotification) {
         return NotificationSectionMax;
+        
+    } else if (section == SettingsTableViewSectionReset) {
+        return ResetSectionMax;
     }
     
     
@@ -224,6 +229,26 @@
             }
             break;
             
+            case SettingsTableViewSectionReset:
+            {
+                NSString *updateDateCellIdentifier = @"UpdateCurrentDateCell";
+                
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:updateDateCellIdentifier];
+                if (cell == nil) {
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:updateDateCellIdentifier];
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                }
+                
+                cell.textLabel.textColor = [UIColor blackColor];
+                cell.textLabel.font = [UIFont systemFontOfSize:16];
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                
+                cell.textLabel.text = @"Update current date";
+                
+                return cell;
+            }
+                break;
+                
         default:
             break;
     }
@@ -260,6 +285,9 @@
                 DailyTargetViewController *dailyTargetView = [[DailyTargetViewController alloc] initWithNibName:@"DailyTargetViewController" bundle:nil];
                 UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:dailyTargetView];
                 
+                [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+                [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+                
                 [self.navigationController presentViewController:nav animated:YES completion:nil];
             }
             break;
@@ -276,6 +304,17 @@
                 default:
                     break;
             }
+            break;
+            
+        case SettingsTableViewSectionReset:
+        {
+            [[CommonSqlite sharedCommonSqlite] resetDateOfPickedWordList];
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Date is updated." delegate:(id)self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            alert.tag = 1;
+            
+            [alert show];
+        }
             break;
             
         default:
