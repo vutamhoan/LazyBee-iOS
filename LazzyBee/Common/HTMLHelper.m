@@ -60,30 +60,38 @@ static HTMLHelper* sharedHTMLHelper = nil;
                                     "}"
                                 "</style>\n"
                                 "<script>"
-                                    "function playWord() {"
+                                    //play the text
+                                    "function playText(content, rate) {"
                                     "   var speaker = new SpeechSynthesisUtterance();"
-                                    "   speaker.text = \' %@ \';"   //%@ will be replaced by word
+                                    "   speaker.text = content;"
                                     "   speaker.lang = 'en-US';"
-                                    "   speaker.rate = 0.25;"
+                                    "   speaker.rate = rate;" //0.1
                                     "   speaker.pitch = 1.0;"
                                     "   speaker.volume = 1.0;"
                                     "   speechSynthesis.speak(speaker);"
                                     "}"
                                 "</script>"
                             "</head>\n"
-                            "<body onload='playWord()'>\n"
+                            "<body >\n"
                                 "<div style='width:100%%'>\n"
-                                "<div style='float:left;width:90%%;text-align: center;'>\n"
-                                "<strong style='font-size:20pt;'> %@ </strong>\n"   //%@ will be replaced by word
-                                "</div>\n"
-                                "<div style='float:left;width:10%%'>\n"
-                                "<a onclick='playWord();'><img src='ic_speaker.png'/><p>\n"
-                                "</div>\n"
+                                "%@\n"  //strWordIconTag
                                 "</div>\n"
                             "</body>\n"
                             "</html>";
     
-    htmlString = [NSString stringWithFormat:htmlString, word, word];
+    NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"SpeakingSpeed"];
+    float speed = 2*[speedNumberObj floatValue];
+    
+    NSString *strWordIconTag = @"<div style='float:left;width:90%%;text-align: center;'>\n"
+                        "<strong style='font-size:20pt;'> %@ </strong>\n"   //%@ will be replaced by word
+                        "</div>\n"
+                        "<div style='float:left;width:10%%'>\n"
+                        "<a onclick='playText(\"%@\", %f);'><img src='ic_speaker.png'/><p>\n"
+                        "</div>\n";
+    
+    strWordIconTag = [NSString stringWithFormat:strWordIconTag, word, word, speed];
+    
+    htmlString = [NSString stringWithFormat:htmlString, strWordIconTag];
     
     return htmlString;
 }
@@ -128,14 +136,20 @@ static HTMLHelper* sharedHTMLHelper = nil;
     NSString *strExampleIconTag = @"";
     
     NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"SpeakingSpeed"];
-    float speed = [speedNumberObj floatValue];
+    float speed = 2*[speedNumberObj floatValue];
     //create html
+    
+    NSString *strWordIconTag = @"<div style='float:left;width:10%%'>\n"
+                                "<a onclick='playText(\"%@\", %f);'><img src='ic_speaker.png'/></a>\n"
+                                "</div>\n";
+    strWordIconTag = [NSString stringWithFormat:strWordIconTag, word.question, speed];
+    
     if (strExplanation && strExplanation.length > 0) {
         strExplainIconTag = @"<div style=\"float:left;width:90%%\">"
                             "   <em>%@</em> \n" //%@ will be replaced by strExplanation
                             "</div>\n"
                             "<div style=\"float:left;width:10%%\">\n "
-                            "   <p><a onclick='playLongText(\"%@\", %f);'><img src='ic_speaker.png'/></a></p>\n"  //%@ will be replaced by strExplanation
+                            "   <p><a onclick='playText(\"%@\", %f);'><img src='ic_speaker.png'/></a></p>\n"  //%@ will be replaced by strExplanation
                             "</div>\n";
         strExplainIconTag = [NSString stringWithFormat:strExplainIconTag, strExplanation, plainExplanation, speed];
     }
@@ -145,7 +159,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
                             "   <em>%@</em> \n" //%@ will be replaced by strExample
                             "</div>\n"
                             "<div style=\"float:left;width:10%%\">\n "
-                            "   <p><a onclick='playLongText(\"%@\", %f);'><img src='ic_speaker.png'/></a></p>\n"  //%@ will be replaced by strExample
+                            "   <p><a onclick='playText(\"%@\", %f);'><img src='ic_speaker.png'/></a></p>\n"  //%@ will be replaced by strExample
                             "</div>\n";
         strExampleIconTag = [NSString stringWithFormat:strExampleIconTag, strExample, plainExample, speed];
     }
@@ -171,18 +185,9 @@ static HTMLHelper* sharedHTMLHelper = nil;
         "}"
     "</style>\n"
     "<script>"
-    //play the word
-    "function playWord() {"
-    "   var speaker = new SpeechSynthesisUtterance();"
-    "   speaker.text = \' %@ \';"   //%@ will be replaced by word
-    "   speaker.lang = 'en-US';"
-    "   speaker.rate = 0.25;"//0.25
-    "   speaker.pitch = 1.0;"
-    "   speaker.volume = 1.0;"
-    "   speechSynthesis.speak(speaker);"
-    "}"
-    //play the explanation
-    "function playLongText(content, rate) {"
+
+    //play the text
+    "function playText(content, rate) {"
     "   var speaker = new SpeechSynthesisUtterance();"
     "   speaker.text = content;"
     "   speaker.lang = 'en-US';"
@@ -194,16 +199,14 @@ static HTMLHelper* sharedHTMLHelper = nil;
     "</script>"
     
     "</head>\n"
-    "<body ((onload == true) ? onload='question.playQuestion()' : \"\")>\n"
+    "<body>\n"
     "   <div style='width:100%%'>\n"
     
     "       <div style='float:left;width:90%%;text-align: center;'>\n"
     "           <strong style='font-size:20pt;'> %@ </strong>\n"    //%@ will be replaced by word
     "       </div>\n"
     
-    "       <div style='float:left;width:10%%'>\n"
-    "           <a onclick='playWord();'><img src='ic_speaker.png'/></a>\n"
-    "       </div>\n"
+    "       %@\n"   //%@ will be replaced by strWordIconTag
     
     "       <div style='width:90%%'>\n"
     "           <center><font size='4'> %@ </font></center>\n"  //%@ will be replaced by pronunciation
@@ -222,7 +225,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     "   </body>"
     "</html>\n";
 
-    htmlString = [NSString stringWithFormat:htmlString, word.question, word.question, strPronounciation, strMeaning, imageLink, strExplainIconTag, strExampleIconTag];
+    htmlString = [NSString stringWithFormat:htmlString, word.question, strWordIconTag, strPronounciation, strMeaning, imageLink, strExplainIconTag, strExampleIconTag];
     return htmlString;
     
 }
