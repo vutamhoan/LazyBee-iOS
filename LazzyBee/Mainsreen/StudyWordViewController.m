@@ -15,6 +15,11 @@
 #import "CommonDefine.h"
 #import "Algorithm.h"
 
+#import "TAGDataLayer.h"
+#import "TAGContainer.h"
+#import "TAGContainerOpener.h"
+#import "TAGManager.h"
+
 @interface StudyWordViewController ()
 {
     SearchViewController *searchView;
@@ -24,6 +29,17 @@
 
 @implementation StudyWordViewController
 @synthesize studyScreenMode = _studyScreenMode;
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    // The container should have already been opened, otherwise events pushed to
+    // the data layer will not fire tags in that container.
+
+    TAGDataLayer *dataLayer = [TAGManager instance].dataLayer;
+    
+    [dataLayer push:@{@"event": @"openScreen", @"screenName": @"StudyScreen"}];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

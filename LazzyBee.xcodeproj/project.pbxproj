@@ -36,6 +36,10 @@
 		4D7C28511BABB6CB005B274E /* GTMOAuth2ViewControllerTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C28371BABB6CB005B274E /* GTMOAuth2ViewControllerTouch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D7C28521BABB6CB005B274E /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D7C28381BABB6CB005B274E /* GTMOAuth2ViewTouch.xib */; };
 		4D7C28531BABB6CB005B274E /* GTMReadMonitorInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C283A1BABB6CB005B274E /* GTMReadMonitorInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4D7C28571BABCC13005B274E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7C28561BABCC13005B274E /* CoreData.framework */; };
+		4D7C28591BABCC27005B274E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7C28581BABCC27005B274E /* SystemConfiguration.framework */; };
+		4D7C285B1BABCC3D005B274E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7C285A1BABCC3D005B274E /* libz.dylib */; };
+		4D7C286A1BAC05D7005B274E /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7C28691BAC05D7005B274E /* libGoogleAnalyticsServices.a */; };
 		4DD3C3731B6F18D700B6DA71 /* RearTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD3C36B1B6F18D700B6DA71 /* RearTableViewCell.m */; };
 		4DD3C3741B6F18D700B6DA71 /* RearTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD3C36C1B6F18D700B6DA71 /* RearTableViewCell.xib */; };
 		4DD3C3751B6F18D700B6DA71 /* RearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD3C36E1B6F18D700B6DA71 /* RearViewController.m */; };
@@ -209,6 +213,17 @@
 		4D7C28381BABB6CB005B274E /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = GTL/GTMOAuth2ViewTouch.xib; sourceTree = "<group>"; };
 		4D7C28391BABB6CB005B274E /* GTMReadMonitorInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMReadMonitorInputStream.h; path = GTL/GTMReadMonitorInputStream.h; sourceTree = "<group>"; };
 		4D7C283A1BABB6CB005B274E /* GTMReadMonitorInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMReadMonitorInputStream.m; path = GTL/GTMReadMonitorInputStream.m; sourceTree = "<group>"; };
+		4D7C28541BABCB7E005B274E /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = ../GoogleAnalyticsServicesiOS_3.13/libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		4D7C28561BABCC13005B274E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		4D7C28581BABCC27005B274E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		4D7C285A1BABCC3D005B274E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		4D7C285C1BABD043005B274E /* GTM-M6SZR5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTM-M6SZR5"; sourceTree = SOURCE_ROOT; };
+		4D7C28641BAC0489005B274E /* TAGContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGContainer.h; sourceTree = "<group>"; };
+		4D7C28651BAC0489005B274E /* TAGContainerOpener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGContainerOpener.h; sourceTree = "<group>"; };
+		4D7C28661BAC0489005B274E /* TAGDataLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGDataLayer.h; sourceTree = "<group>"; };
+		4D7C28671BAC0489005B274E /* TAGLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGLogger.h; sourceTree = "<group>"; };
+		4D7C28681BAC0489005B274E /* TAGManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGManager.h; sourceTree = "<group>"; };
+		4D7C28691BAC05D7005B274E /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = LazzyBee/GTools/libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		4DD3C36A1B6F18D700B6DA71 /* RearTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RearTableViewCell.h; sourceTree = "<group>"; };
 		4DD3C36B1B6F18D700B6DA71 /* RearTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RearTableViewCell.m; sourceTree = "<group>"; };
 		4DD3C36C1B6F18D700B6DA71 /* RearTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RearTableViewCell.xib; sourceTree = "<group>"; };
@@ -346,6 +361,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D7C286A1BAC05D7005B274E /* libGoogleAnalyticsServices.a in Frameworks */,
+				4D7C285B1BABCC3D005B274E /* libz.dylib in Frameworks */,
+				4D7C28591BABCC27005B274E /* SystemConfiguration.framework in Frameworks */,
+				4D7C28571BABCC13005B274E /* CoreData.framework in Frameworks */,
 				557D7A841B857DBD00834A44 /* libsqlite3.dylib in Frameworks */,
 				4DD3C3991B6F191C00B6DA71 /* Bolts.framework in Frameworks */,
 				552BD5691BA1362A00BF316C /* GoogleMobileAds.framework in Frameworks */,
@@ -370,6 +389,11 @@
 		4D35B3391B6BC7C600EA67C2 = {
 			isa = PBXGroup;
 			children = (
+				4D7C28691BAC05D7005B274E /* libGoogleAnalyticsServices.a */,
+				4D7C285A1BABCC3D005B274E /* libz.dylib */,
+				4D7C28581BABCC27005B274E /* SystemConfiguration.framework */,
+				4D7C28561BABCC13005B274E /* CoreData.framework */,
+				4D7C28541BABCB7E005B274E /* libGoogleAnalyticsServices.a */,
 				557D7A831B857DBD00834A44 /* libsqlite3.dylib */,
 				4D35B3441B6BC7C600EA67C2 /* LazzyBee */,
 				4D35B3611B6BC7C600EA67C2 /* LazzyBeeTests */,
@@ -389,6 +413,7 @@
 		4D35B3441B6BC7C600EA67C2 /* LazzyBee */ = {
 			isa = PBXGroup;
 			children = (
+				4D7C285D1BABD18D005B274E /* GTools */,
 				552BD5971BA15F7200BF316C /* Settings */,
 				4D7C27631BABB556005B274E /* GTL */,
 				552DC76E1B86BCC400770FA1 /* Objects */,
@@ -410,6 +435,7 @@
 		4D35B3451B6BC7C600EA67C2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4D7C285C1BABD043005B274E /* GTM-M6SZR5 */,
 				4D35B3461B6BC7C600EA67C2 /* Info.plist */,
 				4D35B3471B6BC7C600EA67C2 /* main.m */,
 			);
@@ -489,6 +515,18 @@
 				4D7C283A1BABB6CB005B274E /* GTMReadMonitorInputStream.m */,
 			);
 			name = GTL;
+			sourceTree = "<group>";
+		};
+		4D7C285D1BABD18D005B274E /* GTools */ = {
+			isa = PBXGroup;
+			children = (
+				4D7C28641BAC0489005B274E /* TAGContainer.h */,
+				4D7C28651BAC0489005B274E /* TAGContainerOpener.h */,
+				4D7C28661BAC0489005B274E /* TAGDataLayer.h */,
+				4D7C28671BAC0489005B274E /* TAGLogger.h */,
+				4D7C28681BAC0489005B274E /* TAGManager.h */,
+			);
+			path = GTools;
 			sourceTree = "<group>";
 		};
 		4DD3C3691B6F18D700B6DA71 /* RearViewController */ = {
@@ -1126,6 +1164,11 @@
 				INFOPLIST_FILE = LazzyBee/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/hoavq/Desktop/Projects/GoogleAnalyticsServicesiOS_3.13,
+					"$(PROJECT_DIR)/LazzyBee/GTools",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "91a4bb95-0565-4bfe-af4f-44266df49017";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1147,6 +1190,11 @@
 				INFOPLIST_FILE = LazzyBee/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/hoavq/Desktop/Projects/GoogleAnalyticsServicesiOS_3.13,
+					"$(PROJECT_DIR)/LazzyBee/GTools",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "91a4bb95-0565-4bfe-af4f-44266df49017";
 				TARGETED_DEVICE_FAMILY = "1,2";

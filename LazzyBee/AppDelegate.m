@@ -13,6 +13,10 @@
 #import "CommonDefine.h"
 #import "Common.h"
 
+#import "TAGContainer.h"
+#import "TAGContainerOpener.h"
+#import "TAGManager.h"
+
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
@@ -20,6 +24,15 @@
 @end
 
 @implementation AppDelegate
+
+// TAGContainerOpenerNotifier callback.
+- (void)containerAvailable:(TAGContainer *)container {
+    // Note that containerAvailable may be called on any thread, so you may need to dispatch back to
+    // your main thread.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.container = container;
+    });
+}
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -54,6 +67,27 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
          (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
     }
+    
+    //Google TagManager
+    self.tagManager = [TAGManager instance];
+    
+    // Optional: Change the LogLevel to Verbose to enable logging at VERBOSE and higher levels.
+    [self.tagManager.logger setLogLevel:kTAGLoggerLogLevelVerbose];
+    
+    /*
+     * Opens a container.
+     *
+     * @param containerId The ID of the container to load.
+     * @param tagManager The TAGManager instance for getting the container.
+     * @param openType The choice of how to open the container.
+     * @param timeout The timeout period (default is 2.0 seconds).
+     * @param notifier The notifier to inform on container load events.
+     */
+    [TAGContainerOpener openContainerWithId:@"GTM-M6SZR5"
+                                 tagManager:self.tagManager
+                                   openType:kTAGOpenTypePreferFresh
+                                    timeout:nil
+                                   notifier:self];
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];
