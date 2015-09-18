@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Common.h"
 #import "Reachability.h"
+#import <AVFoundation/AVFoundation.h>
 
 @import MessageUI;
 
@@ -746,4 +747,13 @@
     
     return newText;
 }
+
+- (void)textToSpeech:(NSString *)text withRate:(float)rate {
+    AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc]init];
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
+
+    [utterance setRate:rate];
+    [synthesizer speakUtterance:utterance];
+}
+
 @end

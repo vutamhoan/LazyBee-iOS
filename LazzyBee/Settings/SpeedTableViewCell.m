@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Born2go. All rights reserved.
 //
 
-#import <AVFoundation/AVFoundation.h>
 #import "SpeedTableViewCell.h"
 #import "Common.h"
 
@@ -35,12 +34,7 @@
 }
 
 - (IBAction)valueChangeEnd:(id)sender {
-    
-    AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc]init];
-    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:@"This is to adjust speaking speed. Thank you for using lazy bee application."];
-
-    [utterance setRate:[speedSlider value]];
-    [synthesizer speakUtterance:utterance];
+    [[Common sharedCommon] textToSpeech:@"This is to adjust speaking speed. Thank you for using lazy bee application." withRate:[speedSlider value]];
 }
 
 

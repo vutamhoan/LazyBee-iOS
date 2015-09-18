@@ -90,5 +90,7 @@ typedef enum {
 
 - (NSString *) stringByRemovingHTMLTag:(NSString *)text;
 - (NSString *)stringByRemovingSpaceAndNewLineSymbol:(NSString *)text;
+
+- (void)textToSpeech:(NSString *)text withRate:(float)rate;
 @end
 #endif

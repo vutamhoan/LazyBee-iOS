@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "CommonDefine.h"
 #import "Algorithm.h"
+#import "Common.h"
 
 #import "TAGDataLayer.h"
 #import "TAGContainer.h"
@@ -242,6 +243,10 @@
     }
     
     [webViewWord loadHTMLString:htmlString baseURL:baseURL];
+    
+    NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"SpeakingSpeed"];
+    float speed = [speedNumberObj floatValue];
+    [[Common sharedCommon] textToSpeech:wordObj.question withRate:speed];
 }
 
 - (void)displayAnswer:(WordObject *)wordObj {
@@ -501,5 +506,6 @@
         [self.navigationController pushViewController:searchResultViewController animated:YES];
     }
 }
+
 
 @end
