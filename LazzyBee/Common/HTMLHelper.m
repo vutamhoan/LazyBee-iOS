@@ -145,7 +145,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     strWordIconTag = [NSString stringWithFormat:strWordIconTag, word.question, speed];
     
     if (strExplanation && strExplanation.length > 0) {
-        strExplainIconTag = @"<div style=\"float:left;width:90%%\">"
+        strExplainIconTag = @"<div style=\"float:left;width:90%%; font-size:14pt;\">"
                             "   <em>%@</em> \n" //%@ will be replaced by strExplanation
                             "</div>\n"
                             "<div style=\"float:left;width:10%%\">\n "
@@ -155,7 +155,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     }
     
     if (strExample && strExample.length > 0) {
-        strExampleIconTag = @"<div style=\"float:left;width:90%%\">"
+        strExampleIconTag = @"<div style=\"float:left;width:90%%; font-size:14pt;\">"
                             "   <em>%@</em> \n" //%@ will be replaced by strExample
                             "</div>\n"
                             "<div style=\"float:left;width:10%%\">\n "
@@ -218,7 +218,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     "       <div style=\"width:100%%\"></div>\n"
     "            %@ \n"     //%@ will be replaced by strExplainIconTag
     
-    "       <div style=\"width:100%%\"><strong>Example: </strong></div>\n"
+    "       <div style=\"width:100%%; font-size:13pt;\"><strong>Example: </strong></div>\n"
     "            %@ \n"     //%@ will be replaced by strExplainIconTag
     
     "   </div>\n"
