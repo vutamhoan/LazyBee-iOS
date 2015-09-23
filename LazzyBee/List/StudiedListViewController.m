@@ -148,6 +148,7 @@
     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[strMeaning dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
     
     cell.lbMeaning.attributedText = attributedString;
+    cell.lbMeaning.font = [UIFont systemFontOfSize:15];
     return cell;
 }
 

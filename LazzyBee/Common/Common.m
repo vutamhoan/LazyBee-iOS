@@ -539,7 +539,7 @@
         controller.body = bodyOfMessage;
         controller.recipients = recipients;
         controller.messageComposeDelegate = (id)viewController;
-        [viewController presentModalViewController:controller animated:YES];
+        [viewController presentViewController:controller animated:YES completion:nil];
     }
 }
 

@@ -574,8 +574,17 @@ static CommonSqlite* sharedCommonSqlite = nil;
         oldDate = [[dictIDList valueForKey:@"date"] doubleValue];
     }
     
-    //add new word
-    [idListArr addObject:wordObj.wordid];
+    BOOL found = NO;
+    for (NSString *wordID in idListArr) {
+        if ([wordID isEqualToString:wordObj.wordid]) {
+            found = YES;
+        }
+    }
+    
+    //add new word if it is not existing in queue
+    if (found == NO) {
+        [idListArr addObject:wordObj.wordid];
+    }
     
     //create json to add to db
     NSMutableDictionary *dictNewWords = [[NSMutableDictionary alloc] init];

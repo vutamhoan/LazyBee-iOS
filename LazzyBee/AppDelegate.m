@@ -141,7 +141,7 @@
     NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"SpeakingSpeed"];
     
     if (!speedNumberObj) {
-        speedNumberObj = [NSNumber numberWithFloat:0.1];
+        speedNumberObj = [NSNumber numberWithFloat:0.5];
         [[Common sharedCommon] saveDataToUserDefaultStandard:speedNumberObj withKey:@"SpeakingSpeed"];
     }
     

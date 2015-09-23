@@ -208,14 +208,15 @@
 
 - (void)showActionsPanel {
     if (_isReviewScreen) {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Add to learn" otherButtonTitles: nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add to learn", nil];
         
         actionSheet.tag = AS_TAG_SEARCH;
         actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
         [actionSheet showInView:self.view];
         
     } else {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Ignore this word"  otherButtonTitles: @"Update this word", nil];
+
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Ignore this word", @"Update this word", nil];
         
         actionSheet.tag = AS_TAG_LEARN;
         actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
@@ -455,9 +456,9 @@
 }
 
 - (void)updateHeaderInfo {
-    lbNewCount.text = [NSString stringWithFormat:@"New: %ld", [_nwordList count]];
-    lbAgainCount.text = [NSString stringWithFormat:@"Again: %ld", [_studyAgainList count]];
-    lbReviewCount.text = [NSString stringWithFormat:@"Review: %ld", [_reviewWordList count]];
+    lbNewCount.text = [NSString stringWithFormat:@"New: %ld", (unsigned long)[_nwordList count]];
+    lbAgainCount.text = [NSString stringWithFormat:@"Again: %ld", (unsigned long)[_studyAgainList count]];
+    lbReviewCount.text = [NSString stringWithFormat:@"Review: %ld", (unsigned long)[_reviewWordList count]];
 }
 
 - (void)updateWordFromGAE {
@@ -488,7 +489,12 @@
             NSLog(@"Add to laern");
             [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:_wordObj];
             
+            //update queue value to 0 to consider this word as a new word in DB
+            _wordObj.queue = @"0";
+            [[CommonSqlite sharedCommonSqlite] updateWord:_wordObj];
+            
         } else if (buttonIndex == AS_SEARCH_BTN_CANCEL) {
+
             NSLog(@"Cancel");
         }
     } else if (actionSheet.tag == AS_TAG_LEARN) {
