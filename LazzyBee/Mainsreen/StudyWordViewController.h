@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "WordObject.h"
+#import "GTMHTTPFetcher.h"
+#import "GTLDataServiceApi.h"
+
 @import GoogleMobileAds;
 
 typedef enum {

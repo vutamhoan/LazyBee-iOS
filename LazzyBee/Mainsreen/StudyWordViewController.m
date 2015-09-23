@@ -20,6 +20,16 @@
 #import "TAGContainerOpener.h"
 #import "TAGManager.h"
 
+#define AS_TAG_SEARCH 1
+#define AS_TAG_LEARN 2
+
+#define AS_SEARCH_BTN_ADD_TO_LEARN  0
+#define AS_SEARCH_BTN_CANCEL        1
+
+#define AS_LEARN_BTN_IGNORE_WORD   0
+#define AS_LEARN_BTN_UPDATE_WORD   1
+#define AS_LEARN_BTN_CANCEL        2
+
 @interface StudyWordViewController ()
 {
     SearchViewController *searchView;
@@ -46,7 +56,14 @@
     // Do any additional setup after loading the view from its nib.
     //admob
     GADRequest *request = [GADRequest request];
-    self.adBanner.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    TAGContainer *container = appDelegate.container;
+    
+    NSString *advStr = [NSString stringWithFormat:@"%@/%@", [container stringForKey:@"g_pub_id"],[container stringForKey:@"adv_home_id"] ];
+    
+    self.adBanner.adUnitID = advStr;//@"ca-app-pub-3940256099942544/2934735716";
+    
     self.adBanner.rootViewController = self;
     [self.adBanner loadRequest:request];
     
@@ -192,14 +209,14 @@
     if (_isReviewScreen) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Add to learn" otherButtonTitles: nil];
         
-        actionSheet.tag = 1;
+        actionSheet.tag = AS_TAG_SEARCH;
         actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
         [actionSheet showInView:self.view];
         
     } else {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Ignore this word" otherButtonTitles: nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Ignore this word"  otherButtonTitles: @"Update this word", nil];
         
-        actionSheet.tag = 2;
+        actionSheet.tag = AS_TAG_LEARN;
         actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
         [actionSheet showInView:self.view];
     }
@@ -438,19 +455,39 @@
     lbReviewCount.text = [NSString stringWithFormat:@"Review: %ld", [_reviewWordList count]];
 }
 
+- (void)updateWordFromGAE {
+    static GTLServiceDataServiceApi *service = nil;
+    if (!service) {
+        service = [[GTLServiceDataServiceApi alloc] init];
+        service.retryEnabled = YES;
+        //[GTMHTTPFetcher setLoggingEnabled:YES];
+    }
+
+    GTLQueryDataServiceApi *query = [GTLQueryDataServiceApi queryForGetVocaByQWithQ:self.wordObj.question];
+    //TODO: Add waiting progress here
+    [service executeQuery:query completionHandler:^(GTLServiceTicket *ticket, GTLDataServiceApiVoca *object, NSError *error) {
+        if (object != NULL){
+            NSLog(object.JSONString);
+            //TODO: Update word now
+        }
+    }];
+}
+
+
+
 #pragma mark actions sheet handle
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    if (actionSheet.tag == 1) {
-        if (buttonIndex == 0) {
+    if (actionSheet.tag == AS_TAG_SEARCH) {
+        if (buttonIndex == AS_SEARCH_BTN_ADD_TO_LEARN) {
             NSLog(@"Add to laern");
             [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:_wordObj];
             
-        } else if (buttonIndex == 3) {
+        } else if (buttonIndex == AS_SEARCH_BTN_CANCEL) {
             NSLog(@"Cancel");
         }
-    } else if (actionSheet.tag == 2) {
-        if (buttonIndex == 0) {
+    } else if (actionSheet.tag == AS_TAG_LEARN) {
+        if (buttonIndex == AS_LEARN_BTN_IGNORE_WORD) {
             NSLog(@"ignore this word");
             //update queue value in DB
             _wordObj.queue = @"-2";
@@ -469,8 +506,12 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"completedDailyTarget" object:nil];
             }
             
-        } else if (buttonIndex == 3) {
+        } else if (buttonIndex == AS_LEARN_BTN_CANCEL) {
             NSLog(@"Cancel");
+        }
+        else if (buttonIndex == AS_LEARN_BTN_UPDATE_WORD) {
+            NSLog(@"Update word");
+            [self updateWordFromGAE];
         }
     }
     

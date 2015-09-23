@@ -89,6 +89,7 @@
 		4DD3C3E31B6F218700B6DA71 /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD3C3D11B6F218700B6DA71 /* cancel.png */; };
 		4DD3C3E41B6F218700B6DA71 /* cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD3C3D21B6F218700B6DA71 /* cancel@2x.png */; };
 		4DD3C3E51B6F218700B6DA71 /* cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD3C3D31B6F218700B6DA71 /* cancel@3x.png */; };
+		4DD8CAE61BB0073100FED1C9 /* GTLDataServiceApi_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD8CAE41BB0073100FED1C9 /* GTLDataServiceApi_Sources.m */; };
 		552BD5691BA1362A00BF316C /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 552BD5601BA1362A00BF316C /* GoogleMobileAds.framework */; };
 		552BD56A1BA1362A00BF316C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 552BD5671BA1362A00BF316C /* README.txt */; };
 		552BD56B1BA1362A00BF316C /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 552BD5681BA1362A00BF316C /* README.txt */; };
@@ -285,6 +286,8 @@
 		4DD3C3D11B6F218700B6DA71 /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		4DD3C3D21B6F218700B6DA71 /* cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@2x.png"; sourceTree = "<group>"; };
 		4DD3C3D31B6F218700B6DA71 /* cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@3x.png"; sourceTree = "<group>"; };
+		4DD8CAE41BB0073100FED1C9 /* GTLDataServiceApi_Sources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLDataServiceApi_Sources.m; path = GTL/gAPI/GTLDataServiceApi_Sources.m; sourceTree = "<group>"; };
+		4DD8CAE51BB0073100FED1C9 /* GTLDataServiceApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLDataServiceApi.h; path = GTL/gAPI/GTLDataServiceApi.h; sourceTree = "<group>"; };
 		552BD5601BA1362A00BF316C /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		552BD5621BA1362A00BF316C /* GADMAdNetworkAdapterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMAdNetworkAdapterProtocol.h; sourceTree = "<group>"; };
 		552BD5631BA1362A00BF316C /* GADMAdNetworkConnectorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMAdNetworkConnectorProtocol.h; sourceTree = "<group>"; };
@@ -462,6 +465,8 @@
 		4D7C27631BABB556005B274E /* GTL */ = {
 			isa = PBXGroup;
 			children = (
+				4DD8CAE41BB0073100FED1C9 /* GTLDataServiceApi_Sources.m */,
+				4DD8CAE51BB0073100FED1C9 /* GTLDataServiceApi.h */,
 				4D7C28081BABB6CB005B274E /* GTLBase64.h */,
 				4D7C28091BABB6CB005B274E /* GTLBase64.m */,
 				4D7C280A1BABB6CB005B274E /* GTLBatchQuery.h */,
@@ -1009,6 +1014,7 @@
 				4D7C283E1BABB6CB005B274E /* GTLDateTime.m in Sources */,
 				552DC7741B871C9900770FA1 /* Algorithm.m in Sources */,
 				4D7C284A1BABB6CB005B274E /* GTMHTTPFetcherLogging.m in Sources */,
+				4DD8CAE61BB0073100FED1C9 /* GTLDataServiceApi_Sources.m in Sources */,
 				4D7C283F1BABB6CB005B274E /* GTLErrorObject.m in Sources */,
 				4D7C284F1BABB6CB005B274E /* GTMOAuth2Authentication.m in Sources */,
 				4D7C28401BABB6CB005B274E /* GTLFramework.m in Sources */,
