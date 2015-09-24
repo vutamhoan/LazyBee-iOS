@@ -28,8 +28,9 @@
 #define AS_SEARCH_BTN_CANCEL        1
 
 #define AS_LEARN_BTN_IGNORE_WORD   0
-#define AS_LEARN_BTN_UPDATE_WORD   1
-#define AS_LEARN_BTN_CANCEL        2
+#define AS_LEARN_BTN_LEARNT_WORD  1
+#define AS_LEARN_BTN_UPDATE_WORD   2
+#define AS_LEARN_BTN_CANCEL        3
 
 @interface StudyWordViewController ()
 {
@@ -216,7 +217,7 @@
         
     } else {
 
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Ignore this word", @"Update this word", nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Ignore", @"Done", @"Update", nil];
         
         actionSheet.tag = AS_TAG_LEARN;
         actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
@@ -490,18 +491,39 @@
             [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:_wordObj];
             
             //update queue value to 0 to consider this word as a new word in DB
-            _wordObj.queue = @"0";
+            _wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_NEW_WORD];
             [[CommonSqlite sharedCommonSqlite] updateWord:_wordObj];
             
         } else if (buttonIndex == AS_SEARCH_BTN_CANCEL) {
 
             NSLog(@"Cancel");
         }
+        
     } else if (actionSheet.tag == AS_TAG_LEARN) {
+        
         if (buttonIndex == AS_LEARN_BTN_IGNORE_WORD) {
             NSLog(@"ignore this word");
             //update queue value in DB
-            _wordObj.queue = @"-2";
+            _wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_SUSPENDED];
+            [[CommonSqlite sharedCommonSqlite] updateWord:_wordObj];
+            
+            //remove this word from list, display the next one
+            _wordObj = [self getAWordFromCurrentList:nil];
+            
+            if (_wordObj) {
+                [self displayQuestion:_wordObj];
+                
+                [self showHideButtonsPanel:NO];
+            } else {
+                [self.navigationController popViewControllerAnimated:YES];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"completedDailyTarget" object:nil];
+            }
+            
+        } else if (buttonIndex == AS_LEARN_BTN_LEARNT_WORD) {
+            NSLog(@"learnt");
+            //update queue value in DB
+            _wordObj.queue = [NSString stringWithFormat:@"%d", QUEUE_DONE];
             [[CommonSqlite sharedCommonSqlite] updateWord:_wordObj];
             
             //remove this word from list, display the next one
