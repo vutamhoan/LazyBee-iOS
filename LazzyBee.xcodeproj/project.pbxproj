@@ -865,7 +865,7 @@
 		4D35B33A1B6BC7C600EA67C2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Born2go;
 				TargetAttributes = {
 					4D35B3411B6BC7C600EA67C2 = {
@@ -1082,6 +1082,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1164,6 +1165,7 @@
 					/Users/hoavq/Desktop/Projects/GoogleAnalyticsServicesiOS_3.13,
 					"$(PROJECT_DIR)/LazzyBee/GTools",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.born2go.lazzybee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "91a4bb95-0565-4bfe-af4f-44266df49017";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1191,6 +1193,7 @@
 					/Users/hoavq/Desktop/Projects/GoogleAnalyticsServicesiOS_3.13,
 					"$(PROJECT_DIR)/LazzyBee/GTools",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.born2go.lazzybee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "91a4bb95-0565-4bfe-af4f-44266df49017";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1211,6 +1214,7 @@
 				);
 				INFOPLIST_FILE = LazzyBeeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.born2go.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LazzyBee.app/LazzyBee";
 			};
@@ -1226,6 +1230,7 @@
 				);
 				INFOPLIST_FILE = LazzyBeeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.born2go.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LazzyBee.app/LazzyBee";
 			};

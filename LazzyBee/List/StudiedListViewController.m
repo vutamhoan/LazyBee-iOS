@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setTitle:@"Learned List"];
+    [self setTitle:@"Learnt List"];
     
     levelsDictionary = [[NSMutableDictionary alloc] init];
     
