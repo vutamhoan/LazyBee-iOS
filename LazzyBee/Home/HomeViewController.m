@@ -118,7 +118,7 @@
         [[CommonSqlite sharedCommonSqlite] prepareWordsToStudyingQueue:BUFFER_SIZE];
     }
     
-    [[CommonSqlite sharedCommonSqlite] pickUpRandom10WordsToStudyingQueue:[[Common sharedCommon] getDailyTarget] withForceFlag:NO];
+//    [[CommonSqlite sharedCommonSqlite] pickUpRandom10WordsToStudyingQueue:[[Common sharedCommon] getDailyTarget] withForceFlag:NO];
     
     StudyWordViewController *studyViewController = [[StudyWordViewController alloc] initWithNibName:@"StudyWordViewController" bundle:nil];
     
@@ -134,9 +134,11 @@
 
 - (IBAction)btnMoreWordClick:(id)sender {
     NSInteger count = [[CommonSqlite sharedCommonSqlite] getCountOfPickedWord];
+    count = count + [[CommonSqlite sharedCommonSqlite] getCountOfInreview];
+    count = count + [[CommonSqlite sharedCommonSqlite] getCountOfStudyAgain];
     
     if (count > 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notice" message:@"You need to complete your current target before add more words." delegate:(id)self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Learn now", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notice" message:@"You need to complete your current target before adding more words." delegate:(id)self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Learn now", nil];
         alert.tag = 1;
         
         [alert show];
