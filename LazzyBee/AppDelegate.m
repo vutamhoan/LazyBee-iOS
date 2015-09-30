@@ -160,6 +160,13 @@
         [[Common sharedCommon] saveDataToUserDefaultStandard:reminderNumberObj withKey:@"ReminderOnOff"];
     }
     
+    NSNumber *autoPlayFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"AutoPlay"];
+    
+    if (!autoPlayFlag) {
+        autoPlayFlag = [NSNumber numberWithBool:YES];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:autoPlayFlag withKey:@"AutoPlay"];
+    }
+    
     NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"DailyTarget"];
     
     if (!targetNumberObj) {

@@ -12,6 +12,7 @@ typedef enum {
     SettingsTableViewSectionAbout = 0,
     SettingsTableViewSectionSpeech,
     SettingsTableViewSectionDailyTarget,
+    SettingsTableViewSectionAutoPlay,
     SettingsTableViewSectionNotification,
     SettingsTableViewSectionReset,
     SettingsTableViewSectionMax
@@ -31,6 +32,11 @@ typedef enum {
     DailyTarget = 0,
     DailyTargetSectionMax
 } DAILY_SECTION;
+
+typedef enum {
+    AutoPlaySound = 0,
+    AutoPlayMax
+} AUTOPLAY_SECTION;
 
 typedef enum {
     NotificationOnOff = 0,
