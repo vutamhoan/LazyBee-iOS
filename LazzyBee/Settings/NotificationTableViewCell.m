@@ -22,16 +22,8 @@
 }
 
 - (IBAction)reminderChangeValue:(id)sender {
-    UISwitch *sw = (UISwitch *)sender;
-    NSNumber *reminderNumberObj = nil;
     
-    if (sw.isOn) {
-        reminderNumberObj = [NSNumber numberWithBool:YES];
-    } else {
-        reminderNumberObj = [NSNumber numberWithBool:NO];
-    }
-    
-    [[Common sharedCommon] saveDataToUserDefaultStandard:reminderNumberObj withKey:@"ReminderOnOff"];
+    [self.delegate switchControlChangeValue:self];
 }
 
 @end

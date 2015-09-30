@@ -283,9 +283,14 @@
     
     [webViewWord loadHTMLString:htmlString baseURL:baseURL];
     
-    NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"SpeakingSpeed"];
-    float speed = [speedNumberObj floatValue];
-    [[Common sharedCommon] textToSpeech:wordObj.question withRate:speed];
+    
+    NSNumber *autoPlayFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"AutoPlay"];
+    
+    if ([autoPlayFlag boolValue]) {
+        NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"SpeakingSpeed"];
+        float speed = [speedNumberObj floatValue];
+        [[Common sharedCommon] textToSpeech:wordObj.question withRate:speed];
+    }
 }
 
 - (void)displayAnswer:(WordObject *)wordObj {

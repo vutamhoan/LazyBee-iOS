@@ -90,6 +90,9 @@
     } else if (section == SettingsTableViewSectionDailyTarget) {
         return DailyTargetSectionMax;
         
+    } else if (section == SettingsTableViewSectionAutoPlay) {
+        return AutoPlayMax;
+        
     } else if (section == SettingsTableViewSectionNotification) {
         return NotificationSectionMax;
         
@@ -175,8 +178,36 @@
                 
                 if (targetNumberObj) {
                     cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                    cell.textLabel.text = [NSString stringWithFormat:@"Daily Target: %ld words", [targetNumberObj integerValue]];
+                    cell.textLabel.text = [NSString stringWithFormat:@"Daily target: %ld words", [targetNumberObj integerValue]];
                 }
+                
+                return cell;
+            }
+            break;
+            
+        case SettingsTableViewSectionAutoPlay:
+            {
+                NSString *autoPlayCellIdentifier = @"AutoPlayCell";
+                
+                NotificationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:autoPlayCellIdentifier];
+                if (cell == nil) {
+                    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NotificationTableViewCell" owner:nil options:nil];
+                    cell = [nib objectAtIndex:0];
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                }
+                
+                cell.tag = SettingsTableViewSectionAutoPlay;
+                cell.delegate = (id)self;
+                
+                cell.textLabel.textColor = [UIColor blackColor];
+                cell.textLabel.font = [UIFont systemFontOfSize:16];
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                
+                cell.lbTitle.text = @"Autoplay sound";
+                
+                NSNumber *autoPlayFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"AutoPlay"];
+                
+                cell.swControl.on = [autoPlayFlag boolValue];
                 
                 return cell;
             }
@@ -194,6 +225,15 @@
                         cell = [nib objectAtIndex:0];
                         cell.accessoryType = UITableViewCellAccessoryNone;
                     }
+                    
+                    cell.tag = SettingsTableViewSectionNotification;
+                    cell.delegate = (id)self;
+                    
+                    cell.lbTitle.text = @"Turn on reminder";
+                    
+                    NSNumber *reminderFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"ReminderOnOff"];
+                    
+                    cell.swControl.on = [reminderFlag boolValue];
                     
                     return cell;
                 }
@@ -319,6 +359,36 @@
             
         default:
             break;
+    }
+}
+
+//NotificationCellDelegate delegate
+- (void)switchControlChangeValue:(id)sender {
+    NotificationTableViewCell *cell = (NotificationTableViewCell *)sender;
+    UISwitch *sw = cell.swControl;
+    
+    if (cell.tag == SettingsTableViewSectionAutoPlay) {
+        NSNumber *autoPlayNumberObj = nil;
+        
+        if (sw.isOn) {
+            autoPlayNumberObj = [NSNumber numberWithBool:YES];
+        } else {
+            autoPlayNumberObj = [NSNumber numberWithBool:NO];
+        }
+        
+        [[Common sharedCommon] saveDataToUserDefaultStandard:autoPlayNumberObj withKey:@"AutoPlay"];
+        
+    } else if (cell.tag == SettingsTableViewSectionNotification) {
+        
+        NSNumber *reminderNumberObj = nil;
+        
+        if (sw.isOn) {
+            reminderNumberObj = [NSNumber numberWithBool:YES];
+        } else {
+            reminderNumberObj = [NSNumber numberWithBool:NO];
+        }
+        
+        [[Common sharedCommon] saveDataToUserDefaultStandard:reminderNumberObj withKey:@"ReminderOnOff"];
     }
 }
 
