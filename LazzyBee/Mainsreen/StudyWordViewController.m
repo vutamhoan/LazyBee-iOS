@@ -144,12 +144,12 @@
         
         [_nwordList addObjectsFromArray:[[CommonSqlite sharedCommonSqlite] getNewWordsList]];
         
-        //check if the list is not empty to switch screen mode
-        if ([_studyAgainList count] > 0) {
-            self.studyScreenMode = Mode_Study;
-            
-        } else if ([_reviewWordList count] > 0) {
+        //check if the list is not empty to switch screen mode, review is the highest priority
+        if ([_reviewWordList count] > 0) {
             self.studyScreenMode = Mode_Review;
+            
+        } else if ([_studyAgainList count] > 0) {
+            self.studyScreenMode = Mode_Study;
             
         } else if ([_nwordList count] > 0) {
             self.studyScreenMode = Mode_New_Word;
@@ -348,12 +348,12 @@
     }
     
     if (res == nil) {
-        //check if the list is not empty to switch screen mode
-        if ([_studyAgainList count] > 0) {
-            self.studyScreenMode = Mode_Study;
-            
-        } else if ([_reviewWordList count] > 0) {
+        //check if the list is not empty to switch screen mode, review is the highest priority
+        if ([_reviewWordList count] > 0) {
             self.studyScreenMode = Mode_Review;
+            
+        } else if ([_studyAgainList count] > 0) {
+            self.studyScreenMode = Mode_Study;
             
         } else if ([_nwordList count] > 0) {
             self.studyScreenMode = Mode_New_Word;
