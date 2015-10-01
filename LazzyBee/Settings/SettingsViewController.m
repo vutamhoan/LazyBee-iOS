@@ -14,7 +14,6 @@
 #import "SpeedTableViewCell.h"
 #import "DailyTargetViewController.h"
 #import "NotificationTableViewCell.h"
-#import "TimeTableViewCell.h"
 #import "TimerViewController.h"
 
 
@@ -116,15 +115,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *normalCellIdentifier = @"NormalCell";
     
     switch (indexPath.section) {
         case SettingsTableViewSectionAbout:
             {
-                NSString *aboutCellIdentifier = @"AboutCell";
-                
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:aboutCellIdentifier];
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
                 if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:aboutCellIdentifier];
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellIdentifier];
                     cell.accessoryType = UITableViewCellAccessoryNone;
                 }
                 
@@ -162,11 +160,9 @@
         
         case SettingsTableViewSectionDailyTarget:
             {
-                NSString *dailyCellIdentifier = @"DailyCell";
-                
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dailyCellIdentifier];
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
                 if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:dailyCellIdentifier];
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellIdentifier];
                     cell.accessoryType = UITableViewCellAccessoryNone;
                 }
                 
@@ -241,12 +237,9 @@
                     
                 case NotificationTime:
                     {
-                        NSString *timeCell = @"TimeCell";
-                        
-                        TimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:timeCell];
+                        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
                         if (cell == nil) {
-                            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"TimeTableViewCell" owner:nil options:nil];
-                            cell = [nib objectAtIndex:0];
+                            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellIdentifier];
                             cell.accessoryType = UITableViewCellAccessoryNone;
                         }
                         
@@ -270,25 +263,48 @@
             break;
             
             case SettingsTableViewSectionReset:
-            {
-                NSString *updateDateCellIdentifier = @"UpdateCurrentDateCell";
-                
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:updateDateCellIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:updateDateCellIdentifier];
-                    cell.accessoryType = UITableViewCellAccessoryNone;
+                switch (indexPath.row) {
+                    case UpdateCurrentDate:
+                        {
+                            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
+                            if (cell == nil) {
+                                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellIdentifier];
+                                cell.accessoryType = UITableViewCellAccessoryNone;
+                            }
+                            
+                            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                            cell.textLabel.textColor = [UIColor blackColor];
+                            cell.textLabel.font = [UIFont systemFontOfSize:16];
+                            cell.accessoryType = UITableViewCellAccessoryNone;
+                            
+                            cell.textLabel.text = @"Update current date";
+                            
+                            return cell;
+                        }
+                        break;
+                        
+                    case UpdateDatabase:
+                        {
+                            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
+                            if (cell == nil) {
+                                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellIdentifier];
+                                cell.accessoryType = UITableViewCellAccessoryNone;
+                            }
+                            
+                            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                            cell.textLabel.textColor = [UIColor blackColor];
+                            cell.textLabel.font = [UIFont systemFontOfSize:16];
+                            cell.accessoryType = UITableViewCellAccessoryNone;
+                            
+                            cell.textLabel.text = @"Update database";
+                            
+                            return cell;
+                        }
+                        break;
+                    default:
+                        break;
                 }
-                
-                cell.textLabel.textColor = [UIColor blackColor];
-                cell.textLabel.font = [UIFont systemFontOfSize:16];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-                
-                cell.textLabel.text = @"Update current date";
-                
-                return cell;
-            }
-                break;
-                
+            
         default:
             break;
     }
@@ -347,14 +363,26 @@
             break;
             
         case SettingsTableViewSectionReset:
-        {
-            [[CommonSqlite sharedCommonSqlite] resetDateOfPickedWordList];
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Date is updated." delegate:(id)self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            alert.tag = 1;
-            
-            [alert show];
-        }
+            switch (indexPath.row) {
+                case UpdateCurrentDate:
+                {
+                    [[CommonSqlite sharedCommonSqlite] resetDateOfPickedWordList];
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Date is updated." delegate:(id)self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                    alert.tag = 1;
+                    
+                    [alert show];
+                }
+                    break;
+                    
+                case UpdateDatabase:
+                {
+
+                }
+                    break;
+                default:
+                    break;
+            }
             break;
             
         default:

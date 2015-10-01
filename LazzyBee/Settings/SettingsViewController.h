@@ -45,7 +45,8 @@ typedef enum {
 } NOTIFICATION_SECTION;
 
 typedef enum {
-    Reset = 0,
+    UpdateCurrentDate = 0,
+    UpdateDatabase,
     ResetSectionMax
 } RESET_SECTION;
 

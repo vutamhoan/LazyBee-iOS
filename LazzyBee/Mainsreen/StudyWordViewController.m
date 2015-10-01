@@ -515,7 +515,7 @@
     
     if (actionSheet.tag == AS_TAG_SEARCH) {
         if (buttonIndex == AS_SEARCH_BTN_ADD_TO_LEARN) {
-            NSLog(@"Add to laern");
+            NSLog(@"Add to learn");
             [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:_wordObj];
             
             //update queue value to 0 to consider this word as a new word in DB
