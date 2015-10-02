@@ -15,11 +15,12 @@
 #import "DailyTargetViewController.h"
 #import "NotificationTableViewCell.h"
 #import "TimerViewController.h"
-
+#import "LevelPickerViewController.h"
 
 @interface SettingsViewController ()
 {
     TimerViewController *timerView;
+    LevelPickerViewController *levelView;
 }
 @end
 
@@ -159,27 +160,56 @@
             break;
         
         case SettingsTableViewSectionDailyTarget:
-            {
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellIdentifier];
-                    cell.accessoryType = UITableViewCellAccessoryNone;
-                }
-                
-                cell.textLabel.textColor = [UIColor blackColor];
-                cell.textLabel.font = [UIFont systemFontOfSize:16];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-                
-                NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"DailyTarget"];
-                
-                if (targetNumberObj) {
-                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                    cell.textLabel.text = [NSString stringWithFormat:@"Daily target: %ld words", [targetNumberObj integerValue]];
-                }
-                
-                return cell;
+            switch (indexPath.row) {
+                case DailyTarget:
+                    {
+                        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
+                        if (cell == nil) {
+                            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellIdentifier];
+                            cell.accessoryType = UITableViewCellAccessoryNone;
+                        }
+                        
+                        cell.textLabel.textColor = [UIColor blackColor];
+                        cell.textLabel.font = [UIFont systemFontOfSize:16];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                        
+                        NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"DailyTarget"];
+                        
+                        if (targetNumberObj) {
+                            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                            cell.textLabel.text = [NSString stringWithFormat:@"Daily target: %ld words", [targetNumberObj integerValue]];
+                        }
+                        
+                        return cell;
+                    }
+                    break;
+                    
+                case LowestLevel:
+                    {
+                        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
+                        if (cell == nil) {
+                            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellIdentifier];
+                            cell.accessoryType = UITableViewCellAccessoryNone;
+                        }
+                        
+                        cell.textLabel.textColor = [UIColor blackColor];
+                        cell.textLabel.font = [UIFont systemFontOfSize:16];
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                        
+                        NSString *level = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"LowestLevel"];
+                        
+                        if (level) {
+                            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                            cell.textLabel.text = [NSString stringWithFormat:@"Level: %@", level];
+                        }
+                        
+                        return cell;
+                    }
+                    break;
+                    
+                default:
+                    break;
             }
-            break;
             
         case SettingsTableViewSectionAutoPlay:
             {
@@ -272,7 +302,7 @@
                                 cell.accessoryType = UITableViewCellAccessoryNone;
                             }
                             
-                            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                            cell.textLabel.textAlignment = NSTextAlignmentLeft;
                             cell.textLabel.textColor = [UIColor blackColor];
                             cell.textLabel.font = [UIFont systemFontOfSize:16];
                             cell.accessoryType = UITableViewCellAccessoryNone;
@@ -291,7 +321,7 @@
                                 cell.accessoryType = UITableViewCellAccessoryNone;
                             }
                             
-                            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                            cell.textLabel.textAlignment = NSTextAlignmentLeft;
                             cell.textLabel.textColor = [UIColor blackColor];
                             cell.textLabel.font = [UIFont systemFontOfSize:16];
                             cell.accessoryType = UITableViewCellAccessoryNone;
@@ -337,16 +367,29 @@
             break;
             
         case SettingsTableViewSectionDailyTarget:
-            {
-                DailyTargetViewController *dailyTargetView = [[DailyTargetViewController alloc] initWithNibName:@"DailyTargetViewController" bundle:nil];
-                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:dailyTargetView];
-                
-                [nav setModalPresentationStyle:UIModalPresentationFormSheet];
-                [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-                
-                [self.navigationController presentViewController:nav animated:YES completion:nil];
+            switch (indexPath.row) {
+                case DailyTarget:
+                    {
+                        DailyTargetViewController *dailyTargetView = [[DailyTargetViewController alloc] initWithNibName:@"DailyTargetViewController" bundle:nil];
+                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:dailyTargetView];
+                        
+                        [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+                        [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+                        
+                        [self.navigationController presentViewController:nav animated:YES completion:nil];
+                    }
+                    break;
+                    
+                case LowestLevel:
+                    {
+                        [self showLevelPicker];
+                    }
+                    break;
+                default:
+                    break;
             }
             break;
+            
             
         case SettingsTableViewSectionNotification:
             switch (indexPath.row) {
@@ -377,7 +420,7 @@
                     
                 case UpdateDatabase:
                 {
-
+                    
                 }
                     break;
                 default:
@@ -436,8 +479,6 @@
     timerView = [[TimerViewController alloc] initWithNibName:@"TimerViewController" bundle:nil];
 
     timerView.view.alpha = 0;
-//    
-//    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     CGRect rect = self.view.frame;
     rect.origin.y = 0;
@@ -447,6 +488,22 @@
     
     [UIView animateWithDuration:0.3 animations:^(void) {
         timerView.view.alpha = 1;
+    }];
+}
+
+- (void)showLevelPicker {
+    levelView = [[LevelPickerViewController alloc] initWithNibName:@"LevelPickerViewController" bundle:nil];
+    
+    levelView.view.alpha = 0;
+    
+    CGRect rect = self.view.frame;
+    rect.origin.y = 0;
+    [levelView.view setFrame:rect];
+    
+    [self.view addSubview:levelView.view];
+    
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        levelView.view.alpha = 1;
     }];
 }
 @end

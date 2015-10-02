@@ -30,7 +30,8 @@
 #define AS_LEARN_BTN_IGNORE_WORD   0
 #define AS_LEARN_BTN_LEARNT_WORD  1
 #define AS_LEARN_BTN_UPDATE_WORD   2
-#define AS_LEARN_BTN_CANCEL        3
+#define AS_LEARN_BTN_REPORT_WORD   3
+#define AS_LEARN_BTN_CANCEL        4
 
 @interface StudyWordViewController ()
 {
@@ -237,7 +238,7 @@
         
     } else {
 
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Ignore", @"Done", @"Update", nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Ignore", @"Done", @"Update", @"Report", nil];
         
         actionSheet.tag = AS_TAG_LEARN;
         actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
@@ -567,12 +568,16 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"completedDailyTarget" object:nil];
             }
             
-        } else if (buttonIndex == AS_LEARN_BTN_CANCEL) {
-            NSLog(@"Cancel");
-        }
-        else if (buttonIndex == AS_LEARN_BTN_UPDATE_WORD) {
+        } else if (buttonIndex == AS_LEARN_BTN_UPDATE_WORD) {
             NSLog(@"Update word");
             [self updateWordFromGAE];
+            
+        }  else if (buttonIndex == AS_LEARN_BTN_REPORT_WORD) {
+            NSLog(@"report");
+            
+        } else if (buttonIndex == AS_LEARN_BTN_CANCEL) {
+            NSLog(@"Cancel");
+            
         }
     }
     

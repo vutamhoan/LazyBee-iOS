@@ -30,6 +30,7 @@ typedef enum {
 
 typedef enum {
     DailyTarget = 0,
+    LowestLevel,
     DailyTargetSectionMax
 } DAILY_SECTION;
 
