@@ -82,8 +82,6 @@
 		552BD5BF1BA178A500BF316C /* DailyTargetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 552BD5BD1BA178A500BF316C /* DailyTargetViewController.xib */; };
 		552BD5C31BA17A6900BF316C /* NotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 552BD5C11BA17A6900BF316C /* NotificationTableViewCell.m */; };
 		552BD5C41BA17A6900BF316C /* NotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 552BD5C21BA17A6900BF316C /* NotificationTableViewCell.xib */; };
-		552BD5C81BA17BF100BF316C /* TimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 552BD5C61BA17BF100BF316C /* TimeTableViewCell.m */; };
-		552BD5C91BA17BF100BF316C /* TimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 552BD5C71BA17BF100BF316C /* TimeTableViewCell.xib */; };
 		552DC7711B86BD1E00770FA1 /* WordObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 552DC7701B86BD1E00770FA1 /* WordObject.m */; };
 		552DC7741B871C9900770FA1 /* Algorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 552DC7721B871C9900770FA1 /* Algorithm.m */; };
 		552DC7791B87292F00770FA1 /* StudiedListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 552DC7771B87292F00770FA1 /* StudiedListViewController.m */; };
@@ -140,6 +138,10 @@
 		557D7ACB1B85B5B600834A44 /* ic_speaker.png in Resources */ = {isa = PBXBuildFile; fileRef = 557D7AC81B85B5B600834A44 /* ic_speaker.png */; };
 		557D7ACC1B85B5B600834A44 /* ic_speaker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 557D7AC91B85B5B600834A44 /* ic_speaker@2x.png */; };
 		557D7ACD1B85B5B600834A44 /* ic_speaker@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 557D7ACA1B85B5B600834A44 /* ic_speaker@3x.png */; };
+		55B08BEF1BBE36D000693411 /* LevelPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B08BED1BBE36D000693411 /* LevelPickerViewController.m */; settings = {ASSET_TAGS = (); }; };
+		55B08BF01BBE36D000693411 /* LevelPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B08BEE1BBE36D000693411 /* LevelPickerViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		55B08BF41BBE6FAF00693411 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B08BF21BBE6FAF00693411 /* ReportViewController.m */; settings = {ASSET_TAGS = (); }; };
+		55B08BF51BBE6FAF00693411 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B08BF31BBE6FAF00693411 /* ReportViewController.xib */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -262,9 +264,6 @@
 		552BD5C01BA17A6900BF316C /* NotificationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationTableViewCell.h; sourceTree = "<group>"; };
 		552BD5C11BA17A6900BF316C /* NotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationTableViewCell.m; sourceTree = "<group>"; };
 		552BD5C21BA17A6900BF316C /* NotificationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationTableViewCell.xib; sourceTree = "<group>"; };
-		552BD5C51BA17BF100BF316C /* TimeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeTableViewCell.h; sourceTree = "<group>"; };
-		552BD5C61BA17BF100BF316C /* TimeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeTableViewCell.m; sourceTree = "<group>"; };
-		552BD5C71BA17BF100BF316C /* TimeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeTableViewCell.xib; sourceTree = "<group>"; };
 		552DC76F1B86BD1E00770FA1 /* WordObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WordObject.h; path = Objects/WordObject.h; sourceTree = "<group>"; };
 		552DC7701B86BD1E00770FA1 /* WordObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WordObject.m; path = Objects/WordObject.m; sourceTree = "<group>"; };
 		552DC7721B871C9900770FA1 /* Algorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Algorithm.m; path = Common/Algorithm.m; sourceTree = "<group>"; };
@@ -359,6 +358,12 @@
 		557D7AC81B85B5B600834A44 /* ic_speaker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_speaker.png; sourceTree = "<group>"; };
 		557D7AC91B85B5B600834A44 /* ic_speaker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_speaker@2x.png"; sourceTree = "<group>"; };
 		557D7ACA1B85B5B600834A44 /* ic_speaker@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_speaker@3x.png"; sourceTree = "<group>"; };
+		55B08BEC1BBE36D000693411 /* LevelPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelPickerViewController.h; sourceTree = "<group>"; };
+		55B08BED1BBE36D000693411 /* LevelPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelPickerViewController.m; sourceTree = "<group>"; };
+		55B08BEE1BBE36D000693411 /* LevelPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LevelPickerViewController.xib; sourceTree = "<group>"; };
+		55B08BF11BBE6FAF00693411 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReportViewController.h; path = Mainsreen/ReportViewController.h; sourceTree = "<group>"; };
+		55B08BF21BBE6FAF00693411 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReportViewController.m; path = Mainsreen/ReportViewController.m; sourceTree = "<group>"; };
+		55B08BF31BBE6FAF00693411 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ReportViewController.xib; path = Mainsreen/ReportViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -767,12 +772,12 @@
 				552BD5C01BA17A6900BF316C /* NotificationTableViewCell.h */,
 				552BD5C11BA17A6900BF316C /* NotificationTableViewCell.m */,
 				552BD5C21BA17A6900BF316C /* NotificationTableViewCell.xib */,
-				552BD5C51BA17BF100BF316C /* TimeTableViewCell.h */,
-				552BD5C61BA17BF100BF316C /* TimeTableViewCell.m */,
-				552BD5C71BA17BF100BF316C /* TimeTableViewCell.xib */,
 				55457CBF1BA27DA100EFCD50 /* TimerViewController.h */,
 				55457CC01BA27DA100EFCD50 /* TimerViewController.m */,
 				55457CC11BA27DA100EFCD50 /* TimerViewController.xib */,
+				55B08BEC1BBE36D000693411 /* LevelPickerViewController.h */,
+				55B08BED1BBE36D000693411 /* LevelPickerViewController.m */,
+				55B08BEE1BBE36D000693411 /* LevelPickerViewController.xib */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -817,6 +822,9 @@
 				557D7AC01B858BE300834A44 /* StudyWordViewController.h */,
 				557D7AC11B858BE300834A44 /* StudyWordViewController.m */,
 				557D7AC21B858BE300834A44 /* StudyWordViewController.xib */,
+				55B08BF11BBE6FAF00693411 /* ReportViewController.h */,
+				55B08BF21BBE6FAF00693411 /* ReportViewController.m */,
+				55B08BF31BBE6FAF00693411 /* ReportViewController.xib */,
 			);
 			name = Mainscreen;
 			sourceTree = "<group>";
@@ -906,6 +914,7 @@
 				553F78301BA6D12800D15876 /* Images.xcassets in Resources */,
 				4DD3C3D41B6F218700B6DA71 /* ic_heart.png in Resources */,
 				552BD56B1BA1362A00BF316C /* README.txt in Resources */,
+				55B08BF51BBE6FAF00693411 /* ReportViewController.xib in Resources */,
 				552DC77F1B872A4F00770FA1 /* StudiedTableViewCell.xib in Resources */,
 				4DD3C3DF1B6F218700B6DA71 /* arrow_white@3x.png in Resources */,
 				552DC77A1B87292F00770FA1 /* StudiedListViewController.xib in Resources */,
@@ -956,6 +965,7 @@
 				552BD5A11BA15F7200BF316C /* SettingsViewController.xib in Resources */,
 				4DD3C3DE1B6F218700B6DA71 /* arrow_white@2x.png in Resources */,
 				4DD3C3E51B6F218700B6DA71 /* cancel@3x.png in Resources */,
+				55B08BF01BBE36D000693411 /* LevelPickerViewController.xib in Resources */,
 				552BD5B91BA175E300BF316C /* ic_turtle@2x.png in Resources */,
 				552BD5A61BA15FE600BF316C /* ic_home@2x.png in Resources */,
 				552BD5BF1BA178A500BF316C /* DailyTargetViewController.xib in Resources */,
@@ -964,7 +974,6 @@
 				553F78341BA6D39400D15876 /* rearBanner.png in Resources */,
 				4DD3C3A21B6F191C00B6DA71 /* README.txt in Resources */,
 				4DD3C3741B6F18D700B6DA71 /* RearTableViewCell.xib in Resources */,
-				552BD5C91BA17BF100BF316C /* TimeTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -991,7 +1000,6 @@
 				557288D61BB25DAA00EA0CE9 /* GTLBatchResult.m in Sources */,
 				4DD3C3771B6F18D700B6DA71 /* SubRearViewController.m in Sources */,
 				552BD5AD1BA1738D00BF316C /* SpeedTableViewCell.m in Sources */,
-				552BD5C81BA17BF100BF316C /* TimeTableViewCell.m in Sources */,
 				4DD3C3981B6F191C00B6DA71 /* LICENCE.md in Sources */,
 				557288CC1BB25DAA00EA0CE9 /* GTMGatherInputStream.m in Sources */,
 				3ED661881B8488C50030BB3F /* CommonSqlite.m in Sources */,
@@ -1000,10 +1008,12 @@
 				557288D11BB25DAA00EA0CE9 /* GTMMIMEDocument.m in Sources */,
 				557288DE1BB25DAA00EA0CE9 /* GTLService.m in Sources */,
 				557288ED1BB2844700EA0CE9 /* SVProgressHUD.m in Sources */,
+				55B08BEF1BBE36D000693411 /* LevelPickerViewController.m in Sources */,
 				4DD3C3BC1B6F1AA700B6DA71 /* Reachability.m in Sources */,
 				557288DB1BB25DAA00EA0CE9 /* GTLObject.m in Sources */,
 				4DD3C3971B6F191C00B6DA71 /* AsyncImageView.m in Sources */,
 				557288EB1BB2844700EA0CE9 /* SVIndefiniteAnimatedView.m in Sources */,
+				55B08BF41BBE6FAF00693411 /* ReportViewController.m in Sources */,
 				557288D01BB25DAA00EA0CE9 /* GTMHTTPUploadFetcher.m in Sources */,
 				4DD3C3751B6F18D700B6DA71 /* RearViewController.m in Sources */,
 				557288CD1BB25DAA00EA0CE9 /* GTMHTTPFetcherLogging.m in Sources */,

@@ -30,6 +30,7 @@ typedef enum {
 
 typedef enum {
     DailyTarget = 0,
+    LowestLevel,
     DailyTargetSectionMax
 } DAILY_SECTION;
 
@@ -45,7 +46,8 @@ typedef enum {
 } NOTIFICATION_SECTION;
 
 typedef enum {
-    Reset = 0,
+    UpdateCurrentDate = 0,
+    UpdateDatabase,
     ResetSectionMax
 } RESET_SECTION;
 

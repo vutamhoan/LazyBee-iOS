@@ -153,6 +153,13 @@
         [[Common sharedCommon] saveDataToUserDefaultStandard:remindTime withKey:@"RemindTime"];
     }
     
+    NSString *level = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"LowestLevel"];
+    
+    if (!level) {
+        level = @"2";
+        [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:@"LowestLevel"];
+    }
+    
     NSNumber *reminderNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"ReminderOnOff"];
     
     if (!reminderNumberObj) {

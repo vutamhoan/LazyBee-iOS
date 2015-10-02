@@ -11,6 +11,7 @@
 #import "HTMLHelper.h"
 #import "SearchViewController.h"
 #import "StudiedListViewController.h"
+#import "ReportViewController.h"
 #import "AppDelegate.h"
 #import "CommonDefine.h"
 #import "Algorithm.h"
@@ -30,7 +31,8 @@
 #define AS_LEARN_BTN_IGNORE_WORD   0
 #define AS_LEARN_BTN_LEARNT_WORD  1
 #define AS_LEARN_BTN_UPDATE_WORD   2
-#define AS_LEARN_BTN_CANCEL        3
+#define AS_LEARN_BTN_REPORT_WORD   3
+#define AS_LEARN_BTN_CANCEL        4
 
 @interface StudyWordViewController ()
 {
@@ -177,6 +179,11 @@
                                                  selector:@selector(didSelectRowFromSearch:)
                                                      name:@"didSelectRowFromSearch"
                                                    object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(refreshStudyScreen:)
+                                                     name:@"refreshStudyScreen"
+                                                   object:nil];
     }
 }
 
@@ -237,7 +244,7 @@
         
     } else {
 
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Ignore", @"Done", @"Update", nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Ignore", @"Done", @"Update", @"Report", nil];
         
         actionSheet.tag = AS_TAG_LEARN;
         actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
@@ -515,7 +522,7 @@
     
     if (actionSheet.tag == AS_TAG_SEARCH) {
         if (buttonIndex == AS_SEARCH_BTN_ADD_TO_LEARN) {
-            NSLog(@"Add to laern");
+            NSLog(@"Add to learn");
             [[CommonSqlite sharedCommonSqlite] addAWordToStydyingQueue:_wordObj];
             
             //update queue value to 0 to consider this word as a new word in DB
@@ -567,12 +574,25 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"completedDailyTarget" object:nil];
             }
             
-        } else if (buttonIndex == AS_LEARN_BTN_CANCEL) {
-            NSLog(@"Cancel");
-        }
-        else if (buttonIndex == AS_LEARN_BTN_UPDATE_WORD) {
+        } else if (buttonIndex == AS_LEARN_BTN_UPDATE_WORD) {
             NSLog(@"Update word");
             [self updateWordFromGAE];
+            
+        }  else if (buttonIndex == AS_LEARN_BTN_REPORT_WORD) {
+            NSLog(@"report");
+            ReportViewController *reportView = [[ReportViewController alloc] initWithNibName:@"ReportViewController" bundle:nil];
+            reportView.wordObj = _wordObj;
+            
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:reportView];
+            
+            [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+            [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+            
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
+            
+        } else if (buttonIndex == AS_LEARN_BTN_CANCEL) {
+            NSLog(@"Cancel");
+            
         }
     }
     
@@ -604,5 +624,15 @@
     }
 }
 
-
+- (void)refreshStudyScreen:(NSNotification *)notification {
+    
+    if ([self.navigationController.topViewController isEqual:self]) {
+        _wordObj = (WordObject *)notification.object;
+        
+        if (_wordObj) {
+            [self displayAnswer:_wordObj];
+            [self showHideButtonsPanel:YES];
+        }
+    }
+}
 @end

@@ -464,8 +464,9 @@ static CommonSqlite* sharedCommonSqlite = nil;
     }
 */
     //pick up "amount" news word-ids from vocabulary that not included the old words
-//    if (amount > [idListArr count]) {
     NSMutableArray *resArr = [[NSMutableArray alloc] init];
+    
+    /* comment old algorithm
     NSArray *wordAmountByLevel = [[Algorithm sharedAlgorithm] distributeWordByLevel];
     
     for (int i = 1; i < [wordAmountByLevel count]; i++) {
@@ -514,7 +515,22 @@ static CommonSqlite* sharedCommonSqlite = nil;
         if (count == 10) {
             break;
         }
+    }*/
+    NSString *lowestLevel = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"LowestLevel"];
+    strQuery = [NSString stringWithFormat:@"SELECT id from \"vocabulary\" WHERE queue = 0 AND level >= %@ ORDER BY level LIMIT %ld", lowestLevel, (long)amount];
+    charQuery = [strQuery UTF8String];
+    
+    sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+    
+    while(sqlite3_step(dbps) == SQLITE_ROW) {
+        if (sqlite3_column_text(dbps, 0)) {
+            NSString *wordID = [NSString stringWithUTF8String:(char *)sqlite3_column_text(dbps, 0)];
+            
+            [resArr addObject:wordID];
+        }
     }
+    
+    sqlite3_finalize(dbps);
 
     //create json to re-add to db
     NSMutableDictionary *dictNewWords = [[NSMutableDictionary alloc] init];
@@ -546,8 +562,6 @@ static CommonSqlite* sharedCommonSqlite = nil;
     }
     
     sqlite3_finalize(dbps);
-//    }
-    
     sqlite3_close(db);
 }
 
