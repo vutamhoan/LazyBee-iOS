@@ -11,6 +11,7 @@
 #import "HTMLHelper.h"
 #import "SearchViewController.h"
 #import "StudiedListViewController.h"
+#import "ReportViewController.h"
 #import "AppDelegate.h"
 #import "CommonDefine.h"
 #import "Algorithm.h"
@@ -177,6 +178,11 @@
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didSelectRowFromSearch:)
                                                      name:@"didSelectRowFromSearch"
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(refreshStudyScreen:)
+                                                     name:@"refreshStudyScreen"
                                                    object:nil];
     }
 }
@@ -574,6 +580,15 @@
             
         }  else if (buttonIndex == AS_LEARN_BTN_REPORT_WORD) {
             NSLog(@"report");
+            ReportViewController *reportView = [[ReportViewController alloc] initWithNibName:@"ReportViewController" bundle:nil];
+            reportView.wordObj = _wordObj;
+            
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:reportView];
+            
+            [nav setModalPresentationStyle:UIModalPresentationFormSheet];
+            [nav setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+            
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
             
         } else if (buttonIndex == AS_LEARN_BTN_CANCEL) {
             NSLog(@"Cancel");
@@ -609,5 +624,15 @@
     }
 }
 
-
+- (void)refreshStudyScreen:(NSNotification *)notification {
+    
+    if ([self.navigationController.topViewController isEqual:self]) {
+        _wordObj = (WordObject *)notification.object;
+        
+        if (_wordObj) {
+            [self displayAnswer:_wordObj];
+            [self showHideButtonsPanel:YES];
+        }
+    }
+}
 @end

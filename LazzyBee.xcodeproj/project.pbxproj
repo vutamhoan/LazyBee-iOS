@@ -140,6 +140,8 @@
 		557D7ACD1B85B5B600834A44 /* ic_speaker@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 557D7ACA1B85B5B600834A44 /* ic_speaker@3x.png */; };
 		55B08BEF1BBE36D000693411 /* LevelPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B08BED1BBE36D000693411 /* LevelPickerViewController.m */; settings = {ASSET_TAGS = (); }; };
 		55B08BF01BBE36D000693411 /* LevelPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B08BEE1BBE36D000693411 /* LevelPickerViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		55B08BF41BBE6FAF00693411 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B08BF21BBE6FAF00693411 /* ReportViewController.m */; settings = {ASSET_TAGS = (); }; };
+		55B08BF51BBE6FAF00693411 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B08BF31BBE6FAF00693411 /* ReportViewController.xib */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -359,6 +361,9 @@
 		55B08BEC1BBE36D000693411 /* LevelPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelPickerViewController.h; sourceTree = "<group>"; };
 		55B08BED1BBE36D000693411 /* LevelPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelPickerViewController.m; sourceTree = "<group>"; };
 		55B08BEE1BBE36D000693411 /* LevelPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LevelPickerViewController.xib; sourceTree = "<group>"; };
+		55B08BF11BBE6FAF00693411 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReportViewController.h; path = Mainsreen/ReportViewController.h; sourceTree = "<group>"; };
+		55B08BF21BBE6FAF00693411 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReportViewController.m; path = Mainsreen/ReportViewController.m; sourceTree = "<group>"; };
+		55B08BF31BBE6FAF00693411 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ReportViewController.xib; path = Mainsreen/ReportViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -817,6 +822,9 @@
 				557D7AC01B858BE300834A44 /* StudyWordViewController.h */,
 				557D7AC11B858BE300834A44 /* StudyWordViewController.m */,
 				557D7AC21B858BE300834A44 /* StudyWordViewController.xib */,
+				55B08BF11BBE6FAF00693411 /* ReportViewController.h */,
+				55B08BF21BBE6FAF00693411 /* ReportViewController.m */,
+				55B08BF31BBE6FAF00693411 /* ReportViewController.xib */,
 			);
 			name = Mainscreen;
 			sourceTree = "<group>";
@@ -906,6 +914,7 @@
 				553F78301BA6D12800D15876 /* Images.xcassets in Resources */,
 				4DD3C3D41B6F218700B6DA71 /* ic_heart.png in Resources */,
 				552BD56B1BA1362A00BF316C /* README.txt in Resources */,
+				55B08BF51BBE6FAF00693411 /* ReportViewController.xib in Resources */,
 				552DC77F1B872A4F00770FA1 /* StudiedTableViewCell.xib in Resources */,
 				4DD3C3DF1B6F218700B6DA71 /* arrow_white@3x.png in Resources */,
 				552DC77A1B87292F00770FA1 /* StudiedListViewController.xib in Resources */,
@@ -1004,6 +1013,7 @@
 				557288DB1BB25DAA00EA0CE9 /* GTLObject.m in Sources */,
 				4DD3C3971B6F191C00B6DA71 /* AsyncImageView.m in Sources */,
 				557288EB1BB2844700EA0CE9 /* SVIndefiniteAnimatedView.m in Sources */,
+				55B08BF41BBE6FAF00693411 /* ReportViewController.m in Sources */,
 				557288D01BB25DAA00EA0CE9 /* GTMHTTPUploadFetcher.m in Sources */,
 				4DD3C3751B6F18D700B6DA71 /* RearViewController.m in Sources */,
 				557288CD1BB25DAA00EA0CE9 /* GTMHTTPFetcherLogging.m in Sources */,
