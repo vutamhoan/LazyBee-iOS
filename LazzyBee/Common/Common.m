@@ -115,7 +115,7 @@
 }
 
 - (NSInteger)getDailyTarget {
-    NSNumber *target  = [self loadDataFromUserDefaultStandardWithKey:@"DailyTarget"];
+    NSNumber *target  = [self loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TARGET];
     
     return [target integerValue];
 }

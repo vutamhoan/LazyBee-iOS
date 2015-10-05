@@ -16,6 +16,7 @@
 #import "NotificationTableViewCell.h"
 #import "TimerViewController.h"
 #import "LevelPickerViewController.h"
+#import "TAGContainer.h"
 
 @interface SettingsViewController ()
 {
@@ -173,7 +174,7 @@
                         cell.textLabel.font = [UIFont systemFontOfSize:16];
                         cell.accessoryType = UITableViewCellAccessoryNone;
                         
-                        NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"DailyTarget"];
+                        NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TARGET];
                         
                         if (targetNumberObj) {
                             cell.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -196,7 +197,7 @@
                         cell.textLabel.font = [UIFont systemFontOfSize:16];
                         cell.accessoryType = UITableViewCellAccessoryNone;
                         
-                        NSString *level = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"LowestLevel"];
+                        NSString *level = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_LOWEST_LEVEL];
                         
                         if (level) {
                             cell.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -231,7 +232,7 @@
                 
                 cell.lbTitle.text = @"Autoplay sound";
                 
-                NSNumber *autoPlayFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"AutoPlay"];
+                NSNumber *autoPlayFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_AUTOPLAY];
                 
                 cell.swControl.on = [autoPlayFlag boolValue];
                 
@@ -257,7 +258,7 @@
                     
                     cell.lbTitle.text = @"Turn on reminder";
                     
-                    NSNumber *reminderFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"ReminderOnOff"];
+                    NSNumber *reminderFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REMINDER_ONOFF];
                     
                     cell.swControl.on = [reminderFlag boolValue];
                     
@@ -277,7 +278,7 @@
                         cell.textLabel.font = [UIFont systemFontOfSize:16];
                         cell.accessoryType = UITableViewCellAccessoryNone;
                         
-                        NSString *time = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"RemindTime"];
+                        NSString *time = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REMIND_TIME];
                         
                         if (time) {
                             cell.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -420,7 +421,7 @@
                     
                 case UpdateDatabase:
                 {
-                    
+                    [self updateDatabaseFromServer];
                 }
                     break;
                 default:
@@ -447,7 +448,7 @@
             autoPlayNumberObj = [NSNumber numberWithBool:NO];
         }
         
-        [[Common sharedCommon] saveDataToUserDefaultStandard:autoPlayNumberObj withKey:@"AutoPlay"];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:autoPlayNumberObj withKey:KEY_AUTOPLAY];
         
     } else if (cell.tag == SettingsTableViewSectionNotification) {
         
@@ -459,7 +460,7 @@
             reminderNumberObj = [NSNumber numberWithBool:NO];
         }
         
-        [[Common sharedCommon] saveDataToUserDefaultStandard:reminderNumberObj withKey:@"ReminderOnOff"];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:reminderNumberObj withKey:KEY_REMINDER_ONOFF];
     }
 }
 
@@ -505,5 +506,19 @@
     [UIView animateWithDuration:0.3 animations:^(void) {
         levelView.view.alpha = 1;
     }];
+}
+
+- (void)updateDatabaseFromServer {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    TAGContainer *container = appDelegate.container;
+    
+    NSInteger serverVersion = [[container stringForKey:@"gae_db_version"] integerValue];
+    NSInteger dbVersion = [[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DB_VERSION] integerValue];
+
+    while (serverVersion > dbVersion) {
+        NSString *dbPath = [container stringForKey:@"base_url_db"];
+        NSLog(@"%@", dbPath);
+    }
+    
 }
 @end

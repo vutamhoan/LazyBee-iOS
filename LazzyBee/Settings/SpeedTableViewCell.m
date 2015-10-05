@@ -13,7 +13,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"SpeakingSpeed"];
+    NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
     
     if (speedNumberObj) {
         [speedSlider setValue:[speedNumberObj floatValue]];
@@ -29,7 +29,7 @@
 
 - (IBAction)sliderchangeValue:(id)sender {
     NSNumber *speedNumberObj = [NSNumber numberWithFloat:[speedSlider value]];
-    [[Common sharedCommon] saveDataToUserDefaultStandard:speedNumberObj withKey:@"SpeakingSpeed"];
+    [[Common sharedCommon] saveDataToUserDefaultStandard:speedNumberObj withKey:KEY_SPEAKING_SPEED];
 
 }
 

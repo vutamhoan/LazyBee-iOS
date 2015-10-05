@@ -33,6 +33,16 @@
 #define PICKED_WORDS_QUEUE_SIZE 10
 #define TOTAL_WORDS_A_DAY_MAX 30
 
+//user default keys
+#define KEY_SPEAKING_SPEED @"SpeakingSpeed"
+#define KEY_REMIND_TIME @"RemindTime"
+#define KEY_LOWEST_LEVEL @"LowestLevel"
+#define KEY_REMINDER_ONOFF @"ReminderOnOff"
+#define KEY_AUTOPLAY @"AutoPlay"
+#define KEY_DAILY_TARGET @"DailyTarget"
+#define KEY_DB_VERSION @"DatabaseVersion"
+
+
 @interface CommonDefine : NSObject
 
 

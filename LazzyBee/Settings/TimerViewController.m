@@ -18,11 +18,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    NSString *remindTime = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"RemindTime"];
+    NSString *remindTime = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REMIND_TIME];
     
     if (!remindTime) {
         remindTime = @"08:00";
-        [[Common sharedCommon] saveDataToUserDefaultStandard:remindTime withKey:@"RemindTime"];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:remindTime withKey:KEY_REMIND_TIME];
     }
     
     NSString *locale = [[NSLocale currentLocale] localeIdentifier];
@@ -60,7 +60,7 @@
 
 - (IBAction)btnDoneClick:(id)sender {
     NSString *remindTime = [[Common sharedCommon] dateStringFromDate:datetimePicker.date withFormat:@"HH:mm"];
-    [[Common sharedCommon] saveDataToUserDefaultStandard:remindTime withKey:@"RemindTime"];
+    [[Common sharedCommon] saveDataToUserDefaultStandard:remindTime withKey:KEY_REMIND_TIME];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSettingsScreen" object:nil];
     

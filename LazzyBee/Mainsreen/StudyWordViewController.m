@@ -63,13 +63,20 @@
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     TAGContainer *container = appDelegate.container;
-    
-    NSString *advStr = [NSString stringWithFormat:@"%@/%@", [container stringForKey:@"g_pub_id"],[container stringForKey:@"adv_home_id"] ];
-    
-    self.adBanner.adUnitID = advStr;//@"ca-app-pub-3940256099942544/2934735716";
-    
-    self.adBanner.rootViewController = self;
-    [self.adBanner loadRequest:request];
+    BOOL enableAds = [[container stringForKey:@"adv_home_id"] boolValue];
+
+    if (enableAds) {
+        viewReservationForAds.hidden = NO;
+        NSString *advStr = [NSString stringWithFormat:@"%@/%@", [container stringForKey:@"g_pub_id"],[container stringForKey:@"adv_home_id"] ];
+        
+        self.adBanner.adUnitID = advStr;//@"ca-app-pub-3940256099942544/2934735716";
+        
+        self.adBanner.rootViewController = self;
+        [self.adBanner loadRequest:request];
+        
+    } else {
+        viewReservationForAds.hidden = YES;
+    }
     
     if (_isReviewScreen == YES) {
         UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionsPanel)];
@@ -83,15 +90,21 @@
             viewButtonsPanel.hidden = YES;
             viewShowAnswer.hidden = YES;
 
-//            CGRect adsViewRect = viewReservationForAds.frame;
             CGRect webViewRect = webViewWord.frame;
             CGRect showAnswerrect = viewShowAnswer.frame;
             
-            webViewRect.origin.y = 0;
-            webViewRect.size.height = showAnswerrect.origin.y;
-            [webViewWord setFrame:webViewRect];
-
-            [viewReservationForAds setFrame:showAnswerrect];
+            if (enableAds) {
+                webViewRect.origin.y = 0;
+                webViewRect.size.height = showAnswerrect.origin.y;
+                [webViewWord setFrame:webViewRect];
+                
+                [viewReservationForAds setFrame:showAnswerrect];
+                
+            } else {
+                webViewRect.origin.y = 0;
+                webViewRect.size.height = showAnswerrect.origin.y + showAnswerrect.size.height;
+                [webViewWord setFrame:webViewRect];
+            }
             
             //show word
             [self displayAnswer:_wordObj];
@@ -116,6 +129,16 @@
         
         //move buttons panel from the screen
         [self showHideButtonsPanel:NO];
+        
+        //show/hide ads
+        CGRect webViewRect = webViewWord.frame;
+        CGRect showAnswerrect = viewShowAnswer.frame;
+        
+        if (!enableAds) {
+            webViewRect.origin.y = 0;
+            webViewRect.size.height = showAnswerrect.origin.y;
+            [webViewWord setFrame:webViewRect];
+        }
         
         //init words list
         _nwordList = [[NSMutableArray alloc] init];
@@ -291,10 +314,10 @@
     [webViewWord loadHTMLString:htmlString baseURL:baseURL];
     
     
-    NSNumber *autoPlayFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"AutoPlay"];
+    NSNumber *autoPlayFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_AUTOPLAY];
     
     if ([autoPlayFlag boolValue]) {
-        NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"SpeakingSpeed"];
+        NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
         float speed = [speedNumberObj floatValue];
         [[Common sharedCommon] textToSpeech:wordObj.question withRate:speed];
     }
