@@ -31,7 +31,7 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
-    NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"DailyTarget"];
+    NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TARGET];
     
     if (targetNumberObj) {
         selectedIndexPath = [NSIndexPath indexPathForRow:([targetNumberObj integerValue]/5 - 1) inSection:0];
@@ -66,7 +66,7 @@
 - (void)doneButtonClick {
     NSInteger target = (selectedIndexPath.row + 1) * 5;
     NSNumber *targetNumberObj = [NSNumber numberWithInteger:target];
-    [[Common sharedCommon] saveDataToUserDefaultStandard:targetNumberObj withKey:@"DailyTarget"];
+    [[Common sharedCommon] saveDataToUserDefaultStandard:targetNumberObj withKey:KEY_DAILY_TARGET];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSettingsScreen" object:nil];
     

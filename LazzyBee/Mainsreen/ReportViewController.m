@@ -77,13 +77,17 @@
 
 - (void)doneButtonClick {
     //parse the answer to dictionary object
-/*    NSData *data = [_wordObj.answers dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *dictAnswer = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSData *data = [_wordObj.answers dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableDictionary *dictAnswer = [[NSMutableDictionary alloc] initWithDictionary:[NSJSONSerialization JSONObjectWithData:data options:0 error:nil]];
 
-    NSDictionary *dictPackages = [dictAnswer valueForKey:@"packages"];
-    NSDictionary *dictSinglePackage = [dictPackages valueForKey:@"common"];
+    NSMutableDictionary *dictPackages = [[NSMutableDictionary alloc] initWithDictionary: [dictAnswer valueForKey:@"packages"]];
+    NSMutableDictionary *dictSinglePackage = [[NSMutableDictionary alloc] initWithDictionary:[dictPackages valueForKey:@"common"]];
 
     [dictSinglePackage setValue:txtMeaning.text forKey:@"meaning"];
+    
+    //re-write changed value to dictAnswer
+    [dictPackages setValue:dictSinglePackage forKey:@"common"];
+    [dictAnswer setValue:dictPackages forKey:@"packages"];
     
     data = [NSJSONSerialization dataWithJSONObject:dictAnswer options:0 error:nil];
     NSString * myString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -93,7 +97,6 @@
     [[CommonSqlite sharedCommonSqlite] updateWord:_wordObj];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshStudyScreen" object:_wordObj];
-*/
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event

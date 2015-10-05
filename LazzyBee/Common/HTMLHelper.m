@@ -79,7 +79,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
                             "</body>\n"
                             "</html>";
     
-    NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"SpeakingSpeed"];
+    NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
     float speed = 2*[speedNumberObj floatValue];
     
     NSString *strWordIconTag = @"<div style='float:left;width:90%%;text-align: center;'>\n"
@@ -135,7 +135,7 @@ static HTMLHelper* sharedHTMLHelper = nil;
     NSString *strExplainIconTag = @"";
     NSString *strExampleIconTag = @"";
     
-    NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"SpeakingSpeed"];
+    NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
     float speed = 2*[speedNumberObj floatValue];
     //create html
     

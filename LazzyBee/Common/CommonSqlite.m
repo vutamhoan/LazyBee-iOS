@@ -516,7 +516,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
             break;
         }
     }*/
-    NSString *lowestLevel = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"LowestLevel"];
+    NSString *lowestLevel = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_LOWEST_LEVEL];
     strQuery = [NSString stringWithFormat:@"SELECT id from \"vocabulary\" WHERE queue = 0 AND level >= %@ ORDER BY level LIMIT %ld", lowestLevel, (long)amount];
     charQuery = [strQuery UTF8String];
     
@@ -611,6 +611,9 @@ static CommonSqlite* sharedCommonSqlite = nil;
     NSTimeInterval curDate = [[Common sharedCommon] getBeginOfDayInSec];   //just get time at the begin of day
     
     if (force == YES || (oldDate == 0 || curDate >= oldDate + 24*3600)) {
+        //reset flag if it's new day
+        [[Common sharedCommon] saveDataToUserDefaultStandard:[NSNumber numberWithBool:NO] withKey:@"CompletedDailyTargetFlag"];
+        
         //get random 10 words in buffer from system table
         strQuery = @"SELECT value from \"system\" WHERE key = 'buffer'";
         

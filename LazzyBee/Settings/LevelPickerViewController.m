@@ -20,11 +20,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    NSString *level = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"LowestLevel"];
+    NSString *level = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_LOWEST_LEVEL];
     
     if (!level) {
         level = @"2";
-        [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:@"LowestLevel"];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
     }
 }
 
@@ -53,7 +53,7 @@
 
 - (IBAction)btnDoneClick:(id)sender {
     NSString *level = [NSString stringWithFormat:@"%ld", [levelPicker selectedRowInComponent:0] + 1];
-    [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:@"LowestLevel"];
+    [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSettingsScreen" object:nil];
     
@@ -82,7 +82,7 @@
 - (void)pickerView:(UIPickerView *)pV didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
 /*    NSString *level = [NSString stringWithFormat:@"%ld", [levelPicker selectedRowInComponent:0] + 1];
-    [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:@"LowestLevel"];
+    [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateSettingsScreen" object:nil];
     

@@ -72,11 +72,11 @@
                                                object:nil];
     
     //admob
-    GADRequest *request = [GADRequest request];
+/*    GADRequest *request = [GADRequest request];
     self.adBanner.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
     self.adBanner.rootViewController = self;
     [self.adBanner loadRequest:request];
-    [self createAndLoadInterstitial];
+    [self createAndLoadInterstitial];*/
 }
 
 - (void)didReceiveMemoryWarning {
@@ -177,11 +177,20 @@
 }
 
 - (void)completedDailyTarget {
-    //update screen info
+    NSNumber *completeTargetFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"CompletedDailyTargetFlag"];
+    NSString *alertContent = @"";
     
+    if (![completeTargetFlag boolValue]) {
+        [[Common sharedCommon] saveDataToUserDefaultStandard:[NSNumber numberWithBool:YES] withKey:@"CompletedDailyTargetFlag"];
+        
+        alertContent = @"You have completed your daily target.";
+        
+    } else {
+        alertContent = @"You have learnt very hard. Now is the time to relax.";
+    }
     
     //show alert to congrat
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulation" message:@"You have completed your daily target." delegate:(id)self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulation" message:alertContent delegate:(id)self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     alert.tag = 2;
     
     [alert show];

@@ -139,51 +139,58 @@
 }
 
 - (void)initialConfiguration {
-    NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"SpeakingSpeed"];
+    NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
     
     if (!speedNumberObj) {
         speedNumberObj = [NSNumber numberWithFloat:0.5];
-        [[Common sharedCommon] saveDataToUserDefaultStandard:speedNumberObj withKey:@"SpeakingSpeed"];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:speedNumberObj withKey:KEY_SPEAKING_SPEED];
     }
     
-    NSString *remindTime = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"RemindTime"];
+    NSString *remindTime = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REMIND_TIME];
     
     if (!remindTime) {
         remindTime = @"08:00";
-        [[Common sharedCommon] saveDataToUserDefaultStandard:remindTime withKey:@"RemindTime"];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:remindTime withKey:KEY_REMIND_TIME];
     }
     
-    NSString *level = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"LowestLevel"];
+    NSString *level = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_LOWEST_LEVEL];
     
     if (!level) {
         level = @"2";
-        [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:@"LowestLevel"];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
     }
     
-    NSNumber *reminderNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"ReminderOnOff"];
+    NSNumber *reminderNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REMINDER_ONOFF];
     
     if (!reminderNumberObj) {
         reminderNumberObj = [NSNumber numberWithBool:YES];
-        [[Common sharedCommon] saveDataToUserDefaultStandard:reminderNumberObj withKey:@"ReminderOnOff"];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:reminderNumberObj withKey:KEY_REMINDER_ONOFF];
     }
     
-    NSNumber *autoPlayFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"AutoPlay"];
+    NSNumber *autoPlayFlag = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_AUTOPLAY];
     
     if (!autoPlayFlag) {
         autoPlayFlag = [NSNumber numberWithBool:YES];
-        [[Common sharedCommon] saveDataToUserDefaultStandard:autoPlayFlag withKey:@"AutoPlay"];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:autoPlayFlag withKey:KEY_AUTOPLAY];
     }
     
-    NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"DailyTarget"];
+    NSNumber *targetNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DAILY_TARGET];
     
     if (!targetNumberObj) {
         targetNumberObj = [NSNumber numberWithInteger:10];
-        [[Common sharedCommon] saveDataToUserDefaultStandard:targetNumberObj withKey:@"DailyTarget"];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:targetNumberObj withKey:KEY_DAILY_TARGET];
+    }
+    
+    NSNumber *dbVersion = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DB_VERSION];
+    
+    if (!dbVersion) {
+        dbVersion = [NSNumber numberWithInteger:1];
+        [[Common sharedCommon] saveDataToUserDefaultStandard:dbVersion withKey:KEY_DB_VERSION];
     }
 }
 
 - (void)scheduleNotification {
-    NSNumber *reminderNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"ReminderOnOff"];
+    NSNumber *reminderNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REMINDER_ONOFF];
     BOOL notificationFlag = YES;
     
     if (reminderNumberObj) {
@@ -196,7 +203,7 @@
         UILocalNotification *locNotification = [[UILocalNotification alloc] init];
         
         NSString *beginOfDay = [[Common sharedCommon] getCurrentDatetimeWithFormat:@"dd/MM/yyyy"];
-        NSString *remindTime = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:@"RemindTime"];
+        NSString *remindTime = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_REMIND_TIME];
         
         beginOfDay = [NSString stringWithFormat:@"%@ %@", beginOfDay, remindTime];
         
