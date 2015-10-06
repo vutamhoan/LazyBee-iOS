@@ -142,6 +142,7 @@
 		55B08BF01BBE36D000693411 /* LevelPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B08BEE1BBE36D000693411 /* LevelPickerViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		55B08BF41BBE6FAF00693411 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B08BF21BBE6FAF00693411 /* ReportViewController.m */; settings = {ASSET_TAGS = (); }; };
 		55B08BF51BBE6FAF00693411 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B08BF31BBE6FAF00693411 /* ReportViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		55CFD03D1BC373B8006F6C31 /* GTM-M6SZR5 in Resources */ = {isa = PBXBuildFile; fileRef = 55CFD03C1BC373B8006F6C31 /* GTM-M6SZR5 */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,7 +168,6 @@
 		4D35B3641B6BC7C600EA67C2 /* LazzyBeeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LazzyBeeTests.m; sourceTree = "<group>"; };
 		4D7C28561BABCC13005B274E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4D7C28581BABCC27005B274E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		4D7C285C1BABD043005B274E /* GTM-M6SZR5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTM-M6SZR5"; sourceTree = SOURCE_ROOT; };
 		4D7C28641BAC0489005B274E /* TAGContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGContainer.h; sourceTree = "<group>"; };
 		4D7C28651BAC0489005B274E /* TAGContainerOpener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGContainerOpener.h; sourceTree = "<group>"; };
 		4D7C28661BAC0489005B274E /* TAGDataLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGDataLayer.h; sourceTree = "<group>"; };
@@ -364,6 +364,7 @@
 		55B08BF11BBE6FAF00693411 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReportViewController.h; path = Mainsreen/ReportViewController.h; sourceTree = "<group>"; };
 		55B08BF21BBE6FAF00693411 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReportViewController.m; path = Mainsreen/ReportViewController.m; sourceTree = "<group>"; };
 		55B08BF31BBE6FAF00693411 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ReportViewController.xib; path = Mainsreen/ReportViewController.xib; sourceTree = "<group>"; };
+		55CFD03C1BC373B8006F6C31 /* GTM-M6SZR5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTM-M6SZR5"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -444,7 +445,7 @@
 		4D35B3451B6BC7C600EA67C2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4D7C285C1BABD043005B274E /* GTM-M6SZR5 */,
+				55CFD03C1BC373B8006F6C31 /* GTM-M6SZR5 */,
 				4D35B3461B6BC7C600EA67C2 /* Info.plist */,
 				4D35B3471B6BC7C600EA67C2 /* main.m */,
 			);
@@ -961,6 +962,7 @@
 				552BD5BA1BA175E300BF316C /* ic_turtle@3x.png in Resources */,
 				557D7ABE1B8587AF00834A44 /* btnbg@3x.png in Resources */,
 				553F78361BA6D39400D15876 /* rearBanner@3x.png in Resources */,
+				55CFD03D1BC373B8006F6C31 /* GTM-M6SZR5 in Resources */,
 				4DD3C3761B6F18D700B6DA71 /* RearViewController.xib in Resources */,
 				552BD5A11BA15F7200BF316C /* SettingsViewController.xib in Resources */,
 				4DD3C3DE1B6F218700B6DA71 /* arrow_white@2x.png in Resources */,

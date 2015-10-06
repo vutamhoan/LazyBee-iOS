@@ -515,10 +515,14 @@
     NSInteger serverVersion = [[container stringForKey:@"gae_db_version"] integerValue];
     NSInteger dbVersion = [[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DB_VERSION] integerValue];
 
-    while (serverVersion > dbVersion) {
+//    while (serverVersion > dbVersion) {
         NSString *dbPath = [container stringForKey:@"base_url_db"];
         NSLog(@"%@", dbPath);
-    }
+        dbPath = @"http://192.168.0.202/downloads";
+        dbPath = [NSString stringWithFormat:@"%@/%d.db", dbPath, 1];
+        
+        [[CommonSqlite sharedCommonSqlite] updateDatabaseWithPath:dbPath];
+//    }
     
 }
 @end

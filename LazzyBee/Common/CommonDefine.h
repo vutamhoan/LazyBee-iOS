@@ -28,6 +28,7 @@
 #define REQUEST_HOME @""
 
 #define DATABASENAME @"english.db"
+#define DATABASENAME_NEW @"new_english.db"
 
 #define BUFFER_SIZE 100
 #define PICKED_WORDS_QUEUE_SIZE 10

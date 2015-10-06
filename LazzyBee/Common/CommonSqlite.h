@@ -37,6 +37,7 @@
 - (NSInteger)getCountOfInreview;
 - (NSInteger)getCountOfStudyAgain;
 - (void)resetDateOfPickedWordList;
+- (void)updateDatabaseWithPath:(NSString *)bdPath;
 @end
 
 #endif
