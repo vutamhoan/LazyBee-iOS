@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StudyWordViewController">
@@ -17,6 +17,7 @@
                 <outlet property="lbReviewCount" destination="IZy-ES-gsA" id="3Oc-CM-ooW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewButtonsPanel" destination="hGJ-t1-liu" id="AHe-nd-XoM"/>
+                <outlet property="viewLearningInfo" destination="R1v-JI-ahT" id="vPH-u8-jDO"/>
                 <outlet property="viewReservationForAds" destination="vxi-5A-nRf" id="Hhb-hb-9Tq"/>
                 <outlet property="viewShowAnswer" destination="cHx-0s-h6i" id="VuF-Pj-aek"/>
                 <outlet property="webViewWord" destination="nfQ-5E-gvx" id="Eq5-Pn-6cz"/>
@@ -147,9 +148,4 @@ Again</string>
     <resources>
         <image name="btnbg.png" width="144" height="30"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

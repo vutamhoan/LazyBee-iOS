@@ -38,6 +38,7 @@
 - (NSInteger)getCountOfStudyAgain;
 - (void)resetDateOfPickedWordList;
 - (void)updateDatabaseWithPath:(NSString *)bdPath;
+- (NSArray *)getAllWords;
 @end
 
 #endif

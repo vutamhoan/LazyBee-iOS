@@ -90,6 +90,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
     NSArray *resArr = [self getReviewListFromSystem];
     
     //if it is yesterday, get new review list from vocabulary
+    //resArr could be empty in case had completed daily target (so can learn after have completed daily target
     if (resArr == nil || [resArr count] == 0) {
         resArr = [self getReviewListFromVocabulary];
         
@@ -320,12 +321,18 @@ static CommonSqlite* sharedCommonSqlite = nil;
 
     NSString *strQuery = @"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid FROM \"vocabulary\" ORDER BY level";
     
-    NSArray *resArr = [self getWordByQueryString:strQuery fromDatabase:dbPathNew];
+    NSArray *newWordsArr = [self getWordByQueryString:strQuery fromDatabase:dbPathNew];
     
-    NSLog(@"count :: %lu", (unsigned long)[resArr  count]);
+    NSLog(@"count :: %lu", (unsigned long)[newWordsArr  count]);
     
     //update old db
     NSString *dbPathOld = [self getDatabasePath];
+    NSArray *oldWordsArr = [self getWordByQueryString:strQuery fromDatabase:dbPathOld];
+    NSMutableDictionary *oldWordsDictionary = [[NSMutableDictionary alloc] init];   //improve search words
+    for (WordObject *oldWord in oldWordsArr) {
+        [oldWordsDictionary setValue:oldWord.answers forKey:oldWord.question];
+    }
+    
     storeURL = [NSURL URLWithString:dbPathOld];
     
     const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
@@ -340,50 +347,65 @@ static CommonSqlite* sharedCommonSqlite = nil;
     NSString *formattedAnswer = @"";
     NSString *formattedVN = @"";
     NSString *formattedEN = @"";
-
-    int errorCode = SQLITE_DONE;
+    const char *charQuery = nil;
+    BOOL updateFlag = NO;
     
-    for (WordObject *newWord in resArr) {
-        formattedAnswer = [newWord.answers stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
-        formattedVN = [newWord.langVN stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
-        formattedEN = [newWord.langEN stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
-        
-        strQuery = [NSString stringWithFormat:@"UPDATE 'vocabulary' SET answers = '%@', level = '%@', package = '%@', l_vn = '%@', l_en = '%@' where question = '%@'", formattedAnswer, newWord.level, newWord.package, formattedVN, formattedEN, newWord.question];
-        
-//        strQuery = [strQuery stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-        const char *charQuery = [strQuery UTF8String];
-        
-        sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
-        
-        errorCode = sqlite3_step(dbps);
-        
-        if(SQLITE_DONE != errorCode) {
-            NSLog(@"Error while updating. %s", sqlite3_errmsg(db));
+    for (WordObject *newWord in newWordsArr) {
+        updateFlag = NO;
+        for (WordObject *oldWord in oldWordsArr) {
+            if ([oldWord.question isEqualToString:newWord.question]) {
+                if (![oldWord.answers isEqualToString:newWord.answers] ||
+                    ![oldWord.level isEqualToString:newWord.level] ||
+                    ![oldWord.package isEqualToString:newWord.package] ||
+                    ![oldWord.langVN isEqualToString:newWord.langVN] ||
+                    ![oldWord.langEN isEqualToString:newWord.langEN]) {
+                    
+                    updateFlag = YES;
+                }
+                break;
+            }
         }
         
-        sqlite3_finalize(dbps);
+        if (updateFlag == YES) {
+            formattedAnswer = [newWord.answers stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
+            formattedVN = [newWord.langVN stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
+            formattedEN = [newWord.langEN stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
+            
+            strQuery = [NSString stringWithFormat:@"UPDATE 'vocabulary' SET answers = '%@', level = '%@', package = '%@', l_vn = '%@', l_en = '%@' where question = '%@'", formattedAnswer, newWord.level, newWord.package, formattedVN, formattedEN, newWord.question];
+            
+            charQuery = [strQuery UTF8String];
+            
+            sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+            
+            if(SQLITE_DONE != sqlite3_step(dbps)) {
+                NSLog(@"Error while updating. %s", sqlite3_errmsg(db));
+            }
+            
+            sqlite3_finalize(dbps);
+        }
     }
     
     //insert new word
-    for (WordObject *newWord in resArr) {
-        formattedAnswer = [newWord.answers stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
-        formattedVN = [newWord.langVN stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
-        formattedEN = [newWord.langEN stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
+    for (WordObject *newWord in newWordsArr) {
         
-        strQuery = @"INSERT INTO 'vocabulary' (id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid) VALUES ('%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@')";
-        strQuery = [NSString stringWithFormat:strQuery, newWord.wordid, newWord.question, formattedAnswer, newWord.subcats, newWord.status, newWord.package, newWord.level, newWord.queue, newWord.due, newWord.revCount, newWord.lastInterval, newWord.eFactor, formattedVN, formattedEN, newWord.gid];
-        
-//        strQuery = [strQuery stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-        
-        const char *charQuery = [strQuery UTF8String];
-        
-        sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
-        
-        if(SQLITE_DONE != sqlite3_step(dbps)) {
-            NSLog(@"Error while inserting. %s", sqlite3_errmsg(db));
+        if (![oldWordsDictionary valueForKey:newWord.question]) {
+            formattedAnswer = [newWord.answers stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
+            formattedVN = [newWord.langVN stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
+            formattedEN = [newWord.langEN stringByReplacingOccurrencesOfString:@"\'" withString:@"\'\'"];
+            
+            strQuery = @"INSERT INTO 'vocabulary' (question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid) VALUES ('%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@')";
+            strQuery = [NSString stringWithFormat:strQuery, newWord.question, formattedAnswer, newWord.subcats, newWord.status, newWord.package, newWord.level, newWord.queue, newWord.due, newWord.revCount, newWord.lastInterval, newWord.eFactor, formattedVN, formattedEN, newWord.gid];
+            
+            charQuery = [strQuery UTF8String];
+            
+            sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+            
+            if(SQLITE_DONE != sqlite3_step(dbps)) {
+                NSLog(@"Error while inserting. %s", sqlite3_errmsg(db));
+            }
+            
+            sqlite3_finalize(dbps);
         }
-        
-        sqlite3_finalize(dbps);
     }
     
     sqlite3_close(db);

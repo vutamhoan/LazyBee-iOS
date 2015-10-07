@@ -25,6 +25,7 @@ typedef enum {
     IBOutlet UIView *viewReservationForAds;
     IBOutlet UIView *viewButtonsPanel;
     IBOutlet UIView *viewShowAnswer;
+    IBOutlet UIView *viewLearningInfo;
     
     IBOutlet UIButton *btnAgain;
     IBOutlet UIButton *btnHard;

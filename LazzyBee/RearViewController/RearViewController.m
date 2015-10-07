@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "HomeViewController.h"
 #import "SettingsViewController.h"
+#import "DictionaryViewController.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
@@ -114,6 +115,10 @@
         if (indexPath.row == HomeSection_Home) {
             text = @"Home";
             cell.imgIcon.image = [UIImage imageNamed:@"ic_home"];
+            
+        } else if (indexPath.row == HomeSection_Dictionary) {
+            text = @"Dictionary";
+            cell.imgIcon.image = [UIImage imageNamed:@"ic_dictionary"];
         }
         
     } else if(indexPath.section == RearTable_Section_Support) {
@@ -156,6 +161,15 @@
             HomeViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
             
             newFrontController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+            
+            self.sidePanelController.centerPanel = newFrontController;
+            
+            presentedCell = indexPath;  // <- store the presented row
+            
+        } else if (indexPath.row == HomeSection_Dictionary) {
+            DictionaryViewController *dictionaryViewController = [[DictionaryViewController alloc] initWithNibName:@"DictionaryViewController" bundle:nil];
+            
+            newFrontController = [[UINavigationController alloc] initWithRootViewController:dictionaryViewController];
             
             self.sidePanelController.centerPanel = newFrontController;
             
