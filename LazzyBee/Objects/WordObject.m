@@ -29,6 +29,7 @@
     self = [super init];
     if (self) {
         self.wordid = @"";
+        self.gid = @"";
         self.question = @"";
         self.answers = @"";
         self.subcats = @"";
@@ -40,6 +41,8 @@
         self.revCount = @"";
         self.lastInterval = @"";
         self.eFactor = @"";
+        self.langEN = @"";
+        self.langVN = @"";
     }
     return self;
 }
@@ -48,6 +51,7 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     
     [encoder encodeObject:self.wordid forKey:@"wordid"];
+    [encoder encodeObject:self.gid forKey:@"gid"];
     [encoder encodeObject:self.question forKey:@"question"];
     [encoder encodeObject:self.answers forKey:@"answers"];
     [encoder encodeObject:self.subcats forKey:@"subcats"];
@@ -59,12 +63,15 @@
     [encoder encodeObject:self.revCount forKey:@"revCount"];
     [encoder encodeObject:self.lastInterval forKey:@"lastInterval"];
     [encoder encodeObject:self.eFactor forKey:@"eFactor"];
+    [encoder encodeObject:self.langVN forKey:@"langVN"];
+    [encoder encodeObject:self.langEN forKey:@"langEN"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if ((self = [super init])) // Superclass init
     {
         self.wordid = [decoder decodeObjectForKey:@"wordid"];
+        self.gid = [decoder decodeObjectForKey:@"gid"];
         self.question = [decoder decodeObjectForKey:@"question"];
         self.answers = [decoder decodeObjectForKey:@"answers"];
         self.subcats = [decoder decodeObjectForKey:@"subcats"];
@@ -76,6 +83,8 @@
         self.revCount = [decoder decodeObjectForKey:@"revCount"];
         self.lastInterval = [decoder decodeObjectForKey:@"lastInterval"];
         self.eFactor = [decoder decodeObjectForKey:@"eFactor"];
+        self.langVN = [decoder decodeObjectForKey:@"langVN"];
+        self.langEN = [decoder decodeObjectForKey:@"langEN"];
     }
     
     return self;

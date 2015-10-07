@@ -94,6 +94,16 @@
 		553F78361BA6D39400D15876 /* rearBanner@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 553F78331BA6D39400D15876 /* rearBanner@3x.png */; };
 		554330401B8C21D5001DFB6F /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5543303E1B8C21D5001DFB6F /* SearchViewController.m */; };
 		554330411B8C21D5001DFB6F /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5543303F1B8C21D5001DFB6F /* SearchViewController.xib */; };
+		55452C561BC5128700D6E430 /* ic_dictionary.png in Resources */ = {isa = PBXBuildFile; fileRef = 55452C531BC5128600D6E430 /* ic_dictionary.png */; settings = {ASSET_TAGS = (); }; };
+		55452C571BC5128700D6E430 /* ic_dictionary@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55452C541BC5128600D6E430 /* ic_dictionary@2x.png */; settings = {ASSET_TAGS = (); }; };
+		55452C581BC5128700D6E430 /* ic_dictionary@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55452C551BC5128600D6E430 /* ic_dictionary@3x.png */; settings = {ASSET_TAGS = (); }; };
+		55452C5C1BC513EF00D6E430 /* DictionaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55452C5A1BC513EF00D6E430 /* DictionaryViewController.m */; settings = {ASSET_TAGS = (); }; };
+		55452C5D1BC513EF00D6E430 /* DictionaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55452C5B1BC513EF00D6E430 /* DictionaryViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		55452C611BC527CC00D6E430 /* DictDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55452C5F1BC527CC00D6E430 /* DictDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
+		55452C621BC527CC00D6E430 /* DictDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55452C601BC527CC00D6E430 /* DictDetailViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		55452C681BC528F600D6E430 /* MHTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55452C651BC528F600D6E430 /* MHTabBarController.m */; settings = {ASSET_TAGS = (); }; };
+		55452C691BC528F600D6E430 /* MHTabBarIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 55452C661BC528F600D6E430 /* MHTabBarIndicator.png */; settings = {ASSET_TAGS = (); }; };
+		55452C6A1BC528F600D6E430 /* MHTabBarIndicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55452C671BC528F600D6E430 /* MHTabBarIndicator@2x.png */; settings = {ASSET_TAGS = (); }; };
 		55457CC21BA27DA100EFCD50 /* TimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55457CC01BA27DA100EFCD50 /* TimerViewController.m */; };
 		55457CC31BA27DA100EFCD50 /* TimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55457CC11BA27DA100EFCD50 /* TimerViewController.xib */; };
 		557288C81BB25DAA00EA0CE9 /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 557288961BB25DAA00EA0CE9 /* GTMOAuth2Authentication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -142,6 +152,7 @@
 		55B08BF01BBE36D000693411 /* LevelPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B08BEE1BBE36D000693411 /* LevelPickerViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		55B08BF41BBE6FAF00693411 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B08BF21BBE6FAF00693411 /* ReportViewController.m */; settings = {ASSET_TAGS = (); }; };
 		55B08BF51BBE6FAF00693411 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B08BF31BBE6FAF00693411 /* ReportViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		55CFD03D1BC373B8006F6C31 /* GTM-M6SZR5 in Resources */ = {isa = PBXBuildFile; fileRef = 55CFD03C1BC373B8006F6C31 /* GTM-M6SZR5 */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,7 +178,6 @@
 		4D35B3641B6BC7C600EA67C2 /* LazzyBeeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LazzyBeeTests.m; sourceTree = "<group>"; };
 		4D7C28561BABCC13005B274E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4D7C28581BABCC27005B274E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		4D7C285C1BABD043005B274E /* GTM-M6SZR5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTM-M6SZR5"; sourceTree = SOURCE_ROOT; };
 		4D7C28641BAC0489005B274E /* TAGContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGContainer.h; sourceTree = "<group>"; };
 		4D7C28651BAC0489005B274E /* TAGContainerOpener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGContainerOpener.h; sourceTree = "<group>"; };
 		4D7C28661BAC0489005B274E /* TAGDataLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGDataLayer.h; sourceTree = "<group>"; };
@@ -281,6 +291,19 @@
 		5543303D1B8C21D5001DFB6F /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = Mainsreen/SearchViewController.h; sourceTree = "<group>"; };
 		5543303E1B8C21D5001DFB6F /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = Mainsreen/SearchViewController.m; sourceTree = "<group>"; };
 		5543303F1B8C21D5001DFB6F /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchViewController.xib; path = Mainsreen/SearchViewController.xib; sourceTree = "<group>"; };
+		55452C531BC5128600D6E430 /* ic_dictionary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_dictionary.png; sourceTree = "<group>"; };
+		55452C541BC5128600D6E430 /* ic_dictionary@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_dictionary@2x.png"; sourceTree = "<group>"; };
+		55452C551BC5128600D6E430 /* ic_dictionary@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_dictionary@3x.png"; sourceTree = "<group>"; };
+		55452C591BC513EF00D6E430 /* DictionaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DictionaryViewController.h; path = List/DictionaryViewController.h; sourceTree = "<group>"; };
+		55452C5A1BC513EF00D6E430 /* DictionaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DictionaryViewController.m; path = List/DictionaryViewController.m; sourceTree = "<group>"; };
+		55452C5B1BC513EF00D6E430 /* DictionaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DictionaryViewController.xib; path = List/DictionaryViewController.xib; sourceTree = "<group>"; };
+		55452C5E1BC527CC00D6E430 /* DictDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DictDetailViewController.h; path = List/DictDetailViewController.h; sourceTree = "<group>"; };
+		55452C5F1BC527CC00D6E430 /* DictDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DictDetailViewController.m; path = List/DictDetailViewController.m; sourceTree = "<group>"; };
+		55452C601BC527CC00D6E430 /* DictDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DictDetailViewController.xib; path = List/DictDetailViewController.xib; sourceTree = "<group>"; };
+		55452C641BC528F600D6E430 /* MHTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTabBarController.h; sourceTree = "<group>"; };
+		55452C651BC528F600D6E430 /* MHTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTabBarController.m; sourceTree = "<group>"; };
+		55452C661BC528F600D6E430 /* MHTabBarIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MHTabBarIndicator.png; sourceTree = "<group>"; };
+		55452C671BC528F600D6E430 /* MHTabBarIndicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MHTabBarIndicator@2x.png"; sourceTree = "<group>"; };
 		55457CBF1BA27DA100EFCD50 /* TimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerViewController.h; sourceTree = "<group>"; };
 		55457CC01BA27DA100EFCD50 /* TimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerViewController.m; sourceTree = "<group>"; };
 		55457CC11BA27DA100EFCD50 /* TimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimerViewController.xib; sourceTree = "<group>"; };
@@ -364,6 +387,7 @@
 		55B08BF11BBE6FAF00693411 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReportViewController.h; path = Mainsreen/ReportViewController.h; sourceTree = "<group>"; };
 		55B08BF21BBE6FAF00693411 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReportViewController.m; path = Mainsreen/ReportViewController.m; sourceTree = "<group>"; };
 		55B08BF31BBE6FAF00693411 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ReportViewController.xib; path = Mainsreen/ReportViewController.xib; sourceTree = "<group>"; };
+		55CFD03C1BC373B8006F6C31 /* GTM-M6SZR5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTM-M6SZR5"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -444,7 +468,7 @@
 		4D35B3451B6BC7C600EA67C2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4D7C285C1BABD043005B274E /* GTM-M6SZR5 */,
+				55CFD03C1BC373B8006F6C31 /* GTM-M6SZR5 */,
 				4D35B3461B6BC7C600EA67C2 /* Info.plist */,
 				4D35B3471B6BC7C600EA67C2 /* main.m */,
 			);
@@ -559,6 +583,7 @@
 		4DD3C3791B6F191C00B6DA71 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				55452C631BC528F600D6E430 /* MHTabBarController */,
 				552BD55F1BA1362A00BF316C /* GoogleMobileAdsSdkiOS-7.4.1 */,
 				4DD3C37A1B6F191C00B6DA71 /* AsyncImageView */,
 				4DD3C37E1B6F191C00B6DA71 /* FacebookSDK */,
@@ -677,6 +702,9 @@
 		4DD3C3BF1B6F218700B6DA71 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				55452C531BC5128600D6E430 /* ic_dictionary.png */,
+				55452C541BC5128600D6E430 /* ic_dictionary@2x.png */,
+				55452C551BC5128600D6E430 /* ic_dictionary@3x.png */,
 				552BD5AF1BA175E300BF316C /* ic_rabbit.png */,
 				552BD5B01BA175E300BF316C /* ic_rabbit@2x.png */,
 				552BD5B11BA175E300BF316C /* ic_rabbit@3x.png */,
@@ -800,8 +828,25 @@
 				552DC77B1B872A4F00770FA1 /* StudiedTableViewCell.h */,
 				552DC77C1B872A4F00770FA1 /* StudiedTableViewCell.m */,
 				552DC77D1B872A4F00770FA1 /* StudiedTableViewCell.xib */,
+				55452C591BC513EF00D6E430 /* DictionaryViewController.h */,
+				55452C5A1BC513EF00D6E430 /* DictionaryViewController.m */,
+				55452C5B1BC513EF00D6E430 /* DictionaryViewController.xib */,
+				55452C5E1BC527CC00D6E430 /* DictDetailViewController.h */,
+				55452C5F1BC527CC00D6E430 /* DictDetailViewController.m */,
+				55452C601BC527CC00D6E430 /* DictDetailViewController.xib */,
 			);
 			name = List;
+			sourceTree = "<group>";
+		};
+		55452C631BC528F600D6E430 /* MHTabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				55452C641BC528F600D6E430 /* MHTabBarController.h */,
+				55452C651BC528F600D6E430 /* MHTabBarController.m */,
+				55452C661BC528F600D6E430 /* MHTabBarIndicator.png */,
+				55452C671BC528F600D6E430 /* MHTabBarIndicator@2x.png */,
+			);
+			path = MHTabBarController;
 			sourceTree = "<group>";
 		};
 		557D7AB01B857DFD00834A44 /* DB */ = {
@@ -921,6 +966,7 @@
 				553F78351BA6D39400D15876 /* rearBanner@2x.png in Resources */,
 				4DD3C3E21B6F218700B6DA71 /* avatarDefault@3x.png in Resources */,
 				55457CC31BA27DA100EFCD50 /* TimerViewController.xib in Resources */,
+				55452C6A1BC528F600D6E430 /* MHTabBarIndicator@2x.png in Resources */,
 				552BD5A91BA1621500BF316C /* About.txt in Resources */,
 				4DD3C3D81B6F218700B6DA71 /* ic_setting@2x.png in Resources */,
 				4DD3C39C1B6F191C00B6DA71 /* FBAudienceNetwork.README.txt in Resources */,
@@ -935,12 +981,14 @@
 				4DD3C3D51B6F218700B6DA71 /* ic_heart@2x.png in Resources */,
 				4DD3C3DA1B6F218700B6DA71 /* ic_share.png in Resources */,
 				552BD5A71BA15FE600BF316C /* ic_home@3x.png in Resources */,
+				55452C621BC527CC00D6E430 /* DictDetailViewController.xib in Resources */,
 				4DD3C3E41B6F218700B6DA71 /* cancel@2x.png in Resources */,
 				4DD3C3DC1B6F218700B6DA71 /* ic_share@3x.png in Resources */,
 				552BD5B81BA175E300BF316C /* ic_turtle.png in Resources */,
 				552BD56A1BA1362A00BF316C /* README.txt in Resources */,
 				557288EC1BB2844700EA0CE9 /* SVProgressHUD.bundle in Resources */,
 				4DD3C3AF1B6F199B00B6DA71 /* HomeViewController.xib in Resources */,
+				55452C561BC5128700D6E430 /* ic_dictionary.png in Resources */,
 				552BD5A51BA15FE600BF316C /* ic_home.png in Resources */,
 				552BD5AE1BA1738D00BF316C /* SpeedTableViewCell.xib in Resources */,
 				554330411B8C21D5001DFB6F /* SearchViewController.xib in Resources */,
@@ -948,19 +996,23 @@
 				4DD3C3E01B6F218700B6DA71 /* avatarDefault.png in Resources */,
 				4DD3C3E31B6F218700B6DA71 /* cancel.png in Resources */,
 				4DD3C3781B6F18D700B6DA71 /* SubRearViewController.xib in Resources */,
+				55452C581BC5128700D6E430 /* ic_dictionary@3x.png in Resources */,
 				4DD3C3DD1B6F218700B6DA71 /* arrow_white.png in Resources */,
 				552BD5B61BA175E300BF316C /* ic_rabbit@2x.png in Resources */,
 				4DD3C3D91B6F218700B6DA71 /* ic_setting@3x.png in Resources */,
 				557288CB1BB25DAA00EA0CE9 /* GTMOAuth2ViewTouch.xib in Resources */,
 				4DD3C3D71B6F218700B6DA71 /* ic_setting.png in Resources */,
 				4DD3C3A11B6F191C00B6DA71 /* LICENSE in Resources */,
+				55452C571BC5128700D6E430 /* ic_dictionary@2x.png in Resources */,
 				552BD59F1BA15F7200BF316C /* AboutViewController.xib in Resources */,
+				55452C691BC528F600D6E430 /* MHTabBarIndicator.png in Resources */,
 				4DD3C39A1B6F191C00B6DA71 /* FacebookSDK.strings in Resources */,
 				557288EA1BB2844700EA0CE9 /* LICENSE.txt in Resources */,
 				557D7ACB1B85B5B600834A44 /* ic_speaker.png in Resources */,
 				552BD5BA1BA175E300BF316C /* ic_turtle@3x.png in Resources */,
 				557D7ABE1B8587AF00834A44 /* btnbg@3x.png in Resources */,
 				553F78361BA6D39400D15876 /* rearBanner@3x.png in Resources */,
+				55CFD03D1BC373B8006F6C31 /* GTM-M6SZR5 in Resources */,
 				4DD3C3761B6F18D700B6DA71 /* RearViewController.xib in Resources */,
 				552BD5A11BA15F7200BF316C /* SettingsViewController.xib in Resources */,
 				4DD3C3DE1B6F218700B6DA71 /* arrow_white@2x.png in Resources */,
@@ -972,6 +1024,7 @@
 				4DD3C3D61B6F218700B6DA71 /* ic_heart@3x.png in Resources */,
 				557D7ABD1B8587AF00834A44 /* btnbg@2x.png in Resources */,
 				553F78341BA6D39400D15876 /* rearBanner.png in Resources */,
+				55452C5D1BC513EF00D6E430 /* DictionaryViewController.xib in Resources */,
 				4DD3C3A21B6F191C00B6DA71 /* README.txt in Resources */,
 				4DD3C3741B6F18D700B6DA71 /* RearTableViewCell.xib in Resources */,
 			);
@@ -1006,6 +1059,7 @@
 				552DC7741B871C9900770FA1 /* Algorithm.m in Sources */,
 				4DD8CAE61BB0073100FED1C9 /* GTLDataServiceApi_Sources.m in Sources */,
 				557288D11BB25DAA00EA0CE9 /* GTMMIMEDocument.m in Sources */,
+				55452C611BC527CC00D6E430 /* DictDetailViewController.m in Sources */,
 				557288DE1BB25DAA00EA0CE9 /* GTLService.m in Sources */,
 				557288ED1BB2844700EA0CE9 /* SVProgressHUD.m in Sources */,
 				55B08BEF1BBE36D000693411 /* LevelPickerViewController.m in Sources */,
@@ -1019,9 +1073,11 @@
 				557288CD1BB25DAA00EA0CE9 /* GTMHTTPFetcherLogging.m in Sources */,
 				4D35B34B1B6BC7C600EA67C2 /* AppDelegate.m in Sources */,
 				55457CC21BA27DA100EFCD50 /* TimerViewController.m in Sources */,
+				55452C681BC528F600D6E430 /* MHTabBarController.m in Sources */,
 				4DD3C3AE1B6F199B00B6DA71 /* HomeViewController.m in Sources */,
 				557288D51BB25DAA00EA0CE9 /* GTLBatchQuery.m in Sources */,
 				557288CF1BB25DAA00EA0CE9 /* GTMHTTPFetchHistory.m in Sources */,
+				55452C5C1BC513EF00D6E430 /* DictionaryViewController.m in Sources */,
 				557D7AC31B858BE300834A44 /* StudyWordViewController.m in Sources */,
 				557288D41BB25DAA00EA0CE9 /* GTLBase64.m in Sources */,
 				557288CE1BB25DAA00EA0CE9 /* GTMHTTPFetcherService.m in Sources */,

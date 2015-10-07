@@ -63,7 +63,7 @@
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     TAGContainer *container = appDelegate.container;
-    BOOL enableAds = [[container stringForKey:@"adv_home_id"] boolValue];
+    BOOL enableAds = [[container stringForKey:@"adv_enable"] boolValue];
 
     if (enableAds) {
         viewReservationForAds.hidden = NO;
@@ -131,12 +131,13 @@
         [self showHideButtonsPanel:NO];
         
         //show/hide ads
+        CGRect infoViewRect = viewLearningInfo.frame;
         CGRect webViewRect = webViewWord.frame;
         CGRect showAnswerrect = viewShowAnswer.frame;
         
         if (!enableAds) {
-            webViewRect.origin.y = 0;
-            webViewRect.size.height = showAnswerrect.origin.y;
+            webViewRect.origin.y = infoViewRect.origin.y + infoViewRect.size.height;
+            webViewRect.size.height = showAnswerrect.origin.y - infoViewRect.size.height;
             [webViewWord setFrame:webViewRect];
         }
         

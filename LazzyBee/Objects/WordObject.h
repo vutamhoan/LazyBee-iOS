@@ -24,6 +24,7 @@
 }
 
 @property (nonatomic, strong) NSString *wordid;
+@property (nonatomic, strong) NSString *gid;
 @property (nonatomic, strong) NSString *question;
 @property (nonatomic, strong) NSString *answers;
 @property (nonatomic, strong) NSString *subcats;
@@ -35,6 +36,8 @@
 @property (nonatomic, strong) NSString *revCount;
 @property (nonatomic, strong) NSString *lastInterval;
 @property (nonatomic, strong) NSString *eFactor;
+@property (nonatomic, strong) NSString *langVN;
+@property (nonatomic, strong) NSString *langEN;
 @end
 
 #endif

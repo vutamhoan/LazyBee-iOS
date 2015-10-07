@@ -17,6 +17,7 @@
 #import "TimerViewController.h"
 #import "LevelPickerViewController.h"
 #import "TAGContainer.h"
+#import "SVProgressHUD.h"
 
 @interface SettingsViewController ()
 {
@@ -512,13 +513,30 @@
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     TAGContainer *container = appDelegate.container;
     
+    NSLog(@"db version:: %@", [container stringForKey:@"gae_db_version"]);
+    
     NSInteger serverVersion = [[container stringForKey:@"gae_db_version"] integerValue];
     NSInteger dbVersion = [[[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_DB_VERSION] integerValue];
 
-    while (serverVersion > dbVersion) {
-        NSString *dbPath = [container stringForKey:@"base_url_db"];
-        NSLog(@"%@", dbPath);
-    }
-    
+    [SVProgressHUD showWithStatus:@"Updating..."];
+    dispatch_queue_t taskQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+    dispatch_async(taskQ, ^{
+        [NSThread sleepForTimeInterval:0.1];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+        //    while (serverVersion > dbVersion) {
+                NSString *dbPath = [container stringForKey:@"base_url_db"];
+            dbPath = @"http://192.168.0.202/downloads";
+                NSLog(@"%@", dbPath);
+        //        dbVersion = dbVersion + 1;
+                dbPath = [NSString stringWithFormat:@"%@/%ld.db", dbPath, (long)dbVersion];
+                
+                [[CommonSqlite sharedCommonSqlite] updateDatabaseWithPath:dbPath];
+                
+        //        [[Common sharedCommon] saveDataToUserDefaultStandard:[NSNumber numberWithInteger:dbVersion] withKey:KEY_DB_VERSION];
+        //    }
+            [SVProgressHUD dismiss];
+        });
+    });
 }
 @end
