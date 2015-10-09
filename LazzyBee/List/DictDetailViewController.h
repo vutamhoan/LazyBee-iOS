@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WordObject.h"
+
+typedef enum {
+    DictVietnam = 0,
+    DictEnglish,
+    DictMax,
+} DICTIONARY_TYPE;
 
 @interface DictDetailViewController : UIViewController
+{
+    IBOutlet UIWebView *webviewWord;
+    
+}
 
+@property (nonatomic, strong) WordObject *wordObj;
+@property (nonatomic, assign) DICTIONARY_TYPE dictType;
 @end

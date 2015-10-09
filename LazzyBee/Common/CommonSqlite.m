@@ -102,7 +102,7 @@ static CommonSqlite* sharedCommonSqlite = nil;
 }
 
 - (NSArray *)getSearchHintList:(NSString *)searchText {
-    NSString *strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid FROM \"vocabulary\" where question like '%@%%' ORDER BY level LIMIT 10", searchText];
+    NSString *strQuery = [NSString stringWithFormat:@"SELECT id, question, answers, subcats, status, package, level, queue, due, rev_count, last_ivl, e_factor, l_vn, l_en, gid FROM \"vocabulary\" where question like '%@%%' ORDER BY level", searchText];
     
     NSString *dbPath = [self getDatabasePath];
     NSArray *resArr = [self getWordByQueryString:strQuery fromDatabase:dbPath];
@@ -410,6 +410,44 @@ static CommonSqlite* sharedCommonSqlite = nil;
     
     sqlite3_close(db);
 }
+
+- (void)addMoreFieldToTable {
+    NSString *dbPath = [self getDatabasePath];
+    NSURL *storeURL = [NSURL URLWithString:dbPath];
+    
+    const char *dbFilePathUTF8 = [[storeURL path] UTF8String];
+    sqlite3 *db;
+    int dbrc; //database return code
+    dbrc = sqlite3_open(dbFilePathUTF8, &db);
+    
+    if (dbrc) {
+        return;
+    }
+    sqlite3_stmt *dbps;
+    
+    NSString *strQuery = @"ALTER TABLE 'vocabulary' ADD COLUMN l_vn TEXT";
+    const char *charQuery = [strQuery UTF8String];
+    
+    sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+    if(SQLITE_DONE != sqlite3_step(dbps)) {
+        NSLog(@"Error while altering table: %s", sqlite3_errmsg(db));
+    }
+    
+    sqlite3_finalize(dbps);
+    
+    strQuery = @"ALTER TABLE 'vocabulary' ADD COLUMN l_en TEXT";
+    charQuery = [strQuery UTF8String];
+    
+    sqlite3_prepare_v2(db, charQuery, -1, &dbps, NULL);
+    if(SQLITE_DONE != sqlite3_step(dbps)) {
+        NSLog(@"Error while altering table: %s", sqlite3_errmsg(db));
+    }
+    
+    sqlite3_finalize(dbps);
+    
+    sqlite3_close(db);
+}
+
 
 #pragma mark system table
 - (NSArray *)getReviewListFromSystem {
@@ -758,7 +796,9 @@ static CommonSqlite* sharedCommonSqlite = nil;
     
     if (force == YES || (oldDate == 0 || curDate >= oldDate + 24*3600)) {
         //reset flag if it's new day
-        [[Common sharedCommon] saveDataToUserDefaultStandard:[NSNumber numberWithBool:NO] withKey:@"CompletedDailyTargetFlag"];
+        if ((oldDate == 0 || curDate >= oldDate + 24*3600)) {
+            [[Common sharedCommon] saveDataToUserDefaultStandard:[NSNumber numberWithBool:NO] withKey:@"CompletedDailyTargetFlag"];
+        }
         
         //get random 10 words in buffer from system table
         strQuery = @"SELECT value from \"system\" WHERE key = 'buffer'";

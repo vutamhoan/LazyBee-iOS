@@ -230,4 +230,48 @@ static HTMLHelper* sharedHTMLHelper = nil;
     
 }
 
+//dictType: vn, en
+- (NSString *)createHTMLDict:(WordObject *)wordObj dictType:(NSString *)dictType {
+    NSString *htmlString = @"";
+    
+    htmlString = @"<html>\n"
+    "<head>\n"
+    "<meta content=\"width=device-width, initial-scale=1.0, user-scalable=yes\"\n"
+    "name=\"viewport\">\n"
+    "<style>\n"
+    "figure {"
+    "   text-align: center;"
+    "   margin: auto;"
+    "}"
+    "figure.image img {"
+    "   width: 100%% !important;"
+    "   height: auto !important;"
+    "}"
+    "figcaption {"
+    "   font-size: 10px;"
+    "}"
+    "a {"
+    "   margin-top:10px;"
+    "}"
+    "</style>\n"
+    "<script>"
+    "</script>"
+    
+    "</head>\n"
+    "<body>\n"
+    "   <div style='width:100%%'>\n"
+    "       %@ \n"     //%@ will be replaced by l_vn or l_en
+    "   </div>\n"
+    "   </body>"
+    "</html>\n";
+    
+    if ([dictType isEqualToString:@"vn"]) {
+        htmlString = [NSString stringWithFormat:htmlString, wordObj.langVN];
+        
+    } else if ([dictType isEqualToString:@"en"]) {
+        htmlString = [NSString stringWithFormat:htmlString, wordObj.langEN];
+    }
+    
+    return htmlString;
+}
 @end

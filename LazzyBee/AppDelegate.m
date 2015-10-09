@@ -41,6 +41,8 @@
     [self copyDatabaseIntoDocumentsDirectory];
     [self initialConfiguration];
     
+    [[CommonSqlite sharedCommonSqlite] addMoreFieldToTable];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     HomeViewController *homeViewController = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
@@ -69,11 +71,17 @@
          (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
     }
     
-    //Google TagManager
     self.tagManager = [TAGManager instance];
     
     // Optional: Change the LogLevel to Verbose to enable logging at VERBOSE and higher levels.
     [self.tagManager.logger setLogLevel:kTAGLoggerLogLevelVerbose];
+    
+    // Add the code in bold below to preview a Google Tag Manager container.
+    // IMPORTANT: This code must be called before the container is opened.
+    NSURL *url = [launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
+    if (url != nil) {
+        [self.tagManager previewWithUrl:url];
+    }
     
     /*
      * Opens a container.
@@ -84,11 +92,12 @@
      * @param timeout The timeout period (default is 2.0 seconds).
      * @param notifier The notifier to inform on container load events.
      */
+    
     [TAGContainerOpener openContainerWithId:@"GTM-M6SZR5"
                                  tagManager:self.tagManager
                                    openType:kTAGOpenTypePreferFresh
                                     timeout:nil
-                                   notifier:self];
+                                   notifier:(id)self];
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];
@@ -142,7 +151,7 @@
     NSNumber *speedNumberObj = [[Common sharedCommon] loadDataFromUserDefaultStandardWithKey:KEY_SPEAKING_SPEED];
     
     if (!speedNumberObj) {
-        speedNumberObj = [NSNumber numberWithFloat:0.4];
+        speedNumberObj = [NSNumber numberWithFloat:0.35];
         [[Common sharedCommon] saveDataToUserDefaultStandard:speedNumberObj withKey:KEY_SPEAKING_SPEED];
     }
     
@@ -222,6 +231,11 @@
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
+    
+    if ([self.tagManager previewWithUrl:url]) {
+        return YES;
+    }
+    
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                           openURL:url
                                                 sourceApplication:sourceApplication

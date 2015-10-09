@@ -30,9 +30,17 @@
 				<string>fb754889477966743</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.born2go.lazzybee</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tagmanager.c.com.born2go.lazzybee</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>5</string>
 	<key>FacebookAppID</key>
 	<string>754889477966743</string>
 	<key>FacebookDisplayName</key>
@@ -48,6 +56,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
 	<key>UIStatusBarHidden</key>
 	<true/>
 	<key>UIStatusBarHidden~ipad</key>

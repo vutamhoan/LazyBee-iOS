@@ -18,6 +18,7 @@
 
 - (NSString *)createHTMLForQuestion:(NSString *)word;
 - (NSString *)createHTMLForAnswer:(WordObject *)word withPackage:(NSString *)package;
+- (NSString *)createHTMLDict:(WordObject *)wordObj dictType:(NSString *)dictType;
 @end
 
 #endif

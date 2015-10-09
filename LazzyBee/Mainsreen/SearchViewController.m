@@ -93,7 +93,8 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     hintCountDown = 1;
     [hintTimer invalidate];
-    hintTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hintCounter) userInfo:nil repeats:YES];
+    hintTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(hintCounter) userInfo:nil repeats:YES];
+    [self hintCounter];
 }
 
 - (void)hintCounter {
@@ -105,19 +106,20 @@
         
         if (searchText.length > 0) {
             
-            if (searchHintViewController) {
-                [searchHintViewController.view removeFromSuperview];
+            if (!searchHintViewController) {
+                //add searching result view, use studiedlistviewcontroller
+                searchHintViewController = [[StudiedListViewController alloc] initWithNibName:@"StudiedListViewController" bundle:nil];
+                searchHintViewController.screenType = List_SearchHint;
+                
+                searchHintViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth |                                             UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+                
+                [searchHintViewController.view setFrame:searchResultView.frame];
+                [self.view insertSubview:searchHintViewController.view belowSubview:searchBarContainer];
             }
             
-            //add searching result view, use studiedlistviewcontroller
-            searchHintViewController = [[StudiedListViewController alloc] initWithNibName:@"StudiedListViewController" bundle:nil];
-            searchHintViewController.screenType = List_SearchHint;
             searchHintViewController.searchText = searchText;
             
-            searchHintViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth |                                             UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
-
-            [searchHintViewController.view setFrame:searchResultView.frame];
-            [self.view insertSubview:searchHintViewController.view belowSubview:searchBarContainer];
+            [searchHintViewController tableReload];
         }
     }
 }

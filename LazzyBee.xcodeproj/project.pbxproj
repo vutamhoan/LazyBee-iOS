@@ -148,10 +148,13 @@
 		557D7ACB1B85B5B600834A44 /* ic_speaker.png in Resources */ = {isa = PBXBuildFile; fileRef = 557D7AC81B85B5B600834A44 /* ic_speaker.png */; };
 		557D7ACC1B85B5B600834A44 /* ic_speaker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 557D7AC91B85B5B600834A44 /* ic_speaker@2x.png */; };
 		557D7ACD1B85B5B600834A44 /* ic_speaker@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 557D7ACA1B85B5B600834A44 /* ic_speaker@3x.png */; };
+		559B2AFC1BC61344009AA150 /* DictDetailContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559B2AFA1BC61344009AA150 /* DictDetailContainerViewController.m */; settings = {ASSET_TAGS = (); }; };
+		559B2AFD1BC61344009AA150 /* DictDetailContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559B2AFB1BC61344009AA150 /* DictDetailContainerViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		55B08BEF1BBE36D000693411 /* LevelPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B08BED1BBE36D000693411 /* LevelPickerViewController.m */; settings = {ASSET_TAGS = (); }; };
 		55B08BF01BBE36D000693411 /* LevelPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B08BEE1BBE36D000693411 /* LevelPickerViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		55B08BF41BBE6FAF00693411 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B08BF21BBE6FAF00693411 /* ReportViewController.m */; settings = {ASSET_TAGS = (); }; };
 		55B08BF51BBE6FAF00693411 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B08BF31BBE6FAF00693411 /* ReportViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		55BDC8A61BC76FFF0015B199 /* TagManagerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BDC8A51BC76FFF0015B199 /* TagManagerHelper.m */; settings = {ASSET_TAGS = (); }; };
 		55CFD03D1BC373B8006F6C31 /* GTM-M6SZR5 in Resources */ = {isa = PBXBuildFile; fileRef = 55CFD03C1BC373B8006F6C31 /* GTM-M6SZR5 */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -381,12 +384,17 @@
 		557D7AC81B85B5B600834A44 /* ic_speaker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_speaker.png; sourceTree = "<group>"; };
 		557D7AC91B85B5B600834A44 /* ic_speaker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_speaker@2x.png"; sourceTree = "<group>"; };
 		557D7ACA1B85B5B600834A44 /* ic_speaker@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_speaker@3x.png"; sourceTree = "<group>"; };
+		559B2AF91BC61344009AA150 /* DictDetailContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DictDetailContainerViewController.h; path = List/DictDetailContainerViewController.h; sourceTree = "<group>"; };
+		559B2AFA1BC61344009AA150 /* DictDetailContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DictDetailContainerViewController.m; path = List/DictDetailContainerViewController.m; sourceTree = "<group>"; };
+		559B2AFB1BC61344009AA150 /* DictDetailContainerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DictDetailContainerViewController.xib; path = List/DictDetailContainerViewController.xib; sourceTree = "<group>"; };
 		55B08BEC1BBE36D000693411 /* LevelPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelPickerViewController.h; sourceTree = "<group>"; };
 		55B08BED1BBE36D000693411 /* LevelPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelPickerViewController.m; sourceTree = "<group>"; };
 		55B08BEE1BBE36D000693411 /* LevelPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LevelPickerViewController.xib; sourceTree = "<group>"; };
 		55B08BF11BBE6FAF00693411 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReportViewController.h; path = Mainsreen/ReportViewController.h; sourceTree = "<group>"; };
 		55B08BF21BBE6FAF00693411 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReportViewController.m; path = Mainsreen/ReportViewController.m; sourceTree = "<group>"; };
 		55B08BF31BBE6FAF00693411 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ReportViewController.xib; path = Mainsreen/ReportViewController.xib; sourceTree = "<group>"; };
+		55BDC8A41BC76FFF0015B199 /* TagManagerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagManagerHelper.h; path = Common/TagManagerHelper.h; sourceTree = "<group>"; };
+		55BDC8A51BC76FFF0015B199 /* TagManagerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TagManagerHelper.m; path = Common/TagManagerHelper.m; sourceTree = "<group>"; };
 		55CFD03C1BC373B8006F6C31 /* GTM-M6SZR5 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTM-M6SZR5"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -660,6 +668,8 @@
 		4DD3C3B01B6F1A9C00B6DA71 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				55BDC8A41BC76FFF0015B199 /* TagManagerHelper.h */,
+				55BDC8A51BC76FFF0015B199 /* TagManagerHelper.m */,
 				552DC7721B871C9900770FA1 /* Algorithm.m */,
 				552DC7731B871C9900770FA1 /* Algorithm.h */,
 				557D7AC51B85AF6500834A44 /* HTMLHelper.m */,
@@ -834,6 +844,9 @@
 				55452C5E1BC527CC00D6E430 /* DictDetailViewController.h */,
 				55452C5F1BC527CC00D6E430 /* DictDetailViewController.m */,
 				55452C601BC527CC00D6E430 /* DictDetailViewController.xib */,
+				559B2AF91BC61344009AA150 /* DictDetailContainerViewController.h */,
+				559B2AFA1BC61344009AA150 /* DictDetailContainerViewController.m */,
+				559B2AFB1BC61344009AA150 /* DictDetailContainerViewController.xib */,
 			);
 			name = List;
 			sourceTree = "<group>";
@@ -995,6 +1008,7 @@
 				552BD5B71BA175E300BF316C /* ic_rabbit@3x.png in Resources */,
 				4DD3C3E01B6F218700B6DA71 /* avatarDefault.png in Resources */,
 				4DD3C3E31B6F218700B6DA71 /* cancel.png in Resources */,
+				559B2AFD1BC61344009AA150 /* DictDetailContainerViewController.xib in Resources */,
 				4DD3C3781B6F18D700B6DA71 /* SubRearViewController.xib in Resources */,
 				55452C581BC5128700D6E430 /* ic_dictionary@3x.png in Resources */,
 				4DD3C3DD1B6F218700B6DA71 /* arrow_white.png in Resources */,
@@ -1065,6 +1079,7 @@
 				55B08BEF1BBE36D000693411 /* LevelPickerViewController.m in Sources */,
 				4DD3C3BC1B6F1AA700B6DA71 /* Reachability.m in Sources */,
 				557288DB1BB25DAA00EA0CE9 /* GTLObject.m in Sources */,
+				559B2AFC1BC61344009AA150 /* DictDetailContainerViewController.m in Sources */,
 				4DD3C3971B6F191C00B6DA71 /* AsyncImageView.m in Sources */,
 				557288EB1BB2844700EA0CE9 /* SVIndefiniteAnimatedView.m in Sources */,
 				55B08BF41BBE6FAF00693411 /* ReportViewController.m in Sources */,
@@ -1087,6 +1102,7 @@
 				4DD3C3BA1B6F1AA700B6DA71 /* CommonAlert.m in Sources */,
 				4DD3C3A31B6F191C00B6DA71 /* JASidePanelController.m in Sources */,
 				557288CA1BB25DAA00EA0CE9 /* GTMOAuth2ViewControllerTouch.m in Sources */,
+				55BDC8A61BC76FFF0015B199 /* TagManagerHelper.m in Sources */,
 				4D35B3481B6BC7C600EA67C2 /* main.m in Sources */,
 				552BD59E1BA15F7200BF316C /* AboutViewController.m in Sources */,
 				552DC77E1B872A4F00770FA1 /* StudiedTableViewCell.m in Sources */,
