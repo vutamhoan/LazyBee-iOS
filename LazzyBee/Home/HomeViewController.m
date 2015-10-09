@@ -14,6 +14,7 @@
 #import "CommonSqlite.h"
 #import "Common.h"
 #import "AppDelegate.h"
+#import "TagManagerHelper.h"
 
 @interface HomeViewController ()<GADInterstitialDelegate>
 {
@@ -30,6 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [TagManagerHelper pushOpenScreenEvent:@"iHomeScreen"];
+    
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
     {

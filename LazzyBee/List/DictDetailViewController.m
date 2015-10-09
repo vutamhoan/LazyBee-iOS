@@ -7,6 +7,8 @@
 //
 
 #import "DictDetailViewController.h"
+#import "HTMLHelper.h"
+#import "CommonDefine.h"
 
 @interface DictDetailViewController ()
 
@@ -16,7 +18,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    // Do any additional setup after loading the view from its nib.   
+    NSString *path = [[NSBundle mainBundle] bundlePath];
+    NSURL *baseURL = [NSURL fileURLWithPath:path];
+    
+    NSString *htmlString = @"";
+    
+    if (_wordObj) {
+        if (_dictType == DictVietnam) {
+            htmlString = [[HTMLHelper sharedHTMLHelper] createHTMLDict:_wordObj dictType:@"vn"];
+            
+        } else if (_dictType == DictEnglish) {
+            htmlString = [[HTMLHelper sharedHTMLHelper] createHTMLDict:_wordObj dictType:@"en"];
+        }
+    }
+    
+    [webviewWord loadHTMLString:htmlString baseURL:baseURL];
 }
 
 - (void)didReceiveMemoryWarning {

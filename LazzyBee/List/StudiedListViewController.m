@@ -11,6 +11,7 @@
 #import "CommonSqlite.h"
 #import "Common.h"
 #import "StudyWordViewController.h"
+#import "TagManagerHelper.h"
 
 @interface StudiedListViewController ()
 {
@@ -24,38 +25,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [TagManagerHelper pushOpenScreenEvent:@"iLeantScreen"];
+    
     [self setTitle:@"Learnt List"];
     
     levelsDictionary = [[NSMutableDictionary alloc] init];
     
-    NSArray *wordList = nil;
-
-    if (_screenType == List_StudiedList) {
-        wordList = [[CommonSqlite sharedCommonSqlite] getStudiedList];
-        
-    } else if (_screenType == List_SearchHint) {
-        wordList = [[CommonSqlite sharedCommonSqlite] getSearchHintList:_searchText];
-        
-    } else if (_screenType == List_SearchResult) {
-        wordList = [[CommonSqlite sharedCommonSqlite] getSearchResultList:_searchText];
-    }
-
-    //group by level
-    for (WordObject *wordObj in wordList) {
-        NSMutableArray *arr = [levelsDictionary objectForKey:wordObj.level];
-        
-        if (arr == nil) {
-            arr = [[NSMutableArray alloc] init];
-        }
-        [arr addObject:wordObj];
-        
-        [levelsDictionary setObject:arr forKey:wordObj.level];
-    }
-    
-    keyArr = [levelsDictionary allKeys];
-    keyArr = [keyArr sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-    
-    lbHeaderInfo.text = [NSString stringWithFormat:@"Total: %lu", (unsigned long)[wordList count]];
+    [self tableReload];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -172,5 +148,40 @@
         [self.navigationController pushViewController:studyViewController animated:YES];
     }
 
+}
+
+- (void)tableReload {
+    NSArray *wordList = nil;
+    
+    [levelsDictionary removeAllObjects];
+    
+    if (_screenType == List_StudiedList) {
+        wordList = [[CommonSqlite sharedCommonSqlite] getStudiedList];
+        
+    } else if (_screenType == List_SearchHint) {
+        wordList = [[CommonSqlite sharedCommonSqlite] getSearchHintList:_searchText];
+        
+    } else if (_screenType == List_SearchResult) {
+        wordList = [[CommonSqlite sharedCommonSqlite] getSearchResultList:_searchText];
+    }
+    
+    //group by level
+    for (WordObject *wordObj in wordList) {
+        NSMutableArray *arr = [levelsDictionary objectForKey:wordObj.level];
+        
+        if (arr == nil) {
+            arr = [[NSMutableArray alloc] init];
+        }
+        [arr addObject:wordObj];
+        
+        [levelsDictionary setObject:arr forKey:wordObj.level];
+    }
+    
+    keyArr = [levelsDictionary allKeys];
+    keyArr = [keyArr sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    
+    lbHeaderInfo.text = [NSString stringWithFormat:@"Total: %lu", (unsigned long)[wordList count]];
+    
+    [wordsTableView reloadData];
 }
 @end

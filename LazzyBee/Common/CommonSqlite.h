@@ -39,6 +39,7 @@
 - (void)resetDateOfPickedWordList;
 - (void)updateDatabaseWithPath:(NSString *)bdPath;
 - (NSArray *)getAllWords;
+- (void)addMoreFieldToTable;
 @end
 
 #endif

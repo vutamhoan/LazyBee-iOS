@@ -19,9 +19,12 @@ typedef enum {
 @interface StudiedListViewController : UIViewController
 {
     IBOutlet UILabel *lbHeaderInfo;
+    IBOutlet UITableView *wordsTableView;
     
 }
 
 @property (nonatomic, assign) SCREEN_TYPE screenType;
 @property (nonatomic, strong) NSString *searchText;     //use for search hint and search result
+
+- (void)tableReload;
 @end

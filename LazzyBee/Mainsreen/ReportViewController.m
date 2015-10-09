@@ -9,6 +9,7 @@
 #import "ReportViewController.h"
 #import "CommonDefine.h"
 #import "CommonSqlite.h"
+#import "TagManagerHelper.h"
 
 @interface ReportViewController ()
 
@@ -19,6 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [TagManagerHelper pushOpenScreenEvent:@"iReportScreen"];
+    
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
     {

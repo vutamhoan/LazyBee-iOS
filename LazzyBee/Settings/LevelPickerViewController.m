@@ -26,6 +26,8 @@
         level = @"2";
         [[Common sharedCommon] saveDataToUserDefaultStandard:level withKey:KEY_LOWEST_LEVEL];
     }
+    
+    [levelPicker selectRow:[level integerValue] - 1 inComponent:0 animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -11,12 +11,15 @@
 #import "WordObject.h"
 #import "CommonDefine.h"
 #import "SVProgressHUD.h"
+#import "MHTabBarController.h"
+#import "DictDetailContainerViewController.h"
+#import "TagManagerHelper.h"
 
 @interface DictionaryViewController ()
 {
     NSMutableArray *wordsArray;
     NSMutableArray *searchResults;
-    NSMutableDictionary *dataDic;
+//    NSMutableDictionary *dataDic;
 }
 @end
 
@@ -25,6 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [TagManagerHelper pushOpenScreenEvent:@"iDictionaryScreen"];
+    
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
     {
@@ -44,9 +49,9 @@
         searchResults = [[NSMutableArray alloc] init];
     }
     
-    if (dataDic == nil) {
-        dataDic = [[NSMutableDictionary alloc] init];
-    }
+//    if (dataDic == nil) {
+//        dataDic = [[NSMutableDictionary alloc] init];
+//    }
     
     if (wordsArray == nil) {
         wordsArray = [[NSMutableArray alloc] init];
@@ -146,7 +151,7 @@
         wordObj = [wordsArray objectAtIndex:indexPath.row];
     }
     
-    [dataDic setObject:wordObj forKey:wordObj.question];
+//    [dataDic setObject:wordObj forKey:wordObj.question];
     
     cell.textLabel.text = wordObj.question;
 
@@ -157,6 +162,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    WordObject *wordObj;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        wordObj = [searchResults objectAtIndex:indexPath.row];
+        
+    } else {
+        wordObj = [wordsArray objectAtIndex:indexPath.row];
+    }
+    
+    DictDetailContainerViewController *dictDetailContainer = [[DictDetailContainerViewController alloc] initWithNibName:@"DictDetailContainerViewController" bundle:nil];
+    dictDetailContainer.wordObj = wordObj;
+    [self.navigationController pushViewController:dictDetailContainer animated:YES];
     
 }
 
@@ -170,10 +187,12 @@
         self->searchResults = [wordsArray mutableCopy];
         
     } else {
-        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", searchString];
-        NSArray *keys = [dataDic allKeys];
-        NSArray *filterKeys = [keys filteredArrayUsingPredicate:filterPredicate];
-        self->searchResults = [NSMutableArray arrayWithArray:[dataDic objectsForKeys:filterKeys notFoundMarker:[NSNull null]]];
+        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"question CONTAINS[cd] %@", searchString];
+//        NSArray *keys = [dataDic allKeys];
+//        NSArray *filterKeys = [keys filteredArrayUsingPredicate:filterPredicate];
+//        self->searchResults = [NSMutableArray arrayWithArray:[dataDic objectsForKeys:filterKeys notFoundMarker:[NSNull null]]];
+        NSArray *filterKeys = [wordsArray filteredArrayUsingPredicate:filterPredicate];
+        self->searchResults = [NSMutableArray arrayWithArray:filterKeys];
     }
     // Return YES to cause the search result table view to be reloaded.
     return YES;
